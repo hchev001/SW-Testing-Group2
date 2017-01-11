@@ -1,0 +1,9 @@
+1 Faculty 1 101 South
+2 Faculty 1 102 South
+3 Faculty 1 116 East
+4 Student 3 312 North
+5 Student 5 315 South
+6 Handicapped 1 120 West
+7 Guest 1 139 South
+8 Faculty 2 226 East 
+9 Student 4 418 West
