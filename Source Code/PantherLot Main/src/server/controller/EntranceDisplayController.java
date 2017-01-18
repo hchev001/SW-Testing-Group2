@@ -41,7 +41,7 @@ public class EntranceDisplayController
      */
     public EntranceDisplayController()
     {
-        p = new Point(0, 0);
+        p = new Point(0 , 0);
         resetInstances();
     }
     
@@ -51,6 +51,7 @@ public class EntranceDisplayController
      * shown the display screens there is no information that was 
      * kept from the previous one
      */
+    
     private void resetInstances()
     {
         userName = "";
@@ -120,7 +121,7 @@ public class EntranceDisplayController
             }
         }
         
-        userType = wDisp.getType();
+        userType = wDisp.returnType();
         userID = wDisp.getID();
             
         createUser();       
