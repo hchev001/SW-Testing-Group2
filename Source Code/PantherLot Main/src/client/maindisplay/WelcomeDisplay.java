@@ -167,7 +167,7 @@ public class WelcomeDisplay extends javax.swing.JFrame implements Form {
      * accessor
      * @return the user type depending on the button pressed by the user
      */
-    public String getType()
+    public String returnType()
     {
         return userType;
     }
