@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="PantherLot Main/src"/>
+	<classpathentry kind="src" path="PantherLot Security/src"/>
+	<classpathentry kind="src" path="PantherLot Spot/src"/>
+	<classpathentry kind="lib" path="PantherLot Main/dist/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="PantherLot Main/dist/lib/asm-3.0.jar"/>
+	<classpathentry kind="lib" path="PantherLot Main/dist/lib/asm-tree-3.0.jar"/>
+	<classpathentry kind="lib" path="PantherLot Main/dist/lib/cobertura.jar"/>
+	<classpathentry kind="lib" path="PantherLot Main/dist/lib/jakarta-oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="PantherLot Main/dist/lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="PantherLot Main/dist/PantherLot_Main.jar"/>
+	<classpathentry kind="lib" path="PantherLot Security/dist/PantherLot Security.jar"/>
+	<classpathentry kind="lib" path="PantherLot Spot/dist/PantherLot Spot.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="PantherLot Spot/build/classes"/>
+</classpath>
