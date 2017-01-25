@@ -54,7 +54,7 @@ public class ParkingSpot implements Comparable
         parkingNumber = pNumber;
         direction = direc;
         
-        pout = new PrintWriter(System.out);
+        pout = null;
         user = null;
 
     }
