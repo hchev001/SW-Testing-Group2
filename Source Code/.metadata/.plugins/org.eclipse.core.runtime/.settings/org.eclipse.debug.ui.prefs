@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8"?><launchPerspectives>\r\n<launchPerspective configurationType\="com.ibm.rational.test.ft.rftScript" mode\="debug" perspective\="com.rational.test.ft.wswplugin.TestDebugPerspective"/>\r\n</launchPerspectives>
+org.eclipse.debug.ui.cancel_launch_with_compile_errors=always
+preferredTargets=default\:default|

@@ -1,0 +1,81 @@
+﻿<HTML>
+<HEAD>
+<META HTTP-EQUIV="charset" CONTENT="utf-8">
+<TITLE>Playback Log for Script1</TITLE>
+<STYLE TYPE="text/css">
+<!--
+  table caption {color: darkblue; font-size: x-large; font-weight: bold}
+  td {align: left; font-weight: bold}
+  td.fail {color: darkred; width: 10% }
+  td.warn {color: darkgoldenrod; width: 10% }
+  td.pass {color: darkgreen; width: 10% }
+  td.unkn {color: darkcyan; width: 10% }
+  td.info {width: 10% }
+  td.time {width: 30%; font-weight: normal}
+  td.note {align: left; font-weight: bold}
+  li {font-weight: normal}
+-->
+</STYLE>
+<SCRIPT>
+<!--
+function comparator(logDir,base,exp,act)
+{
+	try{
+		document.ComparatorApplet.startComparatorEx(base,exp,act,logDir);
+	}
+	catch(e){
+		alert("CRFCN0309E: Error creating the verification point display:\nCRFCN0310E: To view the verification point results, an enabled JRE (1.3.1_02 or later) must be associated with the browser");
+	}
+}
+//-->
+</SCRIPT>
+</HEAD>
+<BODY>
+<TABLE WIDTH="100%" border="1" rules="rows" summary="Log events">
+<SCRIPT>
+<!--
+if (self == top)
+	document.write('<CAPTION>Log: Script1</CAPTION>')
+//-->
+</SCRIPT>
+<TR>
+<TD>&nbsp;</TD>
+<TD CLASS="time">26-Jan-2017 07:09:20.895 PM</TD>
+<TD CLASS="note">Script start [Script1]</TD>
+</TR>
+<TR><TD COLSPAN=3><UL>
+<LI><I>line_number = </I>1</LI>
+<LI><I>script_iter_count = </I>0</LI>
+<LI><I>script_name = </I>Script1</LI>
+<LI><I>script_id = </I>Script1.java</LI>
+</UL>
+</TD></TR>
+<TR>
+<TD>&nbsp;</TD>
+<TD CLASS="time">26-Jan-2017 07:09:20.956 PM</TD>
+<TD CLASS="note">Start application [ClassicsJavaA]</TD>
+</TR>
+<TR><TD COLSPAN=3><UL>
+<LI><I>name = </I>ClassicsJavaA</LI>
+<LI><I>line_number = </I>32</LI>
+<LI><I>script_name = </I>Script1</LI>
+<LI><I>script_id = </I>Script1.java</LI>
+<LI><I>startapp_type = </I>JAVA</LI>
+<LI><I>startapp_executable = </I>ClassicsJavaA.jar</LI>
+<LI><I>startapp_working_directory = </I>C:\Program Files\IBM\SDP\FunctionalTester\FTSamples</LI>
+<LI><I>startapp_arguments = </I> </LI>
+</UL>
+</TD></TR>
+<TR>
+<TD CLASS="pass">Pass</TD>
+<TD CLASS="time">26-Jan-2017 07:09:26.400 PM</TD>
+<TD CLASS="note">Script end [Script1]</TD>
+</TR>
+<TR><TD COLSPAN=3><UL>
+<LI><I>script_name = </I>Script1</LI>
+<LI><I>script_id = </I>Script1.java</LI>
+</UL>
+</TD></TR>
+</TABLE>
+</BODY>
+</HTML>
