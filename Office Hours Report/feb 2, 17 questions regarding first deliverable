@@ -1,0 +1,31 @@
+Junit for unit testing and subsystem, and rft for system
+
+How will I use the facade to test?
+
+Basicly the package, the facade will expose services to that package. Anything that subsystem does, there has to be a call to the package. 
+
+Since our application is three seperate projects, there may be certain calls from the other project that call the facade, so when I go to test the facade, I have to simulate the calls but I should only go through one class. I have to simulate calls from the different things. 
+
+Clarke: So you need to refactor the code, so all the things that were calling all these other classes you have to put the instance variables or the types into these things.
+
+Clarke: This is why you need to create new packages, and put the classes that are calling the subsystem into a new project. See where the rrors are, you put one then you create a instance of the facade and then you remove all the errors by going through them systematically and removing all the others(errors?).
+
+What are good refactoring practices?
+Do syntactic refactoring, you cannot change what the program does. You can change the names of variables, add new methods, add new variables. Make different calls. You can change the syntax but not the semantics.
+
+Splitting Up The Work:
+Make sure two persons on each piecee.
+Add one person for coordinating the document.
+One person taking notes in meetings.
+Don't do it on google docs, a person has to be in charge of putting it together.
+
+You can have alll aspects of testing, going at the same time but first the refactoring must occur
+Assign someone to the presentation. Know which computer you are going to use while demo, and test the machine prior to presentation day.
+
+
+You have to use rft and junit for the project,  but you can use any extra frameworks as you wish.
+
+Have a facade for the controller
+have a facade for the database
+Any subsystem, you have client calling or data sending to controller you have a facade.
+

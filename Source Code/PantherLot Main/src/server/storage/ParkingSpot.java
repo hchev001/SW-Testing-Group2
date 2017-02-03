@@ -15,7 +15,7 @@ public class ParkingSpot implements Comparable
     
     int floor;
     String direction;
-    PrintWriter pout;
+    PrintWriter pout = new PrintWriter(System.out);
     
     /*
      * String that stores the number of the parking spot
