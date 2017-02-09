@@ -1,0 +1,22 @@
+Instructions for Tests
+------------------------------------------
+The tests will be placed in this package following the same directory structure
+as the main source files.
+
+Example:
+
+src
+	server.storage
+		ParkingSpot.java
+
+test
+	server.storage
+		ParkingSpotTest.java
+		
+		
+
+Instruction on how to structure the tests will be found in code comments in the
+ParkingSpotTest.java
+
+NOTE:
+ALL TESTS MUST CONTAIN SETUP METHODS (TEARDOWN NOT EXACTLY NECESSARY I THINK)
