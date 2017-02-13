@@ -19,7 +19,7 @@ public class AccessControlMain
 	public static void main(String[] args) 
     {
     	
-    	AccessControlFacade controlFacade = new AccessControlFacade();
+    	ControllerFacade controlFacade = new ControllerFacade();
     	
 //        AccessControlServer server = new AccessControlServer(3738);
     	AccessControlServer server = controlFacade.newAccessControlServer(3738);

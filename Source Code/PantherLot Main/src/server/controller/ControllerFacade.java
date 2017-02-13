@@ -7,7 +7,7 @@ import server.storage.serverStorageFacade;
 import server.storage.ParkingSpot;
 
 
-public class AccessControlFacade {
+public class ControllerFacade {
 	
 	private AccessControlServer accessControlServer;
 	
@@ -17,7 +17,7 @@ public class AccessControlFacade {
 	
 	private serverStorageFacade storageFacade;
 	
-	public AccessControlFacade()
+	public ControllerFacade()
 	{
 		
 	}
