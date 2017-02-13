@@ -11,17 +11,100 @@ public class ControllerFacade {
 	
 	private AccessControlServer accessControlServer;
 	
-	private ParkedUsers parkedUsers;
-	
 	private EntranceDisplayController entranceDisplayController;
+	private EntranceDisplayController entrDispController;
 	
-	private serverStorageFacade storageFacade;
+	private FacultyUser facUser;
+	
+	private FiuParkingUser fiuParkingUser;
+	
+	private GuestUser gUser;
+	
+	private HandicappedUser hUser;
+	
+	private ParkingUser parkUser;
+	
+	private StudentUser studUser;
+	
+	
+	private serverStorageFacade storageFacade;	
+	private ParkedUsers parkedUsers;
 	
 	public ControllerFacade()
 	{
 		
 	}
 	
+	//-------------- Student User ------------------------------
+	// Should constructor go here?
+	public String studentUserToString()
+	{
+		return studUser.toString();
+	}
+	//-------------Handicapped User -----------------------------
+	
+	public String handicappedUserToString()
+	{
+		return hUser.toString();
+	}
+	// ------------Guest User ---------------------------------
+	
+	public String guestUserToString()
+	{
+		return gUser.toString();
+	}
+	// ----------- FiuParkingUser-----------------------------
+	
+	public String getFiuParkingUserName()
+	{
+		return fiuParkingUser.getName();
+	}
+	
+	public String getFiuParkingUserID()
+	{
+		return fiuParkingUser.getUserID();
+	}
+	// ---------- Faculty User --------------
+	public String facultyUserToString()
+	{
+		return facUser.toString();
+	}
+	
+	// ----------- EntranceDisplayController ------------------
+	
+	// create getters for
+	public void dispControllerResetInstances()
+	{
+		// resetInstances() is private
+	}
+	
+	public boolean isDuplicate(String id)
+	{
+		return entrDispController.isDuplicate(id);
+	}
+	
+	/*
+	 * Use getters and setters here to test the method
+	 */
+	public void entranceDisplayRunDisplays()
+	{
+		entrDispController.runDisplays();
+	}
+	
+	public void getDuplicateParkingSpot(String ID)
+	{
+		entrDispController.getDuplicateParkingSpot(ID);
+	}
+	
+	public void createUser()
+	{
+		// Private
+	}
+	
+	public void searchFiu(String ID)
+	{
+		entrDispController.searchFiu(ID);
+	}
 	// COnstructors
 	public AccessControlServer newAccessControlServer(int portNumber)
 	{
@@ -68,10 +151,10 @@ public class ControllerFacade {
 		return this.entranceDisplayController.getDuplicate();
 	}
 	
-	public ParkingSpot getDuplicateParkingSpot(String id)
+	/*public ParkingSpot getDuplicateParkingSpot(String id)
 	{
 		return this.entranceDisplayController.getDuplicateParkingSpot(id);
-	}
+	}*/
 	// Entrance Display COntroller Methods End
 	
 	public static ParkedUsers getInstanceOf(String name){

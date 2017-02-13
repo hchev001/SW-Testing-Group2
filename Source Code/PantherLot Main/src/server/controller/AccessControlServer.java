@@ -186,6 +186,8 @@ public class AccessControlServer extends Thread
      */
     private class ConnectionHandler implements Runnable
     {
+    	private ParkingSpot spot;
+    	private Socket theSocket;
         /*
          * constructor of the private class
          */
@@ -205,17 +207,17 @@ public class AccessControlServer extends Thread
                 OutputStream out = theSocket.getOutputStream();
                 
                 Scanner scan = new Scanner(in);
-                pout = new PrintWriter(out, true);
+                //spotNumber = scan.nextLine();
+                spotNumber = printNextSpot(spotNumber, scan);
+                //System.out.println(spotNumber);
                 
-                spotNumber = scan.nextLine();
-
-                System.out.println(spotNumber);
+                pout = new PrintWriter(out, true);
                 
                 if(spotNumber.equalsIgnoreCase("security"))
                     runSecurityDisplay(scan, pout);
                 else if(displayConnections.containsKey(spotNumber))
                     runParkingDisplay(scan, pout, spotNumber);
-                
+                //hello
  
             }
                     
@@ -240,6 +242,11 @@ public class AccessControlServer extends Thread
                 }
 
             }
+        }
+        private String printNextSpot(String spotNumber, Scanner in){
+        	spotNumber = in.nextLine();
+        	System.out.println(spotNumber);
+        	return spotNumber;
         }
         
         /*
@@ -325,7 +332,5 @@ public class AccessControlServer extends Thread
             
             
         }        
-        private ParkingSpot spot;
-        private Socket theSocket;
     }
 }
