@@ -14,7 +14,7 @@ package client.maindisplay;
  *
  * @author Abraham
  */
-public class SpotNumberDisplay extends javax.swing.JFrame implements Form {
+public class SpotNumberDisplay extends Display implements Form {
 
     private boolean action = false;
     private boolean cancel = false;

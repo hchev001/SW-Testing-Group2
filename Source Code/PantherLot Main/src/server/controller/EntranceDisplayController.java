@@ -8,6 +8,7 @@ import client.maindisplay.DisplayDirections;
 import client.maindisplay.ParkingNotification;
 import client.maindisplay.SpotNumberDisplay;
 import client.maindisplay.WelcomeDisplay;
+import client.maindisplay.Display;
 import java.awt.Point;
 import server.storage.ParkedUsers;
 import server.storage.ParkingSpot;
@@ -107,7 +108,11 @@ public class EntranceDisplayController
     {
         
         resetInstances();
-        WelcomeDisplay.runWelcomeDisp(wDisp);  // refactored code
+        /*
+         * Refactored the running and polling of WelcomeDisplay wDisp
+         * to its superclass Display
+         */
+        Display.runDisplay(wDisp);
         
         userType = wDisp.returnType();		// not sure how to refactor this
         userID = wDisp.getID();				// so a call through the facade 
@@ -128,20 +133,13 @@ public class EntranceDisplayController
                      "Press next to notify the security officer");
         }
         p = wDisp.getLocation();
-        pDisp.setLocation(p);
-        wDisp = null;
-        pDisp.setVisible(true);
-        while(!pDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
+        wDisp.setVisible(false);						// deletes the welcomeDisplay by removing the reference
+        
+        /*
+         * Refactored the running and polling of ParkingNotification pDisp
+         * to its superclass Display
+         */
+        Display.runDisplay(pDisp);			
         
         if(pDisp.isCanceled())
         {
@@ -163,19 +161,13 @@ public class EntranceDisplayController
         pDisp = null;
         sDisp.updateParkingSpotNumberLabel("Your spot number is " + 
                                              spot.getParkingNumber());
-        sDisp.setLocation(p);
-        sDisp.setVisible(true);
-        while(!sDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
+        /*
+         * Refactored the running and polling of SpotNumberDisplay sDisp
+         * to its superclass Display
+         */
+        Display.runDisplay(sDisp);			
+        									
+       
         if(sDisp.isCanceled())
         {
             garage.removeParkedUser(spot);
@@ -183,25 +175,24 @@ public class EntranceDisplayController
         }
         
         p = sDisp.getLocation();
-        sDisp = null;
-        dDisp.setLocation(p);
-        dDisp.updateDirections("1. Go to floor #" 
-                + spot.getFloor() + "\n2. Head to the " 
-                    + spot.getDirections() + " part." +
-                    "\n3. Park on " + spot.getUser().toString() 
-                            + " spot labeled #" + spot.getParkingNumber()+ ".");
-        dDisp.setVisible(true);
-        while(!dDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
+        sDisp = null;						// SpotNumberDisplay is gone
+        
+        /*
+         * Refactored the updating of Directions to occur before the location
+         * of the DisplayDirection dDisp object position get's set.
+         */
+        dDisp.updateDirections("1. Go to floor #" 							
+        		+ spot.getFloor() + "\n2. Head to the " 
+        		+ spot.getDirections() + " part." +
+        		"\n3. Park on " + spot.getUser().toString() 
+        		+ " spot labeled #" + spot.getParkingNumber()+ ".");
+        /*
+         * Refactored the running and polling of DisplayDirections dDisp
+         * to its superclass Display
+         */
+        Display.runDisplay(dDisp);
+
+        
         if(dDisp.isCanceled())
         {
             garage.removeParkedUser(spot);

@@ -20,9 +20,34 @@ import server.controller.ControllerFacade;
  *
  * @author Abraham
  */
-public class WelcomeDisplay extends javax.swing.JFrame implements Form {
+public class WelcomeDisplay extends Display implements Form {
 
-    private boolean action = false;
+    public boolean isAction() {
+		return action;
+	}
+
+	public void setAction(boolean action) {
+		this.action = action;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+
+	private boolean action = false;
     private String userType = "";
     private String userID = "";
     
@@ -33,6 +58,7 @@ public class WelcomeDisplay extends javax.swing.JFrame implements Form {
     public WelcomeDisplay() {
     	cFacade = new ControllerFacade();
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -202,22 +228,8 @@ public class WelcomeDisplay extends javax.swing.JFrame implements Form {
         return action;
     }
     
-    public static void runWelcomeDisp(WelcomeDisplay welcomeDisplay)
-    {
-    	welcomeDisplay.setLocation(new Point(0, 0));
-    	welcomeDisplay.setVisible(true);
-    	while (!welcomeDisplay.displayNext())
-    	{
-    		try
-    		{
-    			Thread.sleep(100);
-    		}
-    		catch (Exception e)
-    		{
-    			System.out.println(e);
-    		}
-    	}
-    }
+
+
     /**
      * @param args the command line arguments
      */
