@@ -27,7 +27,7 @@ public class AccessControlMain
         EntranceDisplayController eDisp = new EntranceDisplayController();        
         while(true)
         {
-            eDisp.runDisplays();
+            eDisp.runDisplays(eDisp);
             if(eDisp.getSpot() != null)
             {
                 if(eDisp.getCurrentUserID().length() > 2 

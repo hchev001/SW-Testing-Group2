@@ -103,15 +103,16 @@ public class EntranceDisplayController
     /**
      * runs all the main display in a ordered sequence
      */
-    public void runDisplays()
+    public void runDisplays(EntranceDisplayController entranceController)
     {
         
         resetInstances();
-        WelcomeDisplay.runWelcomeDisp(wDisp);
-        userType = wDisp.returnType();
-        userID = wDisp.getID();
+        WelcomeDisplay.runWelcomeDisp(wDisp);  // refactored code
         
-        runWelcomeDisplays();
+        userType = wDisp.returnType();		// not sure how to refactor this
+        userID = wDisp.getID();				// so a call through the facade 
+        									// will set these fields
+        
             
         createUser();       
         spot = garage.searchParkingSpot(user);
@@ -338,6 +339,7 @@ public class EntranceDisplayController
     
     /*
      * Start welcome display module of runDisplay() service
+     * Has been implemented in WelcomeDisplay as a static method 
      */
     public void runWelcomeDisplays() 
     {
