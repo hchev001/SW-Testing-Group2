@@ -107,22 +107,11 @@ public class EntranceDisplayController
     {
         
         resetInstances();
-        wDisp.setLocation(p);
-        wDisp.setVisible(true);
-        while (!wDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
-        
+        WelcomeDisplay.runWelcomeDisp(wDisp);
         userType = wDisp.returnType();
         userID = wDisp.getID();
+        
+        runWelcomeDisplays();
             
         createUser();       
         spot = garage.searchParkingSpot(user);
@@ -345,6 +334,26 @@ public class EntranceDisplayController
                     + "spots avialable";
         }
         
+    }
+    
+    /*
+     * Start welcome display module of runDisplay() service
+     */
+    public void runWelcomeDisplays() 
+    {
+    	wDisp.setLocation(p);
+    	wDisp.setVisible(true);
+    	while (!wDisp.displayNext())
+    	{
+    		try
+    		{
+    			Thread.sleep(100);
+    		}
+    		catch (Exception e)
+    		{
+    			System.out.println(e);
+    		}
+    	}
     }
     
 }
