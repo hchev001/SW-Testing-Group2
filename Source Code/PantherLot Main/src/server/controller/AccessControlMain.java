@@ -34,7 +34,7 @@ public class AccessControlMain
         ParkingNotification parkingNotificationDisplay = new ParkingNotification();
         SpotNumberDisplay spotNumberDisplay = new SpotNumberDisplay();
         DisplayDirections directionsDisplay = new DisplayDirections();
-        facade.associateClientReferences(welcomeDisplay, parkingNotificationDisplay, spotNumberDisplay, directionsDisplay);
+        facade.associateClientReferences(welcomeDisplay, parkingNotificationDisplay, spotNumberDisplay, directionsDisplay, facade);
         
         EntranceDisplayController eDisp = facade.createEntranceDisplayController(facade);        
         while(true)

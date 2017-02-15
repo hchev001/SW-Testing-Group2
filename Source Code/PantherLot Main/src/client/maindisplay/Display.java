@@ -4,6 +4,8 @@ import java.awt.Point;
 
 import javax.swing.JFrame;
 
+import server.controller.ControllerFacade;
+
 @SuppressWarnings("serial")
 public class Display extends JFrame {
 	
@@ -13,11 +15,12 @@ public class Display extends JFrame {
 		return action;
 	}
 
-	public static void runDisplay(Display display)
+	public boolean runDisplay()
     {
-    	display.setLocation(new Point(0, 0));
-    	display.setVisible(true);
-    	while (!display.displayNext())
+		boolean exceptionDetected = false;
+    	this.setLocation(new Point(0, 0));
+    	this.setVisible(true);
+    	while (!this.displayNext())
     	{
     		try
     		{
@@ -26,8 +29,11 @@ public class Display extends JFrame {
     		catch (Exception e)
     		{
     			System.out.println(e);
+    			exceptionDetected = true;
     		}
     	}
+    	
+    	return exceptionDetected;
     		
     }
     
@@ -39,4 +45,10 @@ public class Display extends JFrame {
         }
         return action;
     }
+    
+    ControllerFacade cFacade;
+    
+    public void setcFacade(ControllerFacade cFacade) {
+		this.cFacade = cFacade;
+	}
 }

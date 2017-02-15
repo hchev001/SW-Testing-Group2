@@ -52,9 +52,9 @@ public class WelcomeDisplay extends Display implements Form {
     private String userID = "";
     
     
-    ControllerFacade cFacade;
-    
-    /** Creates new form WelcomeDisplay */
+
+
+	/** Creates new form WelcomeDisplay */
     public WelcomeDisplay() {
         initComponents();
         

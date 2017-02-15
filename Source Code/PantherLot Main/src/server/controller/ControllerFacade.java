@@ -4,6 +4,8 @@ import client.maindisplay.ParkingNotification;
 import client.maindisplay.SpotNumberDisplay;
 import client.maindisplay.WelcomeDisplay;
 import server.controller.EntranceDisplayController;
+import server.storage.ParkedUsers;
+import server.storage.ParkingSpot;
 
 
 
@@ -19,38 +21,59 @@ public class ControllerFacade {
 		this.accessControlServer = accessControlServer;
 	}
 
+	//mainDisplay variables
+	private WelcomeDisplay wDisp;
+	
+	private ParkingNotification pDisp;
+	
+	private SpotNumberDisplay sDisp;
+	
+	private DisplayDirections dDisp;
+	
+	// server.controller Variables
 	private EntranceDisplayController entranceDisplayController;
-	private EntranceDisplayController entrDispController;
+	
+	private AccessControlServer server;
 	
 	private FacultyUser facUser;
 	
 	private FiuParkingUser fiuParkingUser;
 	
-	private GuestUser gUser;
+	private GuestUser guestUser;
 	
-	private HandicappedUser hUser;
+	private HandicappedUser handicappedUser;
 	
 	private ParkingUser parkUser;
 	
 	private StudentUser studUser;
 	
+	//
+	private ParkedUsers parkedUsersDB;
+	private ParkingSpot parkingSpot;
+	
+	
 	
 	/*
-	 * Clients
+	 * Client Methods
 	 */
-	private WelcomeDisplay wDisp;
-	private ParkingNotification pDisp;
-
-	private SpotNumberDisplay sDisp;
-	private DisplayDirections dDisp;
 	
 	public void associateClientReferences(WelcomeDisplay wDisp, ParkingNotification pDisp, SpotNumberDisplay sDisp,
-			DisplayDirections dDisp) {
+			DisplayDirections dDisp, ControllerFacade facade) {
 		this.wDisp = wDisp;
+		this.wDisp.setcFacade(facade);
+		
 		this.pDisp = pDisp;
+		this.pDisp.setcFacade(facade);
+		
 		this.sDisp = sDisp;
+		this.sDisp.setcFacade(facade);
+		
 		this.dDisp = dDisp;
+		this.dDisp.setcFacade(facade);
+		
 	}
+	
+	
 	/*
 	 * WelcomeDisplay fields
 	 */
@@ -100,5 +123,9 @@ public class ControllerFacade {
 	{
 		this.entranceDisplayController = new EntranceDisplayController(facade);
 		return this.entranceDisplayController;
+	}
+	
+	public EntranceDisplayController getEntranceDisplayController() {
+		return entranceDisplayController;
 	}
 }
