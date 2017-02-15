@@ -7,6 +7,14 @@ public class ControllerFacade {
 	
 	private AccessControlServer accessControlServer;
 	
+	public AccessControlServer getAccessControlServer() {
+		return accessControlServer;
+	}
+
+	public void setAccessControlServer(AccessControlServer accessControlServer) {
+		this.accessControlServer = accessControlServer;
+	}
+
 	private EntranceDisplayController entranceDisplayController;
 	private EntranceDisplayController entrDispController;
 	
@@ -45,6 +53,23 @@ public class ControllerFacade {
 		this.welcomeDisplayUserType = userType;
 		this.welcomeDisplayEvent = action;
 		
+	}
+	
+	/*
+	 * AccessControl Server methods
+	 */
+	
+	public void createAccessControlServer(int portNumber)
+	{
+		this.accessControlServer = new AccessControlServer(portNumber);
+
+		
+		
+	}
+	
+	public void startAccessControlServer()
+	{
+		this.accessControlServer.start();
 	}
 	
 	

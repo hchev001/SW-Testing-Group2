@@ -133,7 +133,7 @@ public class EntranceDisplayController
                      "Press next to notify the security officer");
         }
         p = wDisp.getLocation();
-        wDisp.setVisible(false);						// deletes the welcomeDisplay by removing the reference
+        wDisp = null;						// deletes the welcomeDisplay by removing the reference, could instead set the display to false?
         
         /*
          * Refactored the running and polling of ParkingNotification pDisp
