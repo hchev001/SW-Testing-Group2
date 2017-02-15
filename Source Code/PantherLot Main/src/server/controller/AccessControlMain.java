@@ -1,6 +1,10 @@
 
 package server.controller;
 
+import client.maindisplay.DisplayDirections;
+import client.maindisplay.ParkingNotification;
+import client.maindisplay.SpotNumberDisplay;
+import client.maindisplay.WelcomeDisplay;
 import server.storage.ParkedUsers;
 import server.storage.ParkingSpot;
 
@@ -21,14 +25,18 @@ public class AccessControlMain
     	facade.createAccessControlServer(3738);
     	facade.startAccessControlServer();
     	
-       // AccessControlServer server = new AccessControlServer(3738); 
-       // server.start();
         
         ParkedUsers garage = ParkedUsers.instance("garage.txt");
         
         System.out.println(garage);
         
-        EntranceDisplayController eDisp = new EntranceDisplayController();        
+        WelcomeDisplay welcomeDisplay = new WelcomeDisplay();
+        ParkingNotification parkingNotificationDisplay = new ParkingNotification();
+        SpotNumberDisplay spotNumberDisplay = new SpotNumberDisplay();
+        DisplayDirections directionsDisplay = new DisplayDirections();
+        facade.associateClientReferences(welcomeDisplay, parkingNotificationDisplay, spotNumberDisplay, directionsDisplay);
+        
+        EntranceDisplayController eDisp = facade.createEntranceDisplayController(facade);        
         while(true)
         {
             eDisp.runDisplays(eDisp);
@@ -52,5 +60,5 @@ public class AccessControlMain
             }
         }
         
-    }   
+    }
 }

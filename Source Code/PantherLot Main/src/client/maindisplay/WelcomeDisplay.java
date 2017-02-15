@@ -56,7 +56,6 @@ public class WelcomeDisplay extends Display implements Form {
     
     /** Creates new form WelcomeDisplay */
     public WelcomeDisplay() {
-    	cFacade = new ControllerFacade();
         initComponents();
         
     }
@@ -183,21 +182,21 @@ public class WelcomeDisplay extends Display implements Form {
         userID = this.textFieldID.getText();
         userType = "FiuParkingUser";
         action = true;
-        cFacade.scanIDCallToController(userID, userType, action);
+//        cFacade.scanIDCallToController(userID, userType, action);
     }//GEN-LAST:event_scanIDButtonActionPerformed
 
     private void guestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestButtonActionPerformed
         // TODO add your handling code here:
         userType = "guest";
         action = true;
-        cFacade.guestButtonCallToController(userType, action);
+//        cFacade.guestButtonCallToController(userType, action);
     }//GEN-LAST:event_guestButtonActionPerformed
 
     private void handicapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handicapButtonActionPerformed
         // TODO add your handling code here:
         userType = "handicap";
         action = true;
-        cFacade.handicapButtonCallToController(userType, action);
+//        cFacade.handicapButtonCallToController(userType, action);
     }//GEN-LAST:event_handicapButtonActionPerformed
 
     /**

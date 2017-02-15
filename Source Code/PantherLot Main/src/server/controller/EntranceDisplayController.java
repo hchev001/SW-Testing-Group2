@@ -37,12 +37,15 @@ public class EntranceDisplayController
     
     private ParkedUsers garage = ParkedUsers.getInstance();
     
+    private ControllerFacade facade;
+    
     /**
      * default constructor that initializes everything to false
      */
-    public EntranceDisplayController()
+    public EntranceDisplayController(ControllerFacade fac)
     {
         p = new Point(0 , 0);
+        this.facade = fac;
         resetInstances();
     }
     
@@ -112,7 +115,7 @@ public class EntranceDisplayController
          * Refactored the running and polling of WelcomeDisplay wDisp
          * to its superclass Display
          */
-        Display.runDisplay(wDisp);
+        wDisp.runDisplay();
         
         userType = wDisp.returnType();		// not sure how to refactor this
         userID = wDisp.getID();				// so a call through the facade 
@@ -139,7 +142,7 @@ public class EntranceDisplayController
          * Refactored the running and polling of ParkingNotification pDisp
          * to its superclass Display
          */
-        Display.runDisplay(pDisp);			
+        pDisp.runDisplay();			
         
         if(pDisp.isCanceled())
         {
@@ -165,7 +168,7 @@ public class EntranceDisplayController
          * Refactored the running and polling of SpotNumberDisplay sDisp
          * to its superclass Display
          */
-        Display.runDisplay(sDisp);			
+        sDisp.runDisplay();			
         									
        
         if(sDisp.isCanceled())
@@ -190,7 +193,7 @@ public class EntranceDisplayController
          * Refactored the running and polling of DisplayDirections dDisp
          * to its superclass Display
          */
-        Display.runDisplay(dDisp);
+        dDisp.runDisplay();
 
         
         if(dDisp.isCanceled())

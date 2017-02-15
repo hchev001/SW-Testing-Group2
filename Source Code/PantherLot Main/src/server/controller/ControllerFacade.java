@@ -1,4 +1,8 @@
 package server.controller;
+import client.maindisplay.DisplayDirections;
+import client.maindisplay.ParkingNotification;
+import client.maindisplay.SpotNumberDisplay;
+import client.maindisplay.WelcomeDisplay;
 import server.controller.EntranceDisplayController;
 
 
@@ -30,6 +34,23 @@ public class ControllerFacade {
 	
 	private StudentUser studUser;
 	
+	
+	/*
+	 * Clients
+	 */
+	private WelcomeDisplay wDisp;
+	private ParkingNotification pDisp;
+
+	private SpotNumberDisplay sDisp;
+	private DisplayDirections dDisp;
+	
+	public void associateClientReferences(WelcomeDisplay wDisp, ParkingNotification pDisp, SpotNumberDisplay sDisp,
+			DisplayDirections dDisp) {
+		this.wDisp = wDisp;
+		this.pDisp = pDisp;
+		this.sDisp = sDisp;
+		this.dDisp = dDisp;
+	}
 	/*
 	 * WelcomeDisplay fields
 	 */
@@ -72,6 +93,12 @@ public class ControllerFacade {
 		this.accessControlServer.start();
 	}
 	
-	
-//	
+	/*
+	 * Entrance Display COntroller
+	 */
+	public EntranceDisplayController createEntranceDisplayController(ControllerFacade facade)
+	{
+		this.entranceDisplayController = new EntranceDisplayController(facade);
+		return this.entranceDisplayController;
+	}
 }
