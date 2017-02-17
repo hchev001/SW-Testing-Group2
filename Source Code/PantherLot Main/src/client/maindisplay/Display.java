@@ -15,10 +15,10 @@ public class Display extends JFrame {
 		return action;
 	}
 
-	public boolean runDisplay()
+	public boolean runDisplay(Point initLocation)
     {
 		boolean exceptionDetected = false;
-    	this.setLocation(new Point(0, 0));
+    	this.setLocation(initLocation);
     	this.setVisible(true);
     	while (!this.displayNext())
     	{

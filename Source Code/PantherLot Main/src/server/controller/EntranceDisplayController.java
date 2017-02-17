@@ -115,38 +115,32 @@ public class EntranceDisplayController
          * Refactored the running and polling of WelcomeDisplay wDisp
          * to its superclass Display
          */
-        wDisp.runDisplay();
-        
-//        userType = wDisp.returnType();		// not sure how to refactor this
-//        userID = wDisp.getID();				// so a call through the facade 
-//        									// will set these fields
-//        
-//            
-//        createUser();       
+        wDisp.runDisplay(new Point(0,0));
+             
         createUserFromTypeAndID();
         
         spot = garage.searchParkingSpot(user);
         
         found = (spot != null);
         valid = !userType.equalsIgnoreCase("invalid"); 
-        generateMessage(found, valid);
+        generateMessage(found, valid, userID);
         pDisp.updateParkingNotification(message1, message2);
         duplicate = isDuplicate(userID);
-        if(duplicate)
-        {
-            pDisp.updateParkingNotification("Duplicate ID! ",
-                     "Press next to notify the security officer");
-        }
+//        if(duplicate)
+//        {
+//            pDisp.updateParkingNotification("Duplicate ID! ",
+//                     "Press next to notify the security officer");
+//        }
         
         
-        p = wDisp.getLocation();
+       // p = wDisp.getLocation();
+        pDisp.runDisplay(wDisp.getLocation());			
         wDisp = null;						// deletes the welcomeDisplay by removing the reference, could instead set the display to false?
         
         /*
          * Refactored the running and polling of ParkingNotification pDisp
          * to its superclass Display
          */
-        pDisp.runDisplay();			
         
         if(pDisp.isCanceled())
         {
@@ -164,15 +158,17 @@ public class EntranceDisplayController
         else
             garage.addParkingUser(spot, user);
         
-        p = pDisp.getLocation();
-        pDisp = null;
+       // p = pDisp.getLocation();
+        
+        pDisp.setVisible(false);
         sDisp.updateParkingSpotNumberLabel("Your spot number is " + 
                                              spot.getParkingNumber());
+        sDisp.runDisplay(pDisp.getLocation());			
+        pDisp = null;
         /*
          * Refactored the running and polling of SpotNumberDisplay sDisp
          * to its superclass Display
          */
-        sDisp.runDisplay();			
         									
        
         if(sDisp.isCanceled())
@@ -181,9 +177,8 @@ public class EntranceDisplayController
             return;
         }
         
-        p = sDisp.getLocation();
-        sDisp = null;						// SpotNumberDisplay is gone
-        
+        //p = sDisp.getLocation();
+        sDisp.setVisible(false);
         /*
          * Refactored the updating of Directions to occur before the location
          * of the DisplayDirection dDisp object position get's set.
@@ -197,7 +192,8 @@ public class EntranceDisplayController
          * Refactored the running and polling of DisplayDirections dDisp
          * to its superclass Display
          */
-        dDisp.runDisplay();
+        dDisp.runDisplay(sDisp.getLocation());
+        sDisp = null;						// SpotNumberDisplay is gone
 
         
         if(dDisp.isCanceled())
@@ -303,36 +299,41 @@ public class EntranceDisplayController
      * generates the message to be displayed by the second display screen 
      * the sequence
      */
-    private void generateMessage(boolean f, boolean val)
+    private void generateMessage(boolean f, boolean val, String userID)
     {      
         found = f;
         valid = val;
-        
-        if(found && valid)
-        {
-            message1 = "Valid Request ";
-            message2 = "Assigning " + user.toString().toLowerCase() 
-                    + " parking spot";
-        } 
-        else if(!found && valid)
-        {
-            message1 = "Valid Request ";
-            message2 = "There are no " 
-                        + user.toString().toLowerCase()  
-                        + " spots available";
-        }
-        else if(found && !valid)
-        {
-            message1 = "Invalid ID! ";
-            message2 = "Assigning guest parking spot";
-        }
-        else
-        {
-            message1 = "Invalid ID! ";
-            message2 = "There are no guest "
-                    + "spots avialable";
-        }
-        
+        boolean duplicate = isDuplicate(userID);
+        if (!duplicate) {
+	        if(found && valid)
+	        {
+	            message1 = "Valid Request ";
+	            message2 = "Assigning " + user.toString().toLowerCase() 
+	                    + " parking spot";
+	        } 
+	        else if(!found && valid)
+	        {
+	            message1 = "Valid Request ";
+	            message2 = "There are no " 
+	                        + user.toString().toLowerCase()  
+	                        + " spots available";
+	        }
+	        else if(found && !valid)
+	        {
+	            message1 = "Invalid ID! ";
+	            message2 = "Assigning guest parking spot";
+	        }
+	        else
+	        {
+	            message1 = "Invalid ID! ";
+	            message2 = "There are no guest "
+	                    + "spots avialable";
+	        }
+	        
+	    } else {
+	    	message1 = "Duplicate ID! ";
+	    	message2 = "Press next to notify the security officer";
+	    }
     }
 
     public void createUserFromTypeAndID()
