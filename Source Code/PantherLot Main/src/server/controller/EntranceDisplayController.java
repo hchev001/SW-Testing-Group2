@@ -62,12 +62,7 @@ public class EntranceDisplayController
         userID = "";
         userType = "";
         message1 = "";
-        message2 = "";
-        
-//        wDisp = new WelcomeDisplay();
-//        pDisp = new ParkingNotification();
-//        sDisp = new SpotNumberDisplay();
-//        dDisp = new DisplayDirections();
+        message2 = "";        
         
         wDisp = facade.createNewWelcomeDisplay();
         pDisp = facade.createNewParkingNotificationDisplay();
@@ -122,12 +117,14 @@ public class EntranceDisplayController
          */
         wDisp.runDisplay();
         
-        userType = wDisp.returnType();		// not sure how to refactor this
-        userID = wDisp.getID();				// so a call through the facade 
-        									// will set these fields
+//        userType = wDisp.returnType();		// not sure how to refactor this
+//        userID = wDisp.getID();				// so a call through the facade 
+//        									// will set these fields
+//        
+//            
+//        createUser();       
+        createUserFromTypeAndID();
         
-            
-        createUser();       
         spot = garage.searchParkingSpot(user);
         
         found = (spot != null);
@@ -140,6 +137,8 @@ public class EntranceDisplayController
             pDisp.updateParkingNotification("Duplicate ID! ",
                      "Press next to notify the security officer");
         }
+        
+        
         p = wDisp.getLocation();
         wDisp = null;						// deletes the welcomeDisplay by removing the reference, could instead set the display to false?
         
@@ -335,26 +334,11 @@ public class EntranceDisplayController
         }
         
     }
-    
-    /*
-     * Start welcome display module of runDisplay() service
-     * Has been implemented in WelcomeDisplay as a static method 
-     */
-    public void runWelcomeDisplays() 
+
+    public void createUserFromTypeAndID()
     {
-    	wDisp.setLocation(p);
-    	wDisp.setVisible(true);
-    	while (!wDisp.displayNext())
-    	{
-    		try
-    		{
-    			Thread.sleep(100);
-    		}
-    		catch (Exception e)
-    		{
-    			System.out.println(e);
-    		}
-    	}
+    	userType = wDisp.returnType();
+    	userID = wDisp.getID();
+    	createUser();
     }
-    
 }

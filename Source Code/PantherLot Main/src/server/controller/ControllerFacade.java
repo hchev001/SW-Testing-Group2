@@ -84,18 +84,21 @@ public class ControllerFacade {
 	public void scanIDCallToController(String userID, String userType, boolean action) {
 		this.welcomeDisplayEvent = action;
 		this.welcomeDisplayUserID = userID;
-		this.welcomeDisplayUserType = userType;	
+		this.welcomeDisplayUserType = userType;
+		this.entranceDisplayController.createUserFromTypeAndID();
 	}
 
 	public void guestButtonCallToController(String userType, boolean action) {
 		this.welcomeDisplayUserType = userType;
 		this.welcomeDisplayEvent = action;
+		this.entranceDisplayController.createUserFromTypeAndID();
 		
 	}
 
 	public void handicapButtonCallToController(String userType, boolean action) {
 		this.welcomeDisplayUserType = userType;
 		this.welcomeDisplayEvent = action;
+		this.entranceDisplayController.createUserFromTypeAndID();
 		
 	}
 	
