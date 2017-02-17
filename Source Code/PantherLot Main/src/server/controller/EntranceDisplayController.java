@@ -111,33 +111,28 @@ public class EntranceDisplayController
     {
         
         resetInstances();
-        /*
-         * Refactored the running and polling of WelcomeDisplay wDisp
-         * to its superclass Display
-         */
+
         wDisp.runDisplay(new Point(0,0));
              
         createUserFromTypeAndID();
         
-        spot = garage.searchParkingSpot(user);  // get a spot for user
-        found = (spot != null);					// verifies if spot was found for user
-        
-        
-//        valid = !userType.equalsIgnoreCase("invalid"); // validate userType
-//        generateMessage(found, valid, userID);
-//        pDisp.updateParkingNotification(message1, message2);
+        findSpotForUser();
         
         setUpParkingDisplayNotification(found, userID, pDisp);
 
-        pDisp.runDisplay(wDisp.getLocation());	// cliet service		
+        pDisp.runDisplay(wDisp.getLocation());	// client service		
         wDisp = null;						// deletes the welcomeDisplay by removing the reference, could instead set the display to false?
         
-        /*
-         * Refactored the running and polling of ParkingNotification pDisp
-         * to its superclass Display
-         */
         
         duplicate = isDuplicate(userID);
+        /*
+         * Don't know how to refactor the following code into its own structure, don't think its possible.
+         * Checks for conditions of program. 
+         * If the user clicked Cancel on the Parking Notificaiton display then program calls retunr and runDisplays() ends
+         * If the user used a duplicate ID then the reserved spot get's set to null and runDisplays() ends
+         * If no available parking spot was found, then runDisplays() ends
+         * else add the user to the parking garage.
+         */
         if(pDisp.isCanceled())
         {
             duplicate = false;
@@ -154,7 +149,6 @@ public class EntranceDisplayController
         else
             garage.addParkingUser(spot, user);
         
-       // p = pDisp.getLocation();
         
         pDisp.setVisible(false);
         sDisp.updateParkingSpotNumberLabel("Your spot number is " + 
@@ -332,6 +326,9 @@ public class EntranceDisplayController
 	    }
     }
 
+    /*
+     * Client or Controller Service to Be Tested
+     */
     public void createUserFromTypeAndID()
     {
     	userType = wDisp.returnType();
@@ -339,11 +336,23 @@ public class EntranceDisplayController
     	createUser();
     }
     
+    /*
+     * Controller Service to Be Tested
+     */
     public void setUpParkingDisplayNotification( boolean found, String userID, ParkingNotification parkingDisplay)
     {
     	boolean userTypeValid = !userType.equalsIgnoreCase("invalid");
     	generateMessage(found, userTypeValid, userID);
     	parkingDisplay.updateParkingNotification(message1, message2);
+    }
+    
+    /*
+     * should be used to test setUpParkingDIsplayNotification service
+     */
+    public void findSpotForUser() 
+    {
+    	spot = garage.searchParkingSpot(user);
+    	found = (spot != null);
     }
     
 }
