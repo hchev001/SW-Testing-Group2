@@ -99,16 +99,36 @@ public class ControllerFacade {
 		
 	}
 	
+	public WelcomeDisplay createNewWelcomeDisplay()
+	{
+		this.wDisp = new WelcomeDisplay();
+		return wDisp;
+	}
+	
+	public ParkingNotification createNewParkingNotificationDisplay()
+	{
+		this.pDisp = new ParkingNotification();
+		return pDisp;
+	}
+	
+	public SpotNumberDisplay createNewSpotNumberDisplay()
+	{
+		this.sDisp = new SpotNumberDisplay();
+		return sDisp;
+	}
+	
+	public DisplayDirections createNewDisplayDirectionDisplay()
+	{
+		this.dDisp = new DisplayDirections();
+		return dDisp;
+	}
 	/*
 	 * AccessControl Server methods
 	 */
 	
 	public void createAccessControlServer(int portNumber)
 	{
-		this.accessControlServer = new AccessControlServer(portNumber);
-
-		
-		
+		this.accessControlServer = new AccessControlServer(portNumber);	
 	}
 	
 	public void startAccessControlServer()

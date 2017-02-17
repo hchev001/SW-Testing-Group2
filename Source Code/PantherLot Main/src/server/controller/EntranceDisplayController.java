@@ -64,10 +64,15 @@ public class EntranceDisplayController
         message1 = "";
         message2 = "";
         
-        wDisp = new WelcomeDisplay();
-        pDisp = new ParkingNotification();
-        sDisp = new SpotNumberDisplay();
-        dDisp = new DisplayDirections();
+//        wDisp = new WelcomeDisplay();
+//        pDisp = new ParkingNotification();
+//        sDisp = new SpotNumberDisplay();
+//        dDisp = new DisplayDirections();
+        
+        wDisp = facade.createNewWelcomeDisplay();
+        pDisp = facade.createNewParkingNotificationDisplay();
+        sDisp = facade.createNewSpotNumberDisplay();
+        dDisp = facade.createNewDisplayDirectionDisplay();
         
         user = null;
         spot = null;
