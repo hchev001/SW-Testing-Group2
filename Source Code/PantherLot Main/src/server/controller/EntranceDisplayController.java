@@ -119,22 +119,17 @@ public class EntranceDisplayController
              
         createUserFromTypeAndID();
         
-        spot = garage.searchParkingSpot(user);
-        
-        found = (spot != null);
-        valid = !userType.equalsIgnoreCase("invalid"); 
-        generateMessage(found, valid, userID);
-        pDisp.updateParkingNotification(message1, message2);
-        duplicate = isDuplicate(userID);
-//        if(duplicate)
-//        {
-//            pDisp.updateParkingNotification("Duplicate ID! ",
-//                     "Press next to notify the security officer");
-//        }
+        spot = garage.searchParkingSpot(user);  // get a spot for user
+        found = (spot != null);					// verifies if spot was found for user
         
         
-       // p = wDisp.getLocation();
-        pDisp.runDisplay(wDisp.getLocation());			
+//        valid = !userType.equalsIgnoreCase("invalid"); // validate userType
+//        generateMessage(found, valid, userID);
+//        pDisp.updateParkingNotification(message1, message2);
+        
+        setUpParkingDisplayNotification(found, userID, pDisp);
+
+        pDisp.runDisplay(wDisp.getLocation());	// cliet service		
         wDisp = null;						// deletes the welcomeDisplay by removing the reference, could instead set the display to false?
         
         /*
@@ -142,6 +137,7 @@ public class EntranceDisplayController
          * to its superclass Display
          */
         
+        duplicate = isDuplicate(userID);
         if(pDisp.isCanceled())
         {
             duplicate = false;
@@ -342,4 +338,12 @@ public class EntranceDisplayController
     	userID = wDisp.getID();
     	createUser();
     }
+    
+    public void setUpParkingDisplayNotification( boolean found, String userID, ParkingNotification parkingDisplay)
+    {
+    	boolean userTypeValid = !userType.equalsIgnoreCase("invalid");
+    	generateMessage(found, userTypeValid, userID);
+    	parkingDisplay.updateParkingNotification(message1, message2);
+    }
+    
 }
