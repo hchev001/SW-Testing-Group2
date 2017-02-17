@@ -151,8 +151,9 @@ public class EntranceDisplayController
         
         
         pDisp.setVisible(false);
-        sDisp.updateParkingSpotNumberLabel("Your spot number is " + 
-                                             spot.getParkingNumber());
+        
+        sDisp.updateParkingSpotNumberLabel("Your spot number is " + 	// informs user of what
+                                             spot.getParkingNumber());  // your spot number is
         sDisp.runDisplay(pDisp.getLocation());			
         pDisp = null;
         /*
@@ -167,21 +168,11 @@ public class EntranceDisplayController
             return;
         }
         
-        //p = sDisp.getLocation();
+
         sDisp.setVisible(false);
-        /*
-         * Refactored the updating of Directions to occur before the location
-         * of the DisplayDirection dDisp object position get's set.
-         */
-        dDisp.updateDirections("1. Go to floor #" 							
-        		+ spot.getFloor() + "\n2. Head to the " 
-        		+ spot.getDirections() + " part." +
-        		"\n3. Park on " + spot.getUser().toString() 
-        		+ " spot labeled #" + spot.getParkingNumber()+ ".");
-        /*
-         * Refactored the running and polling of DisplayDirections dDisp
-         * to its superclass Display
-         */
+
+        dDisp.updateDirections(spot.createParkingDirections()); 		// controller service create parking directions
+
         dDisp.runDisplay(sDisp.getLocation());
         sDisp = null;						// SpotNumberDisplay is gone
 
@@ -355,4 +346,5 @@ public class EntranceDisplayController
     	found = (spot != null);
     }
     
+
 }
