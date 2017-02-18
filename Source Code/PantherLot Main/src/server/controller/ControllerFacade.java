@@ -23,40 +23,64 @@ public class ControllerFacade {
 
 	//mainDisplay variables
 	private WelcomeDisplay wDisp;
-	
 	private ParkingNotification pDisp;
-	
 	private SpotNumberDisplay sDisp;
-	
 	private DisplayDirections dDisp;
+	
+	
+	
 	
 	// server.controller Variables
 	private EntranceDisplayController entranceDisplayController;
-	
 	private AccessControlServer server;
 	
-	private FacultyUser facUser;
-	
-	private FiuParkingUser fiuParkingUser;
-	
-	private GuestUser guestUser;
-	
-	private HandicappedUser handicappedUser;
 	
 	private ParkingUser parkUser;
+	private GuestUser guestUser;
+	private HandicappedUser handicappedUser;
 	
+	private FiuParkingUser fiuParkingUser;
+	private FacultyUser facUser;
 	private StudentUser studUser;
 	
-	//
 	private ParkedUsers parkedUsersDB;
 	private ParkingSpot parkingSpot;
 	
+	boolean welcomeDisplayEvent;
+	private String welcomeDisplayUserType = "";
+	private String welcomeDisplayUserID = "";
 	
+
+	//*************** ACCESORS AND MUTATORS /////////////////////
+	public boolean isWelcomeDisplayEvent() {
+		return welcomeDisplayEvent;
+	}
+	
+	public void setWelcomeDisplayEvent(boolean welcomeDisplayEvent) {
+		this.welcomeDisplayEvent = welcomeDisplayEvent;
+	}
+	
+	public String getWelcomeDisplayUserType() {
+		return welcomeDisplayUserType;
+	}
+	
+	public void setWelcomeDisplayUserType(String welcomeDisplayUserType) {
+		this.welcomeDisplayUserType = welcomeDisplayUserType;
+	}
+	
+	public String getWelcomeDisplayUserID() {
+		return welcomeDisplayUserID;
+	}
+	
+	public void setWelcomeDisplayUserID(String welcomeDisplayUserID) {
+		this.welcomeDisplayUserID = welcomeDisplayUserID;
 	
 	/*
 	 * Client Methods
 	 */
 	
+	}
+
 	public void associateClientReferences(WelcomeDisplay wDisp, ParkingNotification pDisp, SpotNumberDisplay sDisp,
 			DisplayDirections dDisp, ControllerFacade facade) {
 		this.wDisp = wDisp;
@@ -74,18 +98,14 @@ public class ControllerFacade {
 	}
 	
 	
-	/*
-	 * WelcomeDisplay fields
-	 */
-	private boolean welcomeDisplayEvent;
-	private String welcomeDisplayUserType = "";
-	private String welcomeDisplayUserID = "";
 	
-	public void scanIDCallToController(String userID, String userType, boolean action) {
+	// USE CASE PLI-02
+	public boolean scanIDCallToController(String userID, String userType, boolean action) {
 		this.welcomeDisplayEvent = action;
 		this.welcomeDisplayUserID = userID;
 		this.welcomeDisplayUserType = userType;
 		this.entranceDisplayController.createUserFromTypeAndID();
+		return !(this.entranceDisplayController.getUser() == null);
 	}
 
 	public void guestButtonCallToController(String userType, boolean action) {
@@ -150,5 +170,34 @@ public class ControllerFacade {
 	
 	public EntranceDisplayController getEntranceDisplayController() {
 		return entranceDisplayController;
+	}
+	
+	public void startDisplayLogic()
+	{
+		this.entranceDisplayController.runDisplays();
+	}
+	
+	public ParkingSpot getParkingSpotObject()
+	{
+		return entranceDisplayController.getSpot();
+	}
+	
+	public boolean currentUserIDlengthGreaterThan2()
+	{
+		return entranceDisplayController.getCurrentUserID().length() > 2;
+	}
+	
+	// service to be tested
+	public boolean findSpotForUser()
+	{
+		return this.entranceDisplayController.findSpotForUser();
+	}
+	
+	// service to be tested
+	public ParkingNotification setParkingNotification()
+	{
+		this.entranceDisplayController.setUpParkingDisplayNotification(entranceDisplayController.isFound(), 
+				entranceDisplayController.getCurrentUserID(), pDisp);
+		return pDisp;
 	}
 }

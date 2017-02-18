@@ -43,7 +43,6 @@ public class EntranceDisplayController
      */
     public EntranceDisplayController(ControllerFacade fac)
     {
-        p = new Point(0 , 0);
         this.facade = fac;
         resetInstances();
     }
@@ -106,7 +105,7 @@ public class EntranceDisplayController
     /**
      * runs all the main display in a ordered sequence
      */
-    public void runDisplays(EntranceDisplayController entranceController)
+    public void runDisplays()
     {
         
         resetInstances();
@@ -338,10 +337,11 @@ public class EntranceDisplayController
     /*
      * should be used to test setUpParkingDIsplayNotification service
      */
-    public void findSpotForUser() 
+    public boolean findSpotForUser() 
     {
     	spot = garage.searchParkingSpot(user);
     	found = (spot != null);
+    	return found;
     }
 
 

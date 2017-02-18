@@ -39,10 +39,10 @@ public class AccessControlMain
         EntranceDisplayController eDisp = facade.createEntranceDisplayController(facade);        
         while(true)
         {
-            eDisp.runDisplays(eDisp);
-            if(eDisp.getSpot() != null)
+            facade.startDisplayLogic();
+            if(facade.getParkingSpotObject() != null)
             {
-                if(eDisp.getCurrentUserID().length() > 2 
+                if(facade.currentUserIDlengthGreaterThan2()
                         && !eDisp.getDuplicate())
                     facade.getAccessControlServer().reserveSpot(eDisp.getSpot(), 
                             eDisp.getCurrentUserID());
