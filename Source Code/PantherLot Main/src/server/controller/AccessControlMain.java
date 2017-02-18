@@ -55,8 +55,8 @@ public class AccessControlMain
                 ParkingSpot dup = eDisp.getDuplicateParkingSpot(ID);
                 System.out.println("sending notification");
                 facade.getAccessControlServer().duplicateIdFound("User with ID:" + ID + 
-                        " has reported an stolen ID.","The car with the same ID"
-                        + " is parked on spot #" + dup.getParkingNumber());
+                        " has reported an stolen ID.","The car with the same ID" 
+                        		+ " is parked on spot #" + dup.getParkingNumber());
             }
         }
         

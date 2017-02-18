@@ -228,4 +228,19 @@ public class ControllerFacade {
         this.server.sendMessage("wrong", this.server.getSout());
         this.server.sendMessage(msg, this.server.getSout());
     }
+    // USE CASE PLIS05 - Display Stolen ID Security Alert
+    synchronized void duplicateIdFoundOn()
+    {
+    	String ID = this.entranceDisplayController.getCurrentUserID();
+    	ParkingSpot dup = this.entranceDisplayController.getDuplicateParkingSpot(ID);
+    	String msg = "User with ID:" + ID + " has reported a stolen ID.";
+    	String msg2  = "The car with the same ID is parked on spot #" + dup.getParkingNumber();
+    	if (this.server.getSout() == null)
+    	{
+    		return;
+    	}
+    	this.server.sendMessage("duplicate",  this.server.getSout());
+    	this.server.sendMessage(msg,  this.server.getSout());
+    	this.server.sendMessage(msg2,  this.server.getSout());
+    }
 }
