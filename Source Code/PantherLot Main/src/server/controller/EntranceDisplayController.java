@@ -33,7 +33,6 @@ public class EntranceDisplayController
             new HashMap<String, ParkingSpot>();
     private ParkingUser user;
     private ParkingSpot spot;
-    private Point p;
     
     private ParkedUsers garage = ParkedUsers.getInstance();
     
@@ -172,8 +171,8 @@ public class EntranceDisplayController
         sDisp.setVisible(false);
 
         dDisp.updateDirections(spot.createParkingDirections()); 		// controller service create parking directions
-
         dDisp.runDisplay(sDisp.getLocation());
+        
         sDisp = null;						// SpotNumberDisplay is gone
 
         
@@ -184,7 +183,6 @@ public class EntranceDisplayController
         }
         if(userID.length() > 2)
             duplicates.put(userID, spot);
-        p = dDisp.getLocation();
     }
     
     /**
@@ -345,6 +343,107 @@ public class EntranceDisplayController
     	spot = garage.searchParkingSpot(user);
     	found = (spot != null);
     }
+
+
+    // added setters and getters for verifying state and testing purposes
+	public String getUserID() {
+		return userID;
+	}
+
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+
+	public String getUserType() {
+		return userType;
+	}
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+	public boolean isFound() {
+		return found;
+	}
+
+
+	public void setFound(boolean found) {
+		this.found = found;
+	}
+
+
+	public boolean isValid() {
+		return valid;
+	}
+
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
+
+	public String getMessage1() {
+		return message1;
+	}
+
+
+	public void setMessage1(String message1) {
+		this.message1 = message1;
+	}
+
+
+	public String getMessage2() {
+		return message2;
+	}
+
+
+	public void setMessage2(String message2) {
+		this.message2 = message2;
+	}
+
+
+	public HashMap<String, ParkingSpot> getDuplicates() {
+		return duplicates;
+	}
+
+
+	public void setDuplicates(HashMap<String, ParkingSpot> duplicates) {
+		this.duplicates = duplicates;
+	}
+
+
+	public ParkingUser getUser() {
+		return user;
+	}
+
+
+	public void setUser(ParkingUser user) {
+		this.user = user;
+	}
+
+
+	public ParkedUsers getGarage() {
+		return garage;
+	}
+
+
+	public void setGarage(ParkedUsers garage) {
+		this.garage = garage;
+	}
+
+
+	public void setDuplicate(boolean duplicate) {
+		this.duplicate = duplicate;
+	}
+
+
+	public void setSpot(ParkingSpot spot) {
+		this.spot = spot;
+	}
     
 
 }
