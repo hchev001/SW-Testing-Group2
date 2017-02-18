@@ -24,7 +24,15 @@ public class AccessControlServer extends Thread
     private static ParkedUsers garage = ParkedUsers.instance("garage.txt");
     private final int portNum;
     private PrintWriter sout = null;
-    private HashMap<String, PrintWriter> displayConnections 
+    
+    
+    public PrintWriter getSout() {
+		return sout;
+	}
+	public void setSout(PrintWriter sout) {
+		this.sout = sout;
+	}
+	private HashMap<String, PrintWriter> displayConnections 
                                     = new HashMap<String, PrintWriter>();
     
     /**

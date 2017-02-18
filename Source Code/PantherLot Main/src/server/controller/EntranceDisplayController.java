@@ -148,17 +148,9 @@ public class EntranceDisplayController
             garage.addParkingUser(spot, user);
         
         
-        pDisp.setVisible(false);
-        
-        sDisp.updateParkingSpotNumberLabel("Your spot number is " + 	// informs user of what
-                                             spot.getParkingNumber());  // your spot number is
-        sDisp.runDisplay(pDisp.getLocation());			
-        pDisp = null;
-        /*
-         * Refactored the running and polling of SpotNumberDisplay sDisp
-         * to its superclass Display
-         */
-        									
+        pDisp.setVisible(false);		
+        displayParkingSpotAssigned();
+        pDisp = null;						
        
         if(sDisp.isCanceled())
         {
@@ -169,9 +161,7 @@ public class EntranceDisplayController
 
         sDisp.setVisible(false);
 
-        dDisp.updateDirections(spot.createParkingDirections()); 		// controller service create parking directions
-        dDisp.runDisplay(sDisp.getLocation());
-        
+        displayDirectionsToParkingSpot();
         sDisp = null;						// SpotNumberDisplay is gone
 
         
@@ -342,6 +332,26 @@ public class EntranceDisplayController
     	spot = garage.searchParkingSpot(user);
     	found = (spot != null);
     	return found;
+    }
+    
+    /*
+     * Dependendies: SpotnumberDisplay sDisp
+     * 				ParkingNotification pDisk
+     */
+    public boolean displayParkingSpotAssigned()
+    {
+    	sDisp.updateParkingSpotNumberLabel("Your spot number is " + spot.getParkingNumber());
+    	sDisp.runDisplay(pDisp.getLocation());
+    	return true;
+    }
+    /*
+     * Dependencies: ParkingSpot spot, SpontNumberDisplay sDisp
+     */
+    public boolean displayDirectionsToParkingSpot()
+    {
+    	dDisp.updateDirections(spot.createParkingDirections());
+    	dDisp.runDisplay(sDisp.getLocation());
+    	return true;
     }
 
 

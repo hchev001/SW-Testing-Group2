@@ -99,7 +99,7 @@ public class ControllerFacade {
 	
 	
 	
-	// USE CASE PLI-02
+	// USE CASE PLI-02 - SCAN ID
 	public boolean scanIDCallToController(String userID, String userType, boolean action) {
 		this.welcomeDisplayEvent = action;
 		this.welcomeDisplayUserID = userID;
@@ -114,7 +114,7 @@ public class ControllerFacade {
 		this.entranceDisplayController.createUserFromTypeAndID();
 		
 	}
-
+	// USE CASE PLI-019 - Guest can reserve Handicapped spot via Button
 	public void handicapButtonCallToController(String userType, boolean action) {
 		this.welcomeDisplayUserType = userType;
 		this.welcomeDisplayEvent = action;
@@ -187,17 +187,45 @@ public class ControllerFacade {
 		return entranceDisplayController.getCurrentUserID().length() > 2;
 	}
 	
+	// USE Case PLI 004 - Identify User Type based On Matching ID
+	public boolean createUserParkingSpot()
+	{
+		this.entranceDisplayController.createUserFromTypeAndID();
+		return findSpotForUser();
+	}
+	
 	// service to be tested
 	public boolean findSpotForUser()
 	{
 		return this.entranceDisplayController.findSpotForUser();
 	}
 	
-	// service to be tested
-	public ParkingNotification setParkingNotification()
+	//Should be a service
+	public String setParkingNotification()
 	{
 		this.entranceDisplayController.setUpParkingDisplayNotification(entranceDisplayController.isFound(), 
 				entranceDisplayController.getCurrentUserID(), pDisp);
-		return pDisp;
+		this.pDisp.runDisplay(null);
+		return this.entranceDisplayController.getMessage1() + this.entranceDisplayController.getMessage2();
 	}
+	// USE CASE PLI010 - Display Parking Spot Assigned
+	public void displayParkingSpotAssigned()
+	{
+		this.entranceDisplayController.displayParkingSpotAssigned();
+	}
+	
+	//USE CASE PLI011 - Display Directions to Parking Spot
+	public void displayDirectionsToSpot()
+	{
+		this.entranceDisplayController.displayDirectionsToParkingSpot();
+	}
+	
+	// USE CASE PLI014 - NOTIFY USER OF PARKING IN THE WRONG SPOT	
+    synchronized void wrongUserDetected(String msg)
+    {
+        if(this.server.getSout() == null)
+            return;
+        this.server.sendMessage("wrong", this.server.getSout());
+        this.server.sendMessage(msg, this.server.getSout());
+    }
 }
