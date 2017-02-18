@@ -15,6 +15,7 @@ public class ParkingSpotTest {
 
 	// Variables used throughout the tests
 	ParkingSpot testSpot;
+	
 	ParkingUser person01;
 	ParkingUser person02;
 	ParkingUser person03;
@@ -33,6 +34,10 @@ public class ParkingSpotTest {
 		person02 = new FacultyUser("John" , "1234567");
 		person03 = new GuestUser();
 		person04 = new HandicappedUser();
+		
+		testSpot.assignParkingSpot(person01);
+		
+		pout = new PrintWriter(System.out);
 
 	}//Here we are creating a parking spot
 	
@@ -184,7 +189,7 @@ public class ParkingSpotTest {
 	 */
 	public void test_isAvailable01(){
 		
-		testSpot.assignParkingSpot(person01);
+		testSpot.assignParkingSpot( person01 );
 		
 		boolean avail = false;
 		boolean test = testSpot.isAvailable();
@@ -200,6 +205,8 @@ public class ParkingSpotTest {
 	 */
 	public void test_isAvailable02(){
 		
+		testSpot.removeAssignedUser();
+		
 		boolean avail = true;
 		boolean test = testSpot.isAvailable();
 		
@@ -208,15 +215,44 @@ public class ParkingSpotTest {
 	}
 	
 	@Test
-	/*
-	* This will test if the spot being tested is connected (it should not be)
-	*/
-	public void test_isConnected(){
-		
+	public void test_isConnected01(){
+
 		boolean test = testSpot.isConnected();
 		
 		assertEquals(false , test);
 		
 	}
+	
+	@Test
+	public void test_isConnected02(){
+
+		testSpot.setPrintWriter(pout);
+		
+		boolean test = testSpot.isConnected();
+		
+		assertEquals(true , test);
+		
+	}
+	
+	@Test
+	/*
+	 * This tests createParkingDirections() and
+	 */
+	public void test_createParkingDirections(){
+		
+		testSpot.assignParkingSpot( person01 );
+		
+		String disp = "1. Go to floor #" 							
+        		+ "3" + "\n2. Head to the " 
+        		+ "South" + " part." +
+        		"\n3. Park on " + testSpot.getUser().toString() 
+        		+ " spot labeled #" + "300" + ".";
+		
+		String test = testSpot.createParkingDirections();
+		
+		assertEquals( disp , test );
+		
+	}
+	
 	
 }
