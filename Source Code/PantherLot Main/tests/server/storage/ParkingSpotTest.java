@@ -208,8 +208,11 @@ public class ParkingSpotTest {
 	}
 	
 	@Test
+	/*
+	* This will test if the spot being tested is connected (it should not be)
+	*/
 	public void test_isConnected(){
-		pout = new PrintWriter(System.out);
+		
 		boolean test = testSpot.isConnected();
 		
 		assertEquals(false , test);
