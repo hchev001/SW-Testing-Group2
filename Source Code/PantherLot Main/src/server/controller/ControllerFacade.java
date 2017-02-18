@@ -1,166 +1,203 @@
 package server.controller;
-
-
-
+import client.maindisplay.DisplayDirections;
+import client.maindisplay.ParkingNotification;
+import client.maindisplay.SpotNumberDisplay;
+import client.maindisplay.WelcomeDisplay;
+import server.controller.EntranceDisplayController;
 import server.storage.ParkedUsers;
-import server.storage.serverStorageFacade;
 import server.storage.ParkingSpot;
+
 
 
 public class ControllerFacade {
 	
 	private AccessControlServer accessControlServer;
 	
+	public AccessControlServer getAccessControlServer() {
+		return accessControlServer;
+	}
+
+	public void setAccessControlServer(AccessControlServer accessControlServer) {
+		this.accessControlServer = accessControlServer;
+	}
+
+	//mainDisplay variables
+	private WelcomeDisplay wDisp;
+	private ParkingNotification pDisp;
+	private SpotNumberDisplay sDisp;
+	private DisplayDirections dDisp;
+	
+	
+	
+	
+	// server.controller Variables
 	private EntranceDisplayController entranceDisplayController;
-	private EntranceDisplayController entrDispController;
+	private AccessControlServer server;
 	
-	private FacultyUser facUser;
-	
-	private FiuParkingUser fiuParkingUser;
-	
-	private GuestUser gUser;
-	
-	private HandicappedUser hUser;
 	
 	private ParkingUser parkUser;
+	private GuestUser guestUser;
+	private HandicappedUser handicappedUser;
 	
+	private FiuParkingUser fiuParkingUser;
+	private FacultyUser facUser;
 	private StudentUser studUser;
 	
+	private ParkedUsers parkedUsersDB;
+	private ParkingSpot parkingSpot;
 	
-	private serverStorageFacade storageFacade;	
-	private ParkedUsers parkedUsers;
+	boolean welcomeDisplayEvent;
+	private String welcomeDisplayUserType = "";
+	private String welcomeDisplayUserID = "";
 	
-	public ControllerFacade()
-	{
+
+	//*************** ACCESORS AND MUTATORS /////////////////////
+	public boolean isWelcomeDisplayEvent() {
+		return welcomeDisplayEvent;
+	}
+	
+	public void setWelcomeDisplayEvent(boolean welcomeDisplayEvent) {
+		this.welcomeDisplayEvent = welcomeDisplayEvent;
+	}
+	
+	public String getWelcomeDisplayUserType() {
+		return welcomeDisplayUserType;
+	}
+	
+	public void setWelcomeDisplayUserType(String welcomeDisplayUserType) {
+		this.welcomeDisplayUserType = welcomeDisplayUserType;
+	}
+	
+	public String getWelcomeDisplayUserID() {
+		return welcomeDisplayUserID;
+	}
+	
+	public void setWelcomeDisplayUserID(String welcomeDisplayUserID) {
+		this.welcomeDisplayUserID = welcomeDisplayUserID;
+	
+	/*
+	 * Client Methods
+	 */
+	
+	}
+
+	public void associateClientReferences(WelcomeDisplay wDisp, ParkingNotification pDisp, SpotNumberDisplay sDisp,
+			DisplayDirections dDisp, ControllerFacade facade) {
+		this.wDisp = wDisp;
+		this.wDisp.setcFacade(facade);
+		
+		this.pDisp = pDisp;
+		this.pDisp.setcFacade(facade);
+		
+		this.sDisp = sDisp;
+		this.sDisp.setcFacade(facade);
+		
+		this.dDisp = dDisp;
+		this.dDisp.setcFacade(facade);
 		
 	}
 	
-	//-------------- Student User ------------------------------
-	// Should constructor go here?
-	public String studentUserToString()
-	{
-		return studUser.toString();
-	}
-	//-------------Handicapped User -----------------------------
 	
-	public String handicappedUserToString()
-	{
-		return hUser.toString();
-	}
-	// ------------Guest User ---------------------------------
 	
-	public String guestUserToString()
-	{
-		return gUser.toString();
+	// USE CASE PLI-02
+	public boolean scanIDCallToController(String userID, String userType, boolean action) {
+		this.welcomeDisplayEvent = action;
+		this.welcomeDisplayUserID = userID;
+		this.welcomeDisplayUserType = userType;
+		this.entranceDisplayController.createUserFromTypeAndID();
+		return !(this.entranceDisplayController.getUser() == null);
 	}
-	// ----------- FiuParkingUser-----------------------------
-	
-	public String getFiuParkingUserName()
-	{
-		return fiuParkingUser.getName();
+
+	public void guestButtonCallToController(String userType, boolean action) {
+		this.welcomeDisplayUserType = userType;
+		this.welcomeDisplayEvent = action;
+		this.entranceDisplayController.createUserFromTypeAndID();
+		
 	}
-	
-	public String getFiuParkingUserID()
-	{
-		return fiuParkingUser.getUserID();
-	}
-	// ---------- Faculty User --------------
-	public String facultyUserToString()
-	{
-		return facUser.toString();
+
+	public void handicapButtonCallToController(String userType, boolean action) {
+		this.welcomeDisplayUserType = userType;
+		this.welcomeDisplayEvent = action;
+		this.entranceDisplayController.createUserFromTypeAndID();
+		
 	}
 	
-	// ----------- EntranceDisplayController ------------------
-	
-	// create getters for
-	public void dispControllerResetInstances()
+	public WelcomeDisplay createNewWelcomeDisplay()
 	{
-		// resetInstances() is private
+		this.wDisp = new WelcomeDisplay();
+		return wDisp;
 	}
 	
-	public boolean isDuplicate(String id)
+	public ParkingNotification createNewParkingNotificationDisplay()
 	{
-		return entrDispController.isDuplicate(id);
+		this.pDisp = new ParkingNotification();
+		return pDisp;
 	}
 	
+	public SpotNumberDisplay createNewSpotNumberDisplay()
+	{
+		this.sDisp = new SpotNumberDisplay();
+		return sDisp;
+	}
+	
+	public DisplayDirections createNewDisplayDirectionDisplay()
+	{
+		this.dDisp = new DisplayDirections();
+		return dDisp;
+	}
 	/*
-	 * Use getters and setters here to test the method
+	 * AccessControl Server methods
 	 */
-	public void entranceDisplayRunDisplays()
+	
+	public void createAccessControlServer(int portNumber)
 	{
-		entrDispController.runDisplays();
+		this.accessControlServer = new AccessControlServer(portNumber);	
 	}
 	
-	public void getDuplicateParkingSpot(String ID)
+	public void startAccessControlServer()
 	{
-		entrDispController.getDuplicateParkingSpot(ID);
-	}
-	
-	public void createUser()
-	{
-		// Private
-	}
-	
-	public void searchFiu(String ID)
-	{
-		entrDispController.searchFiu(ID);
-	}
-	// COnstructors
-	public AccessControlServer newAccessControlServer(int portNumber)
-	{
-		this.accessControlServer = new AccessControlServer(portNumber);
-		return this.accessControlServer;
-	}
-	
-	public EntranceDisplayController newEntranceDisplayController() {
-		this.entranceDisplayController = new EntranceDisplayController();
-		return this.entranceDisplayController;
-	}
-	
-	// Access Control server methods 
-	public void startServer(){
 		this.accessControlServer.start();
 	}
 	
-	synchronized public void reserveSpot(ParkingSpot spot, String id)
+	/*
+	 * Entrance Display COntroller
+	 */
+	public EntranceDisplayController createEntranceDisplayController(ControllerFacade facade)
 	{
-		this.accessControlServer.reserveSpot(spot, id);
+		this.entranceDisplayController = new EntranceDisplayController(facade);
+		return this.entranceDisplayController;
 	}
 	
-	synchronized void duplicateIdFound(String msg, String msg2)
+	public EntranceDisplayController getEntranceDisplayController() {
+		return entranceDisplayController;
+	}
+	
+	public void startDisplayLogic()
 	{
-		 this.accessControlServer.duplicateIdFound(msg, msg2);
-	}
-	// AccessControlServer methods end
-	
-	// Entrance Display COntroller Methods Start
-	public void runDisplays(){
-		entranceDisplayController.runDisplays();
+		this.entranceDisplayController.runDisplays();
 	}
 	
-	public ParkingSpot getSpot() 
+	public ParkingSpot getParkingSpotObject()
 	{
-		return this.entranceDisplayController.getSpot();
+		return entranceDisplayController.getSpot();
 	}
 	
-	public String getCurrentUserID(){
-		return this.entranceDisplayController.getCurrentUserID();
-	}
-	
-	public boolean getDuplicate() {
-		return this.entranceDisplayController.getDuplicate();
-	}
-	
-	/*public ParkingSpot getDuplicateParkingSpot(String id)
+	public boolean currentUserIDlengthGreaterThan2()
 	{
-		return this.entranceDisplayController.getDuplicateParkingSpot(id);
-	}*/
-	// Entrance Display COntroller Methods End
-	
-	public static ParkedUsers getInstanceOf(String name){
-		return serverStorageFacade.getInstanceOf(name);
+		return entranceDisplayController.getCurrentUserID().length() > 2;
 	}
-	public static void printOut(Object obj){
-		System.out.println(obj);
+	
+	// service to be tested
+	public boolean findSpotForUser()
+	{
+		return this.entranceDisplayController.findSpotForUser();
+	}
+	
+	// service to be tested
+	public ParkingNotification setParkingNotification()
+	{
+		this.entranceDisplayController.setUpParkingDisplayNotification(entranceDisplayController.isFound(), 
+				entranceDisplayController.getCurrentUserID(), pDisp);
+		return pDisp;
 	}
 }

@@ -12,19 +12,52 @@ package client.maindisplay;
 
 import server.storage.ParkedUsers;
 
+import java.awt.Point;
+
+import server.controller.ControllerFacade;
+
 /**
  *
  * @author Abraham
  */
-public class WelcomeDisplay extends javax.swing.JFrame implements Form {
+public class WelcomeDisplay extends Display implements Form {
 
-    private boolean action = false;
+    public boolean isAction() {
+		return action;
+	}
+
+	public void setAction(boolean action) {
+		this.action = action;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+
+	private boolean action = false;
     private String userType = "";
     private String userID = "";
     
-    /** Creates new form WelcomeDisplay */
+    
+
+
+	/** Creates new form WelcomeDisplay */
     public WelcomeDisplay() {
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -149,18 +182,21 @@ public class WelcomeDisplay extends javax.swing.JFrame implements Form {
         userID = this.textFieldID.getText();
         userType = "FiuParkingUser";
         action = true;
+//        cFacade.scanIDCallToController(userID, userType, action);
     }//GEN-LAST:event_scanIDButtonActionPerformed
 
     private void guestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestButtonActionPerformed
         // TODO add your handling code here:
         userType = "guest";
         action = true;
+//        cFacade.guestButtonCallToController(userType, action);
     }//GEN-LAST:event_guestButtonActionPerformed
 
     private void handicapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handicapButtonActionPerformed
         // TODO add your handling code here:
         userType = "handicap";
         action = true;
+//        cFacade.handicapButtonCallToController(userType, action);
     }//GEN-LAST:event_handicapButtonActionPerformed
 
     /**
@@ -190,6 +226,9 @@ public class WelcomeDisplay extends javax.swing.JFrame implements Form {
         }
         return action;
     }
+    
+
+
     /**
      * @param args the command line arguments
      */

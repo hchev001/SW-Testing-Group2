@@ -217,5 +217,14 @@ public class ParkingSpot implements Comparable
     {
         return parkingType;
     }
-
+    
+    
+    public String createParkingDirections()
+    {
+    	return "1. Go to floor #" 							
+        		+ this.getFloor() + "\n2. Head to the " 
+        		+ this.getDirections() + " part." +
+        		"\n3. Park on " + this.getUser().toString() 
+        		+ " spot labeled #" + this.getParkingNumber()+ ".";
+    }
 }

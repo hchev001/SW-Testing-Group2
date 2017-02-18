@@ -8,6 +8,7 @@ import client.maindisplay.DisplayDirections;
 import client.maindisplay.ParkingNotification;
 import client.maindisplay.SpotNumberDisplay;
 import client.maindisplay.WelcomeDisplay;
+import client.maindisplay.Display;
 import java.awt.Point;
 import server.storage.ParkedUsers;
 import server.storage.ParkingSpot;
@@ -32,16 +33,17 @@ public class EntranceDisplayController
             new HashMap<String, ParkingSpot>();
     private ParkingUser user;
     private ParkingSpot spot;
-    private Point p;
     
     private ParkedUsers garage = ParkedUsers.getInstance();
+    
+    private ControllerFacade facade;
     
     /**
      * default constructor that initializes everything to false
      */
-    public EntranceDisplayController()
+    public EntranceDisplayController(ControllerFacade fac)
     {
-        p = new Point(0 , 0);
+        this.facade = fac;
         resetInstances();
     }
     
@@ -58,12 +60,12 @@ public class EntranceDisplayController
         userID = "";
         userType = "";
         message1 = "";
-        message2 = "";
+        message2 = "";        
         
-        wDisp = new WelcomeDisplay();
-        pDisp = new ParkingNotification();
-        sDisp = new SpotNumberDisplay();
-        dDisp = new DisplayDirections();
+        wDisp = facade.createNewWelcomeDisplay();
+        pDisp = facade.createNewParkingNotificationDisplay();
+        sDisp = facade.createNewSpotNumberDisplay();
+        dDisp = facade.createNewDisplayDirectionDisplay();
         
         user = null;
         spot = null;
@@ -107,52 +109,28 @@ public class EntranceDisplayController
     {
         
         resetInstances();
-        wDisp.setLocation(p);
-        wDisp.setVisible(true);
-        while (!wDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
+
+        wDisp.runDisplay(new Point(0,0));
+             
+        createUserFromTypeAndID();
         
-        userType = wDisp.returnType();
-        userID = wDisp.getID();
-            
-        createUser();       
-        spot = garage.searchParkingSpot(user);
+        findSpotForUser();
         
-        found = (spot != null);
-        valid = !userType.equalsIgnoreCase("invalid"); 
-        generateMessage(found, valid);
-        pDisp.updateParkingNotification(message1, message2);
+        setUpParkingDisplayNotification(found, userID, pDisp);
+
+        pDisp.runDisplay(wDisp.getLocation());	// client service		
+        wDisp = null;						// deletes the welcomeDisplay by removing the reference, could instead set the display to false?
+        
+        
         duplicate = isDuplicate(userID);
-        if(duplicate)
-        {
-            pDisp.updateParkingNotification("Duplicate ID! ",
-                     "Press next to notify the security officer");
-        }
-        p = wDisp.getLocation();
-        pDisp.setLocation(p);
-        wDisp = null;
-        pDisp.setVisible(true);
-        while(!pDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
-        
+        /*
+         * Don't know how to refactor the following code into its own structure, don't think its possible.
+         * Checks for conditions of program. 
+         * If the user clicked Cancel on the Parking Notificaiton display then program calls retunr and runDisplays() ends
+         * If the user used a duplicate ID then the reserved spot get's set to null and runDisplays() ends
+         * If no available parking spot was found, then runDisplays() ends
+         * else add the user to the parking garage.
+         */
         if(pDisp.isCanceled())
         {
             duplicate = false;
@@ -169,49 +147,34 @@ public class EntranceDisplayController
         else
             garage.addParkingUser(spot, user);
         
-        p = pDisp.getLocation();
+        
+        pDisp.setVisible(false);
+        
+        sDisp.updateParkingSpotNumberLabel("Your spot number is " + 	// informs user of what
+                                             spot.getParkingNumber());  // your spot number is
+        sDisp.runDisplay(pDisp.getLocation());			
         pDisp = null;
-        sDisp.updateParkingSpotNumberLabel("Your spot number is " + 
-                                             spot.getParkingNumber());
-        sDisp.setLocation(p);
-        sDisp.setVisible(true);
-        while(!sDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
+        /*
+         * Refactored the running and polling of SpotNumberDisplay sDisp
+         * to its superclass Display
+         */
+        									
+       
         if(sDisp.isCanceled())
         {
             garage.removeParkedUser(spot);
             return;
         }
         
-        p = sDisp.getLocation();
-        sDisp = null;
-        dDisp.setLocation(p);
-        dDisp.updateDirections("1. Go to floor #" 
-                + spot.getFloor() + "\n2. Head to the " 
-                    + spot.getDirections() + " part." +
-                    "\n3. Park on " + spot.getUser().toString() 
-                            + " spot labeled #" + spot.getParkingNumber()+ ".");
-        dDisp.setVisible(true);
-        while(!dDisp.displayNext())
-        {
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
+
+        sDisp.setVisible(false);
+
+        dDisp.updateDirections(spot.createParkingDirections()); 		// controller service create parking directions
+        dDisp.runDisplay(sDisp.getLocation());
+        
+        sDisp = null;						// SpotNumberDisplay is gone
+
+        
         if(dDisp.isCanceled())
         {
             garage.removeParkedUser(spot);
@@ -219,7 +182,6 @@ public class EntranceDisplayController
         }
         if(userID.length() > 2)
             duplicates.put(userID, spot);
-        p = dDisp.getLocation();
     }
     
     /**
@@ -315,36 +277,173 @@ public class EntranceDisplayController
      * generates the message to be displayed by the second display screen 
      * the sequence
      */
-    private void generateMessage(boolean f, boolean val)
+    private void generateMessage(boolean f, boolean val, String userID)
     {      
         found = f;
         valid = val;
-        
-        if(found && valid)
-        {
-            message1 = "Valid Request ";
-            message2 = "Assigning " + user.toString().toLowerCase() 
-                    + " parking spot";
-        } 
-        else if(!found && valid)
-        {
-            message1 = "Valid Request ";
-            message2 = "There are no " 
-                        + user.toString().toLowerCase()  
-                        + " spots available";
-        }
-        else if(found && !valid)
-        {
-            message1 = "Invalid ID! ";
-            message2 = "Assigning guest parking spot";
-        }
-        else
-        {
-            message1 = "Invalid ID! ";
-            message2 = "There are no guest "
-                    + "spots avialable";
-        }
-        
+        boolean duplicate = isDuplicate(userID);
+        if (!duplicate) {
+	        if(found && valid)
+	        {
+	            message1 = "Valid Request ";
+	            message2 = "Assigning " + user.toString().toLowerCase() 
+	                    + " parking spot";
+	        } 
+	        else if(!found && valid)
+	        {
+	            message1 = "Valid Request ";
+	            message2 = "There are no " 
+	                        + user.toString().toLowerCase()  
+	                        + " spots available";
+	        }
+	        else if(found && !valid)
+	        {
+	            message1 = "Invalid ID! ";
+	            message2 = "Assigning guest parking spot";
+	        }
+	        else
+	        {
+	            message1 = "Invalid ID! ";
+	            message2 = "There are no guest "
+	                    + "spots avialable";
+	        }
+	        
+	    } else {
+	    	message1 = "Duplicate ID! ";
+	    	message2 = "Press next to notify the security officer";
+	    }
+    }
+
+    /*
+     * Client or Controller Service to Be Tested
+     */
+    public void createUserFromTypeAndID()
+    {
+    	userType = wDisp.returnType();
+    	userID = wDisp.getID();
+    	createUser();
     }
     
+    /*
+     * Controller Service to Be Tested
+     */
+    public void setUpParkingDisplayNotification( boolean found, String userID, ParkingNotification parkingDisplay)
+    {
+    	boolean userTypeValid = !userType.equalsIgnoreCase("invalid");
+    	generateMessage(found, userTypeValid, userID);
+    	parkingDisplay.updateParkingNotification(message1, message2);
+    }
+    
+    /*
+     * should be used to test setUpParkingDIsplayNotification service
+     */
+    public boolean findSpotForUser() 
+    {
+    	spot = garage.searchParkingSpot(user);
+    	found = (spot != null);
+    	return found;
+    }
+
+
+    // added setters and getters for verifying state and testing purposes
+	public String getUserID() {
+		return userID;
+	}
+
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+
+	public String getUserType() {
+		return userType;
+	}
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+	public boolean isFound() {
+		return found;
+	}
+
+
+	public void setFound(boolean found) {
+		this.found = found;
+	}
+
+
+	public boolean isValid() {
+		return valid;
+	}
+
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
+
+	public String getMessage1() {
+		return message1;
+	}
+
+
+	public void setMessage1(String message1) {
+		this.message1 = message1;
+	}
+
+
+	public String getMessage2() {
+		return message2;
+	}
+
+
+	public void setMessage2(String message2) {
+		this.message2 = message2;
+	}
+
+
+	public HashMap<String, ParkingSpot> getDuplicates() {
+		return duplicates;
+	}
+
+
+	public void setDuplicates(HashMap<String, ParkingSpot> duplicates) {
+		this.duplicates = duplicates;
+	}
+
+
+	public ParkingUser getUser() {
+		return user;
+	}
+
+
+	public void setUser(ParkingUser user) {
+		this.user = user;
+	}
+
+
+	public ParkedUsers getGarage() {
+		return garage;
+	}
+
+
+	public void setGarage(ParkedUsers garage) {
+		this.garage = garage;
+	}
+
+
+	public void setDuplicate(boolean duplicate) {
+		this.duplicate = duplicate;
+	}
+
+
+	public void setSpot(ParkingSpot spot) {
+		this.spot = spot;
+	}
+    
+
 }
