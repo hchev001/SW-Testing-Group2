@@ -188,6 +188,10 @@ public class ControllerFacade {
 	}
 	
 	// USE Case PLI 004 - Identify User Type based On Matching ID
+	public ParkingUser identifyUser()
+	{
+		return this.entranceDisplayController.createUserFromTypeAndID();
+	}
 	public boolean createUserParkingSpot()
 	{
 		this.entranceDisplayController.createUserFromTypeAndID();

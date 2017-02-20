@@ -202,7 +202,7 @@ public class EntranceDisplayController
     /**
      * creates the parking user with the information provided by the displays
      */
-    private void createUser()
+    private ParkingUser createUser()
     {
         if(userType.equalsIgnoreCase("guest"))
             user = new GuestUser();
@@ -220,6 +220,8 @@ public class EntranceDisplayController
             else
                 user = new GuestUser(); 
         }
+        
+        return this.user;
     }
     
      /*
@@ -307,11 +309,11 @@ public class EntranceDisplayController
     /*
      * Client or Controller Service to Be Tested
      */
-    public void createUserFromTypeAndID()
+    public ParkingUser createUserFromTypeAndID()
     {
     	userType = wDisp.returnType();
     	userID = wDisp.getID();
-    	createUser();
+    	return createUser();
     }
     
     /*
