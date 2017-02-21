@@ -188,9 +188,13 @@ public class ControllerFacade {
 	}
 	
 	// USE Case PLI 004 - Identify User Type based On Matching ID
-	public ParkingUser identifyUser()
+	// Dependencies: WelcomeDisplay userType, WelcomeDisplay userID
+	// ParkingUser user FiuDB.txt
+	// 
+	public String identifyUser()
 	{
-		return this.entranceDisplayController.createUserFromTypeAndID();
+		ParkingUser user = this.entranceDisplayController.createUserFromTypeAndID();
+		return user.toString();
 	}
 	public boolean createUserParkingSpot()
 	{
@@ -213,9 +217,15 @@ public class ControllerFacade {
 		return this.entranceDisplayController.getMessage1() + this.entranceDisplayController.getMessage2();
 	}
 	// USE CASE PLI010 - Display Parking Spot Assigned
-	public void displayParkingSpotAssigned()
+	// Dependencies: SpotNumberDisplay sDisp
+	// ParkingSpot spot calls getParkingNumber(), this can be mocked
+	// ParkingNotificiation pDisk calls getLocation(), this can be mocked
+	// WHat can be tested: SDisp calls updateParkingSpotNumberLabl
+	// which has Jlabel spotNumberLabel.setTest(string update)
+	// we can test the String this method returns because it will be the label of the gui
+	public String displayParkingSpotAssigned()
 	{
-		this.entranceDisplayController.displayParkingSpotAssigned();
+		return this.entranceDisplayController.displayParkingSpotAssigned();
 	}
 	
 	//USE CASE PLI011 - Display Directions to Parking Spot

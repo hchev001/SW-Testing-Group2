@@ -225,9 +225,13 @@ public class EntranceDisplayController
     }
     
      /*
-     * searches the FIU database for the given user ID
+     * searches the FIU database for the given user ID	
      * @param ID String containing the userID of the parking user.
      * @return the name of the parking user
+     * 
+     * It obviously doesn't return anything, what the original
+     * developers meant is that this variable sets the instance variable
+     * userType to whatever it reads from the text file
      */
     void searchFiu(String ID)
     {
@@ -340,11 +344,12 @@ public class EntranceDisplayController
      * Dependendies: SpotnumberDisplay sDisp
      * 				ParkingNotification pDisk
      */
-    public boolean displayParkingSpotAssigned()
-    {
-    	sDisp.updateParkingSpotNumberLabel("Your spot number is " + spot.getParkingNumber());
+    public String displayParkingSpotAssigned()
+    {	
+    	String parkingSpotLabel = "Your spot number is " + spot.getParkingNumber();
+    	sDisp.updateParkingSpotNumberLabel(parkingSpotLabel);
     	sDisp.runDisplay(pDisp.getLocation());
-    	return true;
+    	return parkingSpotLabel;
     }
     /*
      * Dependencies: ParkingSpot spot, SpontNumberDisplay sDisp
