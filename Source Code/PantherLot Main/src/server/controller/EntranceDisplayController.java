@@ -362,7 +362,7 @@ public class EntranceDisplayController
     }
 
 
-    // added setters and getters for verifying state and testing purposes
+////////////// Eclipse Generated Setters and Getters - Helps with Testing /////////////////
 	public String getUserID() {
 		return userID;
 	}
@@ -460,6 +460,46 @@ public class EntranceDisplayController
 
 	public void setSpot(ParkingSpot spot) {
 		this.spot = spot;
+	}
+
+
+	public WelcomeDisplay getwDisp() {
+		return wDisp;
+	}
+
+
+	public void setwDisp(WelcomeDisplay wDisp) {
+		this.wDisp = wDisp;
+	}
+
+
+	public ParkingNotification getpDisp() {
+		return pDisp;
+	}
+
+
+	public void setpDisp(ParkingNotification pDisp) {
+		this.pDisp = pDisp;
+	}
+
+
+	public SpotNumberDisplay getsDisp() {
+		return sDisp;
+	}
+
+
+	public void setsDisp(SpotNumberDisplay sDisp) {
+		this.sDisp = sDisp;
+	}
+
+
+	public DisplayDirections getdDisp() {
+		return dDisp;
+	}
+
+
+	public void setdDisp(DisplayDirections dDisp) {
+		this.dDisp = dDisp;
 	}
     
 
