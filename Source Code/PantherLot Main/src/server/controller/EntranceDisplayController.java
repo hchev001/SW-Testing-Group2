@@ -202,7 +202,7 @@ public class EntranceDisplayController
     /**
      * creates the parking user with the information provided by the displays
      */
-    private ParkingUser createUser()
+    private void createUser()
     {
         if(userType.equalsIgnoreCase("guest"))
             user = new GuestUser();
@@ -221,9 +221,9 @@ public class EntranceDisplayController
                 user = new GuestUser(); 
         }
         
-        return this.user;
     }
     
+    public 
      /*
      * searches the FIU database for the given user ID	
      * @param ID String containing the userID of the parking user.
@@ -315,9 +315,15 @@ public class EntranceDisplayController
      */
     public ParkingUser createUserFromTypeAndID()
     {
+    	storeIDinformationFromClient();
+    	createUser();
+    	return this.getUser();
+    }
+    
+    public void storeIDinformationFromClient()
+    {
     	userType = wDisp.returnType();
     	userID = wDisp.getID();
-    	return createUser();
     }
     
     /*
