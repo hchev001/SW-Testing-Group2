@@ -239,6 +239,7 @@ public class ControllerFacade {
 	}
 	
 	//USE CASE PLI011 - Display Directions to Parking Spot
+	// may not need to test since call in displayDirectionsToParkingSPot is done to another package.
 	public void displayDirectionsToSpot()
 	{
 		this.entranceDisplayController.displayDirectionsToParkingSpot();
@@ -266,5 +267,10 @@ public class ControllerFacade {
     	this.server.sendMessage("duplicate",  this.server.getSout());
     	this.server.sendMessage(msg,  this.server.getSout());
     	this.server.sendMessage(msg2,  this.server.getSout());
+    }
+    
+    public void reserveSpot(ParkingSpot spot, String userID)
+    {
+    	this.getAccessControlServer().reserveSpot(spot, userID);
     }
 }

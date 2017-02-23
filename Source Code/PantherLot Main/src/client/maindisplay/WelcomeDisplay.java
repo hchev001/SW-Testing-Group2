@@ -30,17 +30,11 @@ public class WelcomeDisplay extends Display implements Form {
 		this.action = action;
 	}
 
-	public String getUserType() {
-		return userType;
-	}
 
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
 
-	public String getUserID() {
-		return userID;
-	}
 
 	public void setUserID(String userID) {
 		this.userID = userID;
@@ -182,14 +176,12 @@ public class WelcomeDisplay extends Display implements Form {
         userID = this.textFieldID.getText();
         userType = "FiuParkingUser";
         action = true;
-//        cFacade.scanIDCallToController(userID, userType, action);
     }//GEN-LAST:event_scanIDButtonActionPerformed
 
     private void guestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestButtonActionPerformed
         // TODO add your handling code here:
         userType = "guest";
         action = true;
-//        cFacade.guestButtonCallToController(userType, action);
     }//GEN-LAST:event_guestButtonActionPerformed
 
     private void handicapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handicapButtonActionPerformed
