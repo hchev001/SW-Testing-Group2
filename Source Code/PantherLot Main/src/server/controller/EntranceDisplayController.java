@@ -310,9 +310,7 @@ public class EntranceDisplayController
 	    }
     }
 
-    /*
-     * Client or Controller Service to Be Tested
-     */
+
     public ParkingUser createUserFromTypeAndID()
     {
     	storeIDinformationFromClient();
@@ -337,7 +335,9 @@ public class EntranceDisplayController
     }
     
     /*
-     * should be used to test setUpParkingDIsplayNotification service
+     * should be used to test setUpParkingDIsplayNotification service	
+     * also part of use case PLI019 because a handicapp spot has to be found for user
+     * however it does not need to be tested because this is a server.storage service
      */
     public boolean findSpotForUser() 
     {

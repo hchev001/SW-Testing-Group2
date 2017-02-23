@@ -30,24 +30,16 @@ public class AccessControlMain
         
         System.out.println(garage);
         
-        WelcomeDisplay welcomeDisplay = new WelcomeDisplay();
-        ParkingNotification parkingNotificationDisplay = new ParkingNotification();
-        SpotNumberDisplay spotNumberDisplay = new SpotNumberDisplay();
-        DisplayDirections directionsDisplay = new DisplayDirections();
-        facade.associateClientReferences(welcomeDisplay, parkingNotificationDisplay, spotNumberDisplay, directionsDisplay, facade);
-        
         EntranceDisplayController eDisp = facade.createEntranceDisplayController(facade);        
         while(true)
         {
             facade.startDisplayLogic();
             if(facade.getParkingSpotObject() != null)
             {
-                if(facade.currentUserIDlengthGreaterThan2()
-                        && !eDisp.getDuplicate())
-                    facade.getAccessControlServer().reserveSpot(eDisp.getSpot(), 
-                            eDisp.getCurrentUserID());
+                if(facade.currentUserIDlengthGreaterThan2()  && !eDisp.getDuplicate())
+                	facade.reserveSpot(eDisp.getSpot(), eDisp.getCurrentUserID());
                 else
-                    facade.getAccessControlServer().reserveSpot(eDisp.getSpot(), "no id");
+                	facade.reserveSpot(eDisp.getSpot(), "no id");
             }
             else if(eDisp.getDuplicate())
             {
