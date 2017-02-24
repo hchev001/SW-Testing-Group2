@@ -1,13 +1,9 @@
 package server.storage;
 
 import static org.junit.Assert.*;
-
 import java.io.PrintWriter;
-
 import org.junit.Test;
-
 import server.controller.*;
-
 import org.junit.Before;
 
 
@@ -15,6 +11,8 @@ public class ParkingSpotTest {
 
 	// Variables used throughout the tests
 	ParkingSpot testSpot;
+	ParkingSpot testSpot2;
+	ParkingSpot testSpot3;
 	
 	ParkingUser person01;
 	ParkingUser person02;
@@ -26,29 +24,36 @@ public class ParkingSpotTest {
 
 	
 	@Before
+	/*
+	 *  The set up creates 2 Parking Spots and 4 possible users, one of each possible
+	 *  type of user. It also assigns a the faculty user into the parking spot.
+	 *  Finally, it creates a new PrintWriter.
+	 */
 	public void setUp(){
 		
 		testSpot = new ParkingSpot(300 , "Faculty" , 3 , "300" , "South");
+		testSpot2 = new ParkingSpot(300 , "Student" , 3 , "300" , "North");
+		testSpot3 = new ParkingSpot(200 , "Student" , 3 , "300" , "West");
 		
 		person01 = new StudentUser("Carl" , "7654321");
 		person02 = new FacultyUser("John" , "1234567");
 		person03 = new GuestUser();
 		person04 = new HandicappedUser();
 		
-		testSpot.assignParkingSpot(person01);
+		testSpot.assignParkingSpot(person02);
 		
 		pout = new PrintWriter(System.out);
 
-	}//Here we are creating a parking spot
-	
-
+	}
 	
 	@Test
 	/*
-	 * This is testing the assigning and fetching of a Student User
+	 * This is testing the method call '.assignParkingSpot(ParkingUser user)'
+	 * and the method call '.getUser()'. It makes sure that the assignment was done
+	 * without errors.
 	 * 
 	 */
-	public void test_AssignParkingSpot_01() {
+	public void Unit_AssignParkingSpot_01() {
 		
 		testSpot.assignParkingSpot(person01);
 
@@ -63,7 +68,7 @@ public class ParkingSpotTest {
 	 * This is testing the assigning and fetching of a Faculty User
 	 * 
 	 */
-	public void test_AssignParkingSpot_02() {
+	public void Unit_AssignParkingSpot_02() {
 		
 		testSpot.assignParkingSpot(person02);
 
@@ -78,7 +83,7 @@ public class ParkingSpotTest {
 	 * This is testing the assigning and fetching of a Guest User
 	 * 
 	 */
-	public void test_AssignParkingSpot_03() {
+	public void Unit_AssignParkingSpot_03() {
 		
 		testSpot.assignParkingSpot(person03);
 
@@ -93,7 +98,7 @@ public class ParkingSpotTest {
 	 * This is testing the assigning and fetching of a Student User
 	 * 
 	 */
-	public void test_AssignParkingSpot_04() {
+	public void Unit_AssignParkingSpot_04() {
 		
 		testSpot.assignParkingSpot(person04);
 
@@ -108,7 +113,7 @@ public class ParkingSpotTest {
 	 * This is for the testing for the removal of a parked user from the spot
 	 * 
 	 */
-	public void test_RemoveUser() {
+	public void Unit_RemoveUser() {
 		
 		testSpot.removeAssignedUser();;
 		
@@ -123,7 +128,7 @@ public class ParkingSpotTest {
 	/*
 	 * Testing for the retrieval of the Parking Spot 
 	 */
-	public void test_getParkingSpot() {
+	public void Unit_getParkingSpot() {
 		
 		int parkingSpot = 300;
 		int test = testSpot.getParkingSpot();
@@ -136,7 +141,7 @@ public class ParkingSpotTest {
 	/*
 	 * Testing for the retrieval of the Parking Number
 	 */
-	public void test_getParkingNUmber() {
+	public void Unit_getParkingNUmber() {
 		
 		String parkingNumber = "300";
 		String test = testSpot.getParkingNumber();
@@ -148,7 +153,7 @@ public class ParkingSpotTest {
 	/*
 	 * Testing for the retrieval of the Parking Floor number
 	 */
-	public void test_getFloor() {
+	public void Unit_getFloor() {
 		
 		int parkingFloor = 3;
 		int test = testSpot.getFloor();
@@ -161,7 +166,7 @@ public class ParkingSpotTest {
 	 * Testing for the retrieval of the direction of the parking spot
 	 * 
 	 */
-	public void test_getDirections(){
+	public void Unit_getDirections(){
 		
 		String direction = "South";
 		String test = testSpot.getDirections();
@@ -174,12 +179,28 @@ public class ParkingSpotTest {
 	 * This is going to test that the correct spot type is being returned
 	 * the getParkingType is being used.
 	 */
-	public void test_getParkingType(){
+	public void Unit_getParkingType(){
 		
 		String desc = "Faculty";
 		String test = testSpot.getParkingType();
 		
 		assertEquals( desc , test );
+	}
+	
+	
+	@Test
+	/*
+	 * This tests the methods getPrintWriter() and setPrintWriter(). Tests that the 
+	 * assignment and the retrieval of the PrintWriter work properly.
+	 * 
+	 */
+	public void Unit_get_AND_setPrintWriter(){
+		
+		testSpot.setPrintWriter(pout);
+		
+		PrintWriter test = testSpot.getPrintWriter();
+		
+		assertEquals(pout , test);
 	}
 		
 	@Test
@@ -187,7 +208,7 @@ public class ParkingSpotTest {
 	 * Testing the method 'isAvailable' to see if it returns the correct boolean
 	 * values. In this test, a user is being assigned to the parking spot being tested 
 	 */
-	public void test_isAvailable01(){
+	public void Unit_isAvailable01(){
 		
 		testSpot.assignParkingSpot( person01 );
 		
@@ -203,7 +224,7 @@ public class ParkingSpotTest {
 	 * Testing the method 'isAvailable' to see if it returns the correct boolean
 	 * values. In this test, no user is assigned to the parking spot being tested
 	 */
-	public void test_isAvailable02(){
+	public void Unit_isAvailable02(){
 		
 		testSpot.removeAssignedUser();
 		
@@ -215,16 +236,21 @@ public class ParkingSpotTest {
 	}
 	
 	@Test
-	public void test_isConnected01(){
+	/*
+	 * This tests 'isConnected()' method. 
+	 */
+	public void Unit_isConnected01(){
 
 		boolean test = testSpot.isConnected();
 		
 		assertEquals(false , test);
 		
 	}
-	
+	/*
+	 * This tests 'isConnected()' method. 
+	 */
 	@Test
-	public void test_isConnected02(){
+	public void Unit_isConnected02(){
 
 		testSpot.setPrintWriter(pout);
 		
@@ -236,9 +262,9 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This tests createParkingDirections() and
+	 * This tests createParkingDirections() 
 	 */
-	public void test_createParkingDirections(){
+	public void Unit_createParkingDirections(){
 		
 		testSpot.assignParkingSpot( person01 );
 		
@@ -254,5 +280,49 @@ public class ParkingSpotTest {
 		
 	}
 	
+	@Test
+	/* 
+	 * This tests the compareTo() method, it compares the parking numbers and returns '0' 
+	 * when they are equal.
+	 * 
+	 */
+	public void Unit_compateTo_01(){
+		
+		int test = testSpot.compareTo(testSpot2);
+		int result = 0;
+		
+		assertTrue(result == test);
+	
+	}
+	
+	@Test
+	/*
+	 * This tests the 'compateTo()' method. This test asserts that the 2 items are not equal
+	 * by testing if the comparison does not equal 0
+	 */
+	public void Unit_compareTo_02(){
+		
+		int result = 0;
+		int test = testSpot.compareTo(testSpot3);
+		
+		assertFalse(result == test);
+		
+	}
+	
+	@Test
+	/*
+	 * This tests the method 'sFormat()' which does a call to 'format()' which is private
+	 * This verifies that the formatting was done correctly.
+	 */
+	public void Unit_formatTest(){
+		
+		String result = "Hello    "; //The word 'Hello' followed by 4 spaces.
+		int strLength = 9;//Total length of 'Hello' followed by 4 spaces.
+		
+		String test = ParkingSpot.sFormat("Hello" , strLength);
+		
+		assertEquals( result , test);
+		
+	}
 	
 }
