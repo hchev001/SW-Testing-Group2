@@ -197,10 +197,10 @@ public class ParkingSpot implements Comparable
         return image;
                     
     }
-    /*
+    /**
      * format the string so that it looks better on display
      */
-    private String format(String s, int f)
+    private static String format(String s, int f)
     {
         String formatted = "";
         formatted += s;
@@ -208,6 +208,19 @@ public class ParkingSpot implements Comparable
             formatted += " ";
         return formatted;
     }
+    
+    /*
+     * THIS METHOD WAS CREATED FOR TESTING PURPOSES!.
+     * This is for the testing of the private method 'format()'
+     * 
+     */
+    public static String sFormat(String x , int number){
+    	
+    	String formatted = format(x,number);
+    	
+    	return formatted;
+    	
+    }// *** THIS IS FOR TESTING PURPOSES ***
     
     /**
      * accessor 
