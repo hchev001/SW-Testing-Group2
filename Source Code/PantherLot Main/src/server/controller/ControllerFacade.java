@@ -1,4 +1,6 @@
 package server.controller;
+import java.io.PrintWriter;
+
 import client.maindisplay.DisplayDirections;
 import client.maindisplay.ParkingNotification;
 import client.maindisplay.SpotNumberDisplay;
@@ -272,5 +274,10 @@ public class ControllerFacade {
     public void reserveSpot(ParkingSpot spot, String userID)
     {
     	this.getAccessControlServer().reserveSpot(spot, userID);
+    }
+    
+    public void sendMsg(String msg, PrintWriter pout)
+    {
+    	this.getAccessControlServer().sendMessage(msg, pout);
     }
 }

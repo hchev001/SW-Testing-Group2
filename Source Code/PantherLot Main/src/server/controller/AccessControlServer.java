@@ -35,7 +35,10 @@ public class AccessControlServer extends Thread
 	private HashMap<String, PrintWriter> displayConnections 
                                     = new HashMap<String, PrintWriter>();
     
-    /**
+    public HashMap<String, PrintWriter> getDisplayConnections() {
+		return displayConnections;
+	}
+	/**
      * constructor that initializes the port number variable
      * @param p integer that contains the port number 
      * to which this server will listen to
