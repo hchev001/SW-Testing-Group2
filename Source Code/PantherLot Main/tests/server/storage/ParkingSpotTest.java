@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import org.junit.Test;
 import server.controller.*;
 import org.junit.Before;
+import org.junit.After;
 
 
 public class ParkingSpotTest {
@@ -33,7 +34,7 @@ public class ParkingSpotTest {
 		
 		testSpot = new ParkingSpot(300 , "Faculty" , 3 , "300" , "South");
 		testSpot2 = new ParkingSpot(300 , "Student" , 3 , "300" , "North");
-		testSpot3 = new ParkingSpot(200 , "Student" , 3 , "200" , "West");
+		testSpot3 = new ParkingSpot(200 , "Student" , 2 , "200" , "West");
 		
 		person01 = new StudentUser("Carl" , "7654321");
 		person02 = new FacultyUser("John" , "1234567");
@@ -238,7 +239,7 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This tests 'isConnected()' method. 
+	 * This tests 'isConnected()' method on a ParkingSpot that is not connected. 
 	 */
 	public void Unit014_isConnected01(){
 
@@ -248,7 +249,7 @@ public class ParkingSpotTest {
 		
 	}
 	/*
-	 * This tests 'isConnected()' method. 
+	 * This tests 'isConnected()' method on a ParkingSpot that is connected. 
 	 */
 	@Test
 	public void Unit015_isConnected02(){
@@ -263,7 +264,8 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This tests createParkingDirections() 
+	 * This tests createParkingDirections() and verifies that the 
+	 * correct output is returned
 	 */
 	public void Unit016_createParkingDirections(){
 		
@@ -273,7 +275,7 @@ public class ParkingSpotTest {
         		+ "3" + "\n2. Head to the " 
         		+ "South" + " part." +
         		"\n3. Park on " + testSpot.getUser().toString() 
-        		+ " spot labeled #" + "300" + ".";
+        		+ " spot labeled #300.";
 		
 		String test = testSpot.createParkingDirections();
 		
@@ -292,7 +294,7 @@ public class ParkingSpotTest {
 		int test = testSpot.compareTo(testSpot2);
 		int result = 0;
 		
-		assertTrue(result == test);
+		assertTrue(result == test); 
 	
 	}
 	
@@ -323,6 +325,89 @@ public class ParkingSpotTest {
 		String test = ParkingSpot.sFormat("Hello" , strLength);
 		
 		assertEquals( result , test);
+		
+	}
+	
+	@Test
+	/*
+	 * This will test that the toString() method returns the correct output
+	 * when the method is called on a ParkingSpot that is available and not connected.
+	 */
+	public void Unit020_toString01(){
+		
+		
+		String wrd = "200 Parking #200  "
+				+ "Type:Student     Floor:2  "
+				+ "Direction:West  Status:Free  "
+				+ "Connection:Off";
+		
+		String test = testSpot3.toString();
+		
+		assertEquals(wrd , test);
+		
+	}
+	
+	@Test
+	/*
+	 * This will test that the toString() method returns the correct output
+	 * when the method is called on a ParkingSpot that is not
+	 * available and not connected.
+	 */
+	public void Unit021_toString02(){
+		
+		
+		String wrd = "200 Parking #200  "
+				+ "Type:Student     Floor:2  "
+				+ "Direction:West  Status:Taken "
+				+ "Connection:Off";
+		
+		testSpot3.assignParkingSpot(person01);
+		String test = testSpot3.toString();
+		
+		assertEquals(wrd , test);
+		
+	}
+	
+	@Test
+	/*
+	 * This will test that the toString() method returns the correct output
+	 * when the method is called on a ParkingSpot that is available and connected.
+	 */
+	public void Unit022_toString03(){
+		
+		
+		String wrd = "200 Parking #200  "
+				+ "Type:Student     Floor:2  "
+				+ "Direction:West  Status:Free  "
+				+ "Connection:On";
+		
+		testSpot3.setPrintWriter(pout);
+		String test = testSpot3.toString();
+		
+		assertEquals(wrd , test);
+		
+	}
+	
+	@Test
+	/*
+	 * This will test that the toString() method returns the correct output
+	 * when the method is called on a ParkingSpot that is 
+	 * not available and connected.
+	 */
+	public void Unit023_toString04(){
+		
+		
+		String wrd = "200 Parking #200  "
+				+ "Type:Student     Floor:2  "
+				+ "Direction:West  Status:Taken "
+				+ "Connection:On";
+		
+		testSpot3.setPrintWriter(pout);
+		testSpot3.assignParkingSpot(person01);
+		
+		String test = testSpot3.toString();
+		
+		assertEquals(wrd , test);
 		
 	}
 	
