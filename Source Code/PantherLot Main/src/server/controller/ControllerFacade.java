@@ -168,7 +168,7 @@ public class ControllerFacade {
 	{
 		String ID = this.entranceDisplayController.getCurrentUserID();
 		ParkingSpot dup = this.entranceDisplayController.getDuplicateParkingSpot(ID);
-		//System.out.println("sending notification");
+		System.out.println("sending notification");
 		String msg1 = "User with ID:" + ID + " has reported an stolen ID.";
 		String msg2 ="The car with the same ID is parked on spot #" + dup.getParkingNumber();
 		this.accessControlServer.duplicateIdFound(msg1, msg2);
