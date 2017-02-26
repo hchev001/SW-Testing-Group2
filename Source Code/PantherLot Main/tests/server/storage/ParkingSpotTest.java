@@ -33,7 +33,7 @@ public class ParkingSpotTest {
 		
 		testSpot = new ParkingSpot(300 , "Faculty" , 3 , "300" , "South");
 		testSpot2 = new ParkingSpot(300 , "Student" , 3 , "300" , "North");
-		testSpot3 = new ParkingSpot(200 , "Student" , 3 , "300" , "West");
+		testSpot3 = new ParkingSpot(200 , "Student" , 3 , "200" , "West");
 		
 		person01 = new StudentUser("Carl" , "7654321");
 		person02 = new FacultyUser("John" , "1234567");
@@ -324,6 +324,11 @@ public class ParkingSpotTest {
 		
 		assertEquals( result , test);
 		
+	}
+	
+	@After
+	public void tearDown(){
+		//enter code here
 	}
 	
 }
