@@ -25,6 +25,8 @@ public class AccessControlServer extends Thread
     private final int portNum;
     private PrintWriter sout = null;
     
+    private HashMap<String, PrintWriter> displayConnections 
+    = new HashMap<String, PrintWriter>();
     
     public PrintWriter getSout() {
 		return sout;
@@ -32,8 +34,6 @@ public class AccessControlServer extends Thread
 	public void setSout(PrintWriter sout) {
 		this.sout = sout;
 	}
-	private HashMap<String, PrintWriter> displayConnections 
-                                    = new HashMap<String, PrintWriter>();
     
     public HashMap<String, PrintWriter> getDisplayConnections() {
 		return displayConnections;
