@@ -11,16 +11,16 @@ import org.junit.Test;
 import client.maindisplay.WelcomeDisplay;
 
 public class IdentifyUser_userIsStudent_identifiedAsStudent {
-	ControllerFacade facade;
+	ControllerFacade facade16;
 	
-	WelcomeDisplay welcomeDisplay;
+	WelcomeDisplay welcDisp3;
 	
 	@Before
 	public void setUp() throws Exception {
-		facade = new ControllerFacade();
-		welcomeDisplay = mock(WelcomeDisplay.class);
-		facade.createEntranceDisplayController(facade);
-		facade.getEntranceDisplayController().setwDisp(welcomeDisplay);
+		facade16 = new ControllerFacade();
+		welcDisp3 = mock(WelcomeDisplay.class);
+		facade16.createEntranceDisplayController(facade16);
+		facade16.getEntranceDisplayController().setwDisp(welcDisp3);
 		
 	}
 
@@ -29,9 +29,9 @@ public class IdentifyUser_userIsStudent_identifiedAsStudent {
 	}
 
 	@Test
-	public void testIdentifyUser() {
-		when(welcomeDisplay.getID()).thenReturn("2223432");
-		when(welcomeDisplay.returnType()).thenReturn("FiuParkingUser");
-		assertEquals(facade.identifyUser(), "Student");	
+	public void SST018_testIdentifyUser_SD() {
+		when(welcDisp3.getID()).thenReturn("2223432");
+		when(welcDisp3.returnType()).thenReturn("FiuParkingUser");
+		assertEquals(facade16.identifyUser(), "Student");	
 	}
 }

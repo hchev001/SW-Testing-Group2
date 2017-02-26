@@ -11,16 +11,16 @@ import org.junit.Test;
 import client.maindisplay.WelcomeDisplay;
 
 public class IdentifyUser_userIsHandicapped_identifiedAsHandicapped {
-	ControllerFacade facade;
+	ControllerFacade facade15;
 	
-	WelcomeDisplay welcomeDisplay;
+	WelcomeDisplay welcDisp2;
 	
 	@Before
 	public void setUp() throws Exception {
-		facade = new ControllerFacade();
-		welcomeDisplay = mock(WelcomeDisplay.class);
-		facade.createEntranceDisplayController(facade);
-		facade.getEntranceDisplayController().setwDisp(welcomeDisplay);
+		facade15 = new ControllerFacade();
+		welcDisp2 = mock(WelcomeDisplay.class);
+		facade15.createEntranceDisplayController(facade15);
+		facade15.getEntranceDisplayController().setwDisp(welcDisp2);
 		
 	}
 
@@ -29,9 +29,9 @@ public class IdentifyUser_userIsHandicapped_identifiedAsHandicapped {
 	}
 
 	@Test
-	public void testIdentifyUser() {
-		when(welcomeDisplay.getID()).thenReturn("1654333");
-		when(welcomeDisplay.returnType()).thenReturn("FiuParkingUser");
-		assertEquals(facade.identifyUser(), "Handicapped");	
+	public void SST017_testIdentifyUser_SD() {
+		when(welcDisp2.getID()).thenReturn("1654333");
+		when(welcDisp2.returnType()).thenReturn("FiuParkingUser");
+		assertEquals(facade15.identifyUser(), "Handicapped");	
 	}
 }
