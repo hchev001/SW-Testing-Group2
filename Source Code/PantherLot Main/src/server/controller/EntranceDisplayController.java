@@ -357,11 +357,12 @@ public class EntranceDisplayController
     /*
      * Dependencies: ParkingSpot spot, SpontNumberDisplay sDisp
      */
-    public boolean displayDirectionsToParkingSpot()
+    public String displayDirectionsToParkingSpot()
     {
-    	dDisp.updateDirections(spot.createParkingDirections());
+    	String directions = spot.createParkingDirections();
+    	dDisp.updateDirections(directions);
     	dDisp.runDisplay(sDisp.getLocation());
-    	return true;
+    	return directions;
     }
 
 

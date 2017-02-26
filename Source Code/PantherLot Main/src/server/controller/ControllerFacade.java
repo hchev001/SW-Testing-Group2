@@ -154,8 +154,16 @@ public class ControllerFacade {
 		return this.entranceDisplayController.getMessage1() + " " + this.entranceDisplayController.getMessage2();
 	}
 	
+	//USE CASE PLI011 - Display Directions to Parking Spot
+	// may not need to test since call in displayDirectionsToParkingSPot is done to another package.
+	//DONE
+	public String displayDirectionsToSpot()
+	{
+		return this.entranceDisplayController.displayDirectionsToParkingSpot();
+	}
 	
 	// USE CASE PLIS05 - Display Stolen ID Security Alert
+	//DONE
 	public void duplicateIdFound()
 	{
 		String ID = this.entranceDisplayController.getCurrentUserID();
@@ -166,12 +174,24 @@ public class ControllerFacade {
 		this.accessControlServer.duplicateIdFound(msg1, msg2);
 	}
 	
-	
-	//USE CASE PLI011 - Display Directions to Parking Spot
-	// may not need to test since call in displayDirectionsToParkingSPot is done to another package.
-	public void displayDirectionsToSpot()
+	//POSSIBLE SERVICE
+	//ONLY RAINY DAY DONE
+	public boolean findSpotForUser()
 	{
-		this.entranceDisplayController.displayDirectionsToParkingSpot();
+		return this.entranceDisplayController.findSpotForUser();
+	}
+	
+	//TODO
+	public AccessControlServer createAccessControlServer(int portNumber)
+	{
+		this.accessControlServer = new AccessControlServer(portNumber);	
+		return this.accessControlServer;
+	}
+	
+	//TODO
+	public void startAccessControlServer()
+	{
+		this.accessControlServer.start();
 	}
 	
 	public boolean createUserParkingSpot()
@@ -180,11 +200,6 @@ public class ControllerFacade {
 		return findSpotForUser();
 	}
 	
-	
-	public boolean findSpotForUser()
-	{
-		return this.entranceDisplayController.findSpotForUser();
-	}
 	
 	
 	
@@ -216,16 +231,6 @@ public class ControllerFacade {
 	 * AccessControl Server methods
 	 */
 	
-	public AccessControlServer createAccessControlServer(int portNumber)
-	{
-		this.accessControlServer = new AccessControlServer(portNumber);	
-		return this.accessControlServer;
-	}
-	
-	public void startAccessControlServer()
-	{
-		this.accessControlServer.start();
-	}
 	
 	/*
 	 * Entrance Display COntroller
