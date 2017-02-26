@@ -223,8 +223,7 @@ public class EntranceDisplayController
         
     }
     
-    public 
-     /*
+    /*
      * searches the FIU database for the given user ID	
      * @param ID String containing the userID of the parking user.
      * @return the name of the parking user
@@ -324,9 +323,7 @@ public class EntranceDisplayController
     	userID = wDisp.getID();
     }
     
-    /*
-     * Controller Service to Be Tested
-     */
+
     public void setUpParkingDisplayNotification( boolean found, String userID, ParkingNotification parkingDisplay)
     {
     	boolean userTypeValid = !userType.equalsIgnoreCase("invalid");

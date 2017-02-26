@@ -1,4 +1,6 @@
 package server.controller;
+import java.io.PrintWriter;
+
 import client.maindisplay.DisplayDirections;
 import client.maindisplay.ParkingNotification;
 import client.maindisplay.SpotNumberDisplay;
@@ -102,28 +104,91 @@ public class ControllerFacade {
 	
 	
 	
-	public boolean scanIDCallToController(String userID, String userType, boolean action) {
-		this.welcomeDisplayEvent = action;
-		this.welcomeDisplayUserID = userID;
-		this.welcomeDisplayUserType = userType;
-		this.entranceDisplayController.createUserFromTypeAndID();
-		return !(this.entranceDisplayController.getUser() == null);
+	// USE Case PLI 004 - Identify User Type based On Matching ID
+	// Dependencies: WelcomeDisplay userType, WelcomeDisplay userID
+	// ParkingUser user FiuDB.txt
+	// DONE
+	public String identifyUser()
+	{
+		ParkingUser user = this.entranceDisplayController.createUserFromTypeAndID();
+		return user.toString();
 	}
+	// USE CASE PLI 002 - User scans ID, system gets the users information from the ID,
+	// use case ends when system gets the ID information and saves it.
+	// DONE
+	public void storeInformationFromID()
+	{
+		this.entranceDisplayController.storeIDinformationFromClient();
+		
+	}
+	// USE CASE PLI010 - Display Parking Spot Assigned
+	// Dependencies: SpotNumberDisplay sDisp
+	// ParkingSpot spot calls getParkingNumber(), this can be mocked
+	// ParkingNotificiation pDisk calls getLocation(), this can be mocked
+	// WHat can be tested: SDisp calls updateParkingSpotNumberLabl
+	// which has Jlabel spotNumberLabel.setTest(string update)
+	// we can test the String this method returns because it will be the label of the gui
+	// DONE
+	public String displayParkingSpotAssigned()
+	{
+		return this.entranceDisplayController.displayParkingSpotAssigned();
+	}
+	
+	// USE CASE PLI019 - DONE
+	public void reserveSpot(ParkingSpot spot, String userID)
+	{
+		this.getAccessControlServer().reserveSpot(spot, userID);
+	}
+	// USE CASE PLI014 - NOTIFY USER OF PARKING IN THE WRONG SPOT	--- DONE
+	public void wrongUserDetected(String msg)
+	{
+		this.accessControlServer.wrongUserDetected(msg);
+	}
+	
+	//Should be a service
+	// DONE
+	public String setParkingNotification()
+	{
+		this.entranceDisplayController.setUpParkingDisplayNotification(entranceDisplayController.isFound(), entranceDisplayController.getCurrentUserID(), pDisp);
+		//this.pDisp.runDisplay(null);
+		return this.entranceDisplayController.getMessage1() + " " + this.entranceDisplayController.getMessage2();
+	}
+	
+	
+	// USE CASE PLIS05 - Display Stolen ID Security Alert
+	public void duplicateIdFound()
+	{
+		String ID = this.entranceDisplayController.getCurrentUserID();
+		ParkingSpot dup = this.entranceDisplayController.getDuplicateParkingSpot(ID);
+		//System.out.println("sending notification");
+		String msg1 = "User with ID:" + ID + " has reported an stolen ID.";
+		String msg2 ="The car with the same ID is parked on spot #" + dup.getParkingNumber();
+		this.accessControlServer.duplicateIdFound(msg1, msg2);
+	}
+	
+	
+	//USE CASE PLI011 - Display Directions to Parking Spot
+	// may not need to test since call in displayDirectionsToParkingSPot is done to another package.
+	public void displayDirectionsToSpot()
+	{
+		this.entranceDisplayController.displayDirectionsToParkingSpot();
+	}
+	
+	public boolean createUserParkingSpot()
+	{
+		this.entranceDisplayController.createUserFromTypeAndID();
+		return findSpotForUser();
+	}
+	
+	
+	public boolean findSpotForUser()
+	{
+		return this.entranceDisplayController.findSpotForUser();
+	}
+	
+	
+	
 
-	public void guestButtonCallToController(String userType, boolean action) {
-		this.welcomeDisplayUserType = userType;
-		this.welcomeDisplayEvent = action;
-		this.entranceDisplayController.createUserFromTypeAndID();
-		
-	}
-	// USE CASE PLI-019 - Guest can reserve Handicapped spot via Button
-	public void handicapButtonCallToController(String userType) {
-		this.entranceDisplayController.setUserType(userType);
-		this.entranceDisplayController.createUserFromTypeAndID();
-		
-	}
-	
-	
 	public WelcomeDisplay createNewWelcomeDisplay()
 	{
 		this.wDisp = new WelcomeDisplay();
@@ -151,9 +216,10 @@ public class ControllerFacade {
 	 * AccessControl Server methods
 	 */
 	
-	public void createAccessControlServer(int portNumber)
+	public AccessControlServer createAccessControlServer(int portNumber)
 	{
 		this.accessControlServer = new AccessControlServer(portNumber);	
+		return this.accessControlServer;
 	}
 	
 	public void startAccessControlServer()
@@ -188,89 +254,5 @@ public class ControllerFacade {
 	{
 		return entranceDisplayController.getCurrentUserID().length() > 2;
 	}
-	
-	// USE Case PLI 004 - Identify User Type based On Matching ID
-	// Dependencies: WelcomeDisplay userType, WelcomeDisplay userID
-	// ParkingUser user FiuDB.txt
-	// 
-	public String identifyUser()
-	{
-		ParkingUser user = this.entranceDisplayController.createUserFromTypeAndID();
-		return user.toString();
-	}
-	public boolean createUserParkingSpot()
-	{
-		this.entranceDisplayController.createUserFromTypeAndID();
-		return findSpotForUser();
-	}
-	
-	// USE CASE PLI 002 - User scans ID, system gets the users information from the ID,
-	// use case ends when system gets the ID information and saves it.
-	public void storeInformationFromID()
-	{
-		this.entranceDisplayController.storeIDinformationFromClient();
-		
-	}
-	
-	// Part of PLI-019 - however this is a server.storage service so its not required to test.
-	public boolean findSpotForUser()
-	{
-		return this.entranceDisplayController.findSpotForUser();
-	}
-	
-	//Should be a service
-	public String setParkingNotification()
-	{
-		this.entranceDisplayController.setUpParkingDisplayNotification(entranceDisplayController.isFound(), 
-				entranceDisplayController.getCurrentUserID(), pDisp);
-		this.pDisp.runDisplay(null);
-		return this.entranceDisplayController.getMessage1() + this.entranceDisplayController.getMessage2();
-	}
-	// USE CASE PLI010 - Display Parking Spot Assigned
-	// Dependencies: SpotNumberDisplay sDisp
-	// ParkingSpot spot calls getParkingNumber(), this can be mocked
-	// ParkingNotificiation pDisk calls getLocation(), this can be mocked
-	// WHat can be tested: SDisp calls updateParkingSpotNumberLabl
-	// which has Jlabel spotNumberLabel.setTest(string update)
-	// we can test the String this method returns because it will be the label of the gui
-	public String displayParkingSpotAssigned()
-	{
-		return this.entranceDisplayController.displayParkingSpotAssigned();
-	}
-	
-	//USE CASE PLI011 - Display Directions to Parking Spot
-	// may not need to test since call in displayDirectionsToParkingSPot is done to another package.
-	public void displayDirectionsToSpot()
-	{
-		this.entranceDisplayController.displayDirectionsToParkingSpot();
-	}
-	
-	// USE CASE PLI014 - NOTIFY USER OF PARKING IN THE WRONG SPOT	
-    synchronized void wrongUserDetected(String msg)
-    {
-        if(this.server.getSout() == null)
-            return;
-        this.server.sendMessage("wrong", this.server.getSout());
-        this.server.sendMessage(msg, this.server.getSout());
-    }
-    // USE CASE PLIS05 - Display Stolen ID Security Alert
-    synchronized void duplicateIdFoundOn()
-    {
-    	String ID = this.entranceDisplayController.getCurrentUserID();
-    	ParkingSpot dup = this.entranceDisplayController.getDuplicateParkingSpot(ID);
-    	String msg = "User with ID:" + ID + " has reported a stolen ID.";
-    	String msg2  = "The car with the same ID is parked on spot #" + dup.getParkingNumber();
-    	if (this.server.getSout() == null)
-    	{
-    		return;
-    	}
-    	this.server.sendMessage("duplicate",  this.server.getSout());
-    	this.server.sendMessage(msg,  this.server.getSout());
-    	this.server.sendMessage(msg2,  this.server.getSout());
-    }
     
-    public void reserveSpot(ParkingSpot spot, String userID)
-    {
-    	this.getAccessControlServer().reserveSpot(spot, userID);
-    }
 }

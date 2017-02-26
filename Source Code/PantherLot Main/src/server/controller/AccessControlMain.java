@@ -43,12 +43,7 @@ public class AccessControlMain
             }
             else if(eDisp.getDuplicate())
             {
-                String ID = eDisp.getCurrentUserID();
-                ParkingSpot dup = eDisp.getDuplicateParkingSpot(ID);
-                System.out.println("sending notification");
-                facade.getAccessControlServer().duplicateIdFound("User with ID:" + ID + 
-                        " has reported an stolen ID.","The car with the same ID" 
-                        		+ " is parked on spot #" + dup.getParkingNumber());
+            	facade.duplicateIdFound();
             }
         }
         
