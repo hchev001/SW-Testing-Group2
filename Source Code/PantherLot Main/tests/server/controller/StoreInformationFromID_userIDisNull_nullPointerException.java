@@ -11,27 +11,17 @@ import org.junit.Test;
 import client.maindisplay.WelcomeDisplay;
 
 public class StoreInformationFromID_userIDisNull_nullPointerException {
-	ControllerFacade facade;
-	WelcomeDisplay welcomeDisplay;
+	ControllerFacade facade19;
+	WelcomeDisplay welcDisp6;
 	@Before
 	public void setUp() throws Exception {
-		facade = new ControllerFacade();
-		welcomeDisplay = mock(WelcomeDisplay.class);
-		facade.createEntranceDisplayController(facade);
-		facade.getEntranceDisplayController().setwDisp(welcomeDisplay);
-		when(welcomeDisplay.getID()).thenReturn(null);
-		when(welcomeDisplay.returnType()).thenReturn("FiuParkingUser");
+		
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testStoreInformationFromID() {
-		facade.storeInformationFromID();
-		assertEquals(facade.getEntranceDisplayController().getUserID(), null);
-		assertEquals(facade.getEntranceDisplayController().getUserType(), "FiuParkingUser");
-	}
+	
 
 }

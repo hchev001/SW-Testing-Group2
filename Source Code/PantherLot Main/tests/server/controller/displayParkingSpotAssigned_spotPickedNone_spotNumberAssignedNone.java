@@ -14,24 +14,24 @@ import server.storage.ParkingSpot;
 
 public class displayParkingSpotAssigned_spotPickedNone_spotNumberAssignedNone {
 	
-	ControllerFacade facade;
-	SpotNumberDisplay spotDisplay;
-	ParkingSpot spot;
-	EntranceDisplayController displayController;
+	ControllerFacade facade12;
+	SpotNumberDisplay spotNumDisp3;
+	ParkingSpot spot7;
+	
 	@Before
 	public void setUp() throws Exception {
-		facade = new ControllerFacade();
-		facade.createEntranceDisplayController(facade);
+		facade12 = new ControllerFacade();
+		facade12.createEntranceDisplayController(facade12);
 		
-		spotDisplay = mock( SpotNumberDisplay.class);
-		doReturn(true).when(spotDisplay).runDisplay(null);
+		spotNumDisp3 = mock( SpotNumberDisplay.class);
+		doReturn(true).when(spotNumDisp3).runDisplay(null);
 		
-		spot = mock(ParkingSpot.class);
-		when(spot.getParkingNumber()).thenReturn("");
+		spot7 = mock(ParkingSpot.class);
+		when(spot7.getParkingNumber()).thenReturn("");
 		
 		// inject dependencies into facade entranceDisplayController
-		facade.getEntranceDisplayController().setsDisp(spotDisplay);
-		facade.getEntranceDisplayController().setSpot(spot);
+		facade12.getEntranceDisplayController().setsDisp(spotNumDisp3);
+		facade12.getEntranceDisplayController().setSpot(spot7);
 	}
 
 	@After
@@ -39,8 +39,8 @@ public class displayParkingSpotAssigned_spotPickedNone_spotNumberAssignedNone {
 	}
 
 	@Test
-	public void testDisplayParkingSpotAssigned() {
-		assertEquals(facade.displayParkingSpotAssigned(), "Your spot number is ");
+	public void SST008_testDisplayParkingSpotAssigned_SD2() {
+		assertEquals(facade12.displayParkingSpotAssigned(), "Your spot number is ");
 	}
 
 
