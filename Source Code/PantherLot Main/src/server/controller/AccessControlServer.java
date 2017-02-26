@@ -24,14 +24,10 @@ public class AccessControlServer extends Thread
     private static ParkedUsers garage = ParkedUsers.instance("garage.txt");
     private final int portNum;
     private PrintWriter sout = null;
-    
-    
-    public PrintWriter getSout() {
-		return sout;
-	}
-	public void setSout(PrintWriter sout) {
-		this.sout = sout;
-	}
+    //Refactored code
+    public boolean isWrongUserDetectedNull = false,
+    			   isDuplicateIdFoundNull  = false;
+    //Refactored code ends here -----------------------
 	private HashMap<String, PrintWriter> displayConnections 
                                     = new HashMap<String, PrintWriter>();
     
@@ -45,19 +41,26 @@ public class AccessControlServer extends Thread
         portNum = p;
         mapConnections();
     }
+    
     /**
      * helper method that maps the text file into the hashmap
      */
     private void mapConnections()
     {
-        
+        // Resets the security output
         sout = null;
+        // Shifts the focus to the security window
         displayConnections.put("security", sout);
+        // For each value in the garage.txt hashmap
+        // create a ParkingSpot out of it and place
+        // it in the TreeSet.
         for(TreeSet<ParkingSpot> t: garage.values())
+        	//For each node within the TreeSet create
+        	//a ParkingSpot that references it
             for(ParkingSpot p: t)
             {
-                displayConnections.put(p.getParkingNumber(), 
-                        p.getPrintWriter());
+            	//For the ParkingNumber in the node display if it is on or off
+                displayConnections.put(p.getParkingNumber(), p.getPrintWriter());
             }
     }
     
@@ -169,6 +172,11 @@ public class AccessControlServer extends Thread
         }
     }
     
+    //Refactor!
+    synchronized public void callAddDisplay(String key, PrintWriter out, ParkingSpot spot) {
+    	addDisplay(key, out, spot);
+    }
+    
     /**
      * removes the display from the hashmap containing all the connections
      * @param key the key of the hashmap
@@ -178,7 +186,12 @@ public class AccessControlServer extends Thread
     {
         displayConnections.put(key, null);
         spot.setPrintWriter(null);
-    } 
+    }
+    
+    //Refactor!
+    synchronized public void callRemoveDisplay(String key, ParkingSpot spot) {
+    	removeDisplay(key, spot);
+    }
     
     /**
      * accessor
@@ -336,4 +349,30 @@ public class AccessControlServer extends Thread
         private ParkingSpot spot;
         private Socket theSocket;
     }
+    
+    //Refactored Getters and Setters
+	public HashMap<String, PrintWriter> getDisplayConnections() {
+		return displayConnections;
+	}
+	public void setDisplayConnections(HashMap<String, PrintWriter> displayConnections) {
+		this.displayConnections = displayConnections;
+	}
+	public boolean isWrongUserDetectedNull() {
+		return isWrongUserDetectedNull;
+	}
+	public void setWrongUserDetectedNull(boolean isWrongUserDetectedNull) {
+		this.isWrongUserDetectedNull = isWrongUserDetectedNull;
+	}
+	public boolean isDuplicateIdFoundNull() {
+		return isDuplicateIdFoundNull;
+	}
+	public void setDuplicateIdFoundNull(boolean isDuplicateIdFoundNull) {
+		this.isDuplicateIdFoundNull = isDuplicateIdFoundNull;
+	}
+	public PrintWriter getSout() {
+		return sout;
+	}
+	public void setSout(PrintWriter sout) {
+		this.sout = sout;
+	}
 }
