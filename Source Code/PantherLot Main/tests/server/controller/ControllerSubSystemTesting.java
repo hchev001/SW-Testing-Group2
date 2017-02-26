@@ -102,26 +102,18 @@ public class ControllerSubSystemTesting extends stubDB {
 	}
 	@Test
 	public void SST015_testIdentifyUser_SD() {
-		when(welcDisp0.getID()).thenReturn("");
-		when(welcDisp0.returnType()).thenReturn("FiuParkingUser");
 		assertEquals(facade13.identifyUser(), "Guest");	
 	}
 	@Test
 	public void SST016_testIdentifyUser_SD() {
-		when(welcDisp1.getID()).thenReturn("1663314");
-		when(welcDisp1.returnType()).thenReturn("FiuParkingUser");
 		assertEquals(facade14.identifyUser(), "Faculty");	
 	}
 	@Test
 	public void SST017_testIdentifyUser_SD() {
-		when(welcDisp2.getID()).thenReturn("1654333");
-		when(welcDisp2.returnType()).thenReturn("FiuParkingUser");
 		assertEquals(facade15.identifyUser(), "Handicapped");	
 	}
 	@Test
 	public void SST018_testIdentifyUser_SD() {
-		when(welcDisp3.getID()).thenReturn("2223432");
-		when(welcDisp3.returnType()).thenReturn("FiuParkingUser");
 		assertEquals(facade16.identifyUser(), "Student");	
 	}
 	@Test
