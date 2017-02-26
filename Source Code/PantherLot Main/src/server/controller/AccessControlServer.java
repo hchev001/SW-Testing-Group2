@@ -26,7 +26,8 @@ public class AccessControlServer extends Thread
     private PrintWriter sout = null;
     //Refactored code
     public boolean isWrongUserDetectedNull = false,
-    			   isDuplicateIdFoundNull  = false;
+    			   isDuplicateIdFoundNull  = false,
+    			   isAddDisplayPossible    = true;
     //Refactored code ends here -----------------------
 	private HashMap<String, PrintWriter> displayConnections 
                                     = new HashMap<String, PrintWriter>();
@@ -132,8 +133,10 @@ public class AccessControlServer extends Thread
      */
     synchronized void wrongUserDetected(String msg)
     {
-        if(sout == null)
+        if(sout == null) {
+        	isWrongUserDetectedNull = true;
             return;
+        }
         sendMessage("wrong", sout);
         sendMessage(msg, sout);
     }
@@ -145,8 +148,10 @@ public class AccessControlServer extends Thread
      */
     synchronized void duplicateIdFound(String msg, String msg2)
     {
-        if(sout == null)
+        if(sout == null) {
+        	isDuplicateIdFoundNull = true;
             return;
+        }
         sendMessage("duplicate", sout);
         sendMessage(msg, sout);
         sendMessage(msg2, sout);
@@ -162,8 +167,10 @@ public class AccessControlServer extends Thread
     synchronized private void addDisplay(String key, PrintWriter out, 
             ParkingSpot spot)
     {
-        if(!displayConnections.containsKey(key))
+        if(!displayConnections.containsKey(key)) {
+        	isAddDisplayPossible = false;
             System.out.println( "Invalid spot number.");
+        }
         else 
         {
             displayConnections.put(key, out);
@@ -356,18 +363,6 @@ public class AccessControlServer extends Thread
 	}
 	public void setDisplayConnections(HashMap<String, PrintWriter> displayConnections) {
 		this.displayConnections = displayConnections;
-	}
-	public boolean isWrongUserDetectedNull() {
-		return isWrongUserDetectedNull;
-	}
-	public void setWrongUserDetectedNull(boolean isWrongUserDetectedNull) {
-		this.isWrongUserDetectedNull = isWrongUserDetectedNull;
-	}
-	public boolean isDuplicateIdFoundNull() {
-		return isDuplicateIdFoundNull;
-	}
-	public void setDuplicateIdFoundNull(boolean isDuplicateIdFoundNull) {
-		this.isDuplicateIdFoundNull = isDuplicateIdFoundNull;
 	}
 	public PrintWriter getSout() {
 		return sout;
