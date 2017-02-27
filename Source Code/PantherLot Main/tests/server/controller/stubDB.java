@@ -116,21 +116,36 @@ public class stubDB {
 				/*
 				 * 	SST001_testReserveSpot_SD setup
 				 * 	used to setup the NullPointerException
+				 *  spot0 mocks a ParkingSpot object and its
+				 *  used to return a string value used for passing
+				 *  it as a parameter of the nested sendMessage() 
+				 *  methods inside reserveSpot().
+				 *  At the creation of the AccessControlServer, 
+				 *  its displayConnections hashmap has each index value
+				 *  get set to a null PrintWriter object. reserveSpot in the process
+				 *  of execution will assign sendMessage() a null PrintWriter object
+				 *  from its displayConnections hashmap
 				 */
 				facade1 = new ControllerFacade();
 				facade1.createAccessControlServer(3738);
+				id = "1663314";
+				spot0 = mock(ParkingSpot.class);
+				when(spot0.getParkingNumber()).thenReturn("101");
 		
 				/*
-				 * 	SST002_testReserveSpot_RD setup
-				 *	argumentCaptors are used to verify that the methods within
-				 *	reserveSpot() are being called
+				 * 	SST002_testReserveSpot_SD SETUP
+				 * This method under test in this test case also uses the mocked
+				 * ParkingSpot object of SST001_testReserveSpot_SD SETUP as well as
+				 * the String id object.
+				 * spyServer0 is used to spy on the behavior of facade0 accessControlServer object
+				 * printWriter0 is instantiated to System.out and is put in the hashtable with key "101"
+				 * ArgumentCaptors are used to capture String Arguments and PrintWriter Arguments
+				 *	argumentCaptors are used to verify that the methods parameters of reserveSpot
+				 *are the same as the parameters of sendMessage method inside of reserveSpot.
 				 */
 				facade0 = new ControllerFacade();
 				spyServer0 = spy(facade0.createAccessControlServer(3737));
 				facade0.setAccessControlServer(spyServer0);
-				id = "1663314";
-				spot0 = mock(ParkingSpot.class);
-				when(spot0.getParkingNumber()).thenReturn("101");
 				printWriter0  = new PrintWriter(System.out);
 				facade0.getAccessControlServer().getDisplayConnections().put("101",  printWriter0);
 				messageCaptor0 = ArgumentCaptor.forClass(String.class);
@@ -142,6 +157,9 @@ public class stubDB {
 				 * SST003_testWrongUserDetected_SD & SST004 setup
 				 * A stringWriter is used as the stream of the printWriter to behave like
 				 * a buffer, which let's us verify messages were sent.
+				 * printWriter0 is set as Sout of the accessControlServer because
+				 * wrongUserDetected method calls sendMessage method with
+				 * sout as the printwrite to which to print from.
 				 */
 				facade2 = new ControllerFacade();
 				facade2.createAccessControlServer(3738);
@@ -157,6 +175,11 @@ public class stubDB {
 				 * where the user is told that their request was valid
 				 * and they are being assigned their corresponding parking spot
 				 * type
+				 * parkingNotificationDisp is a mocked object because the the method called by
+				 * setParkingNotification, setUpParkingDisplayNotification calls a method on a 
+				 * ParkingNotification object. 
+				 * parkingUser0 is a mocked object so we can set up the scenario of a Faculty spot is being assigned.
+				 * The id of the Faculty user will be 1663314 and by default the userTYpe is Fiu Parking User
 				 */
 				facade4 = new ControllerFacade();
 				parkingNotificationDisp = mock(ParkingNotification.class);
@@ -179,6 +202,11 @@ public class stubDB {
 				 * request was invalid because of an Invalid ID and since
 				 * there are no connections to guest spots then the user is informed
 				 * there are no guest spots available.
+				 * parkingUser1 is mocked to return the toString() value of itself, which is "Student"
+				 * The user id will also be of a Faculty user "1663314" and their type is "invalid"
+				 * This generates the scenario of a Faculty user trying to Parking in a Student spot,
+				 * however the system is not connected to any Student spot or Guest spot, so it attempts
+				 * to assign a Guest spot but it is not able to.
 				 */
 				parkingUser1 = mock(FacultyUser.class);
 				when(parkingUser1.toString()).thenReturn("Student");
@@ -193,11 +221,23 @@ public class stubDB {
 				
 				/*
 				 * SST007_testDuplicateIdFound_SD SETUP
-				 * duplicateIdFound receives two strings that are used as parameters of
+				 * When the facade calls this method a series of statements are executed before 
+				 * AccessControlServer.duplicateIdFound is called.
+				 * duplicateIdFound method of the AccessControlServer class  
+				 * receives two strings that are used as parameters of
 				 * the nested sendMessage() methods. The StringWriter is used a buffer
 				 * to receive the strings and verify they are the same ones.
 				 * The two strings are created from the userId and the parkingNumber that
 				 * has been identified as duplicated (spot1).
+				 * Within duplicateIdFound method a local variable String ID is set to the 
+				 * entranceDisplayController CurrentUserID which is set to me "1663314".
+				 * Using the same String ID value, getDuplicatedParkingSpot(ID) is called which returns
+				 * a ParkingSpot object from the duplicates hash table that exists within EntranceDisplayController.java
+				 * A mocked ParkingSpot object is inserted into the duplicates hash table using the key of
+				 * CurrentUserID "1663314"  stringWriter1 is set as the stream of printWriter1
+				 *  so printWriter1 can be injected into  the AccessControlServer and set as the value of 
+				 *  PrintWriter sout. This is done in order to read the contents of the messages
+				 *   sent to what would be a socket at port 3738.
 				 */
 				facade3 = new ControllerFacade();
 				spot1 = mock(ParkingSpot.class);
@@ -213,10 +253,13 @@ public class stubDB {
 				
 				/*
 				 * SST008_testDiplicateIdFound_RD SETUP
-				 * duplicateIdFound has a guard (sout == null) return;
-				 * A global boolean was added to the class and is set when the guard is valid
+				 * duplicateIdFound of the AccessControlServer class has a guard (sout == null) return;
+				 * A global boolean isDuplicatedIdFoundNull was added to the class and is set when the guard is valid
 				 * This setup is to test that necessary PrintWriter used to print to System.out
-				 * is null.
+				 * is null. As previously mentioned in SST007_testDuplicateIdFound_SD SETUP
+				 * a mocked spot object is put into the duplicates hash map of EntranceDisplayController
+				 * class. The userID of the EntranceDisplayController object will be "1663314".
+				 * The setup is necessary only so an early null pointer exception is not thrown.
 				 */
 				facade8 = new ControllerFacade();
 				facade8.createAccessControlServer(3738);
@@ -224,17 +267,24 @@ public class stubDB {
 				facade8.getEntranceDisplayController().setUserID("1663314");
 				facade8.getEntranceDisplayController().setSpot(spot0);
 				facade8.getEntranceDisplayController().getDuplicates().put("1663314", spot1);
+				facade8.getAccessControlServer().setSout(null);
 				
 				/*
 				 * SST009_testDisplayDirectionToSpot_SD SETUP
-				 * displayDirectionsToSpot creates the necessary parking directions to 
-				 * drive to a parkingspot. This setup is used to test that the directions
-				 * set are the ones the program mocks.
+				 * displayDirectionsToSpot is used to call EntranceDisplayController.displayDirectionstoParkingSpot()
+				 * This method creates the necessary parking directions to 
+				 * drive to a parking spot. This setup is used to test that the directions
+				 * set are the ones the program mocks. A ParkingSpot object is mocked in order to have it create
+				 * the parking directions via its createParkingDIrections() method, afterward it is injected into the 
+				 * EntranceDisplayController object of the facade. A DisplayDirection object is mocked,
+				 * and injected into the EntranceDisplayController in order to isolate the behavior of the creation
+				 * of the String directions and not start a client service of running a user interface.
+				 * The address "15801 Sheridan St" is the expected address the method will return.
 				 */
 				facade6 = new ControllerFacade();
 				facade6.createEntranceDisplayController(facade6);
 				spot2 = mock(ParkingSpot.class);
-				when(spot2.createParkingDirections()).thenReturn("Hello");
+				when(spot2.createParkingDirections()).thenReturn("15801 Sheridan St");
 				facade6.getEntranceDisplayController().setSpot(spot2);
 				displayDirectionsDisp0 = mock(DisplayDirections.class);
 				facade6.getEntranceDisplayController().setdDisp(displayDirectionsDisp0);
@@ -243,7 +293,9 @@ public class stubDB {
 				 * SST010_testDisplayDirectionToSpot_RD SETUP
 				 * displayDirectionsToSpot creates the necessary parking directions to 
 				 * drive to a parkingspot. This setup is used to test that the directions
-				 * set are the ones the program mocks, a null string.
+				 * set are the ones the program mocks, a null string. Please refer to
+				 * SST009_testDisplayDirectionToSpot_SD SETUP (previous one) for 
+				 * an explanation of the setup as it follows the same logic.
 				 */
 				facade7 = new ControllerFacade();
 				facade7.createEntranceDisplayController(facade7);
@@ -256,6 +308,11 @@ public class stubDB {
 
 				/*
 				 * SST011_testFindSpotForUser_RD SETUP
+				 * facade.FindSpotForUser() calls findSpotForUser() of the EntranceDisplayController class.
+				 * It retrieves a ParkingSpot object from the instance of the ParkedUsers object garage and assigns 
+				 * it to this class ParkingSpot instance variable. If the ParkingSpot variable is not null, it sets 
+				 * the instance variable boolean found to True, else its false. It then returns the variable found.
+				 * Since a instance of ParkedUsers is called in this class,
 				 * garage0 is an dependency from a different package used
 				 * to return a ParkingSpot object. There can be no sunny day test
 				 * as the object returned from garage is a mocked object and it treats
@@ -272,8 +329,10 @@ public class stubDB {
 				
 				/*
 				 * SST012_testDisplayParkingSpotAssigned_SD SETUP
+				 * facade.displayParkingSpotAssigned calls the displayParkingSpotAssigned() 
+				 * method of the EntranceDisplayController class.
 				 * spot5 mocked to create a parking number string. The result string
-				 * is appended to a hard coded string of the method. spotNumbDisp1 is
+				 * is appended with "Your spot number is ". spotNumbDisp1 is
 				 * mocked to avoid the side effects of creating a gui, which is a client
 				 * service. This test verifies the correct label was created.
 				 */
@@ -318,16 +377,29 @@ public class stubDB {
 				
 				/*
 				 * SST015_testIdentifyUser_SD SETUP
-				 * identifyUser fetches the instance variables of 
+				 * ControllerFacade.identifyUser calls the 
+				 * createUserFromTypeAndID method of the EntranceDisplayController class.
+				 * createUserFromTypeAndID calls the method storeDinformationFromClient()
+				 * from the same class to fetch the instance variables of 
 				 * a WelcomeDisplay object and assigns them to the
 				 * EntranceDisplayController instance variables. The WelcomeDisplay
 				 * object is mocked to return predetermined values. These fields
 				 * are used to create a user object of the correct type based on
 				 * the userType that is further mutated by a method that searches
-				 * a database for the userID and matches its corresponding user type.  
+				 * the FiuDB.txt file for the userID and matches its corresponding user type.  
 				 * The WelcomeDisplay object is mocked to return the data
-				 * of a user who scanned an ID barcode that was an empty
-				 * String.
+				 * of a user who scanned an ID bar code that was an empty
+				 * String. When no ID is found in the FiuDB.txt file that matches what the user inputed, 
+				 * they are identified as a Guest and a GuestUser object is assigned to the ParkingUser user
+				 * instance variable of EntranceDisplayController.
+				 * 
+				 * FiuDB.txt file contents are: 
+				 * 1663314 Faculty Abraham Cruz
+				 * 2223432 Student Elba Garcia
+				 * 1654333 Handicapped Nick Caceres
+				 * 2233432 Student Michelle Solano
+				 * 1323454 Student Alex Cruz
+				 * 4234423 Faculty Andres Marcial
 				 */
 				facade13 = new ControllerFacade();
 				welcDisp0 = mock(WelcomeDisplay.class);
@@ -339,7 +411,8 @@ public class stubDB {
 				/*
 				 * SST016_testIdentifyUser_SD SETUP
 				 * Refer to SST015_testIdentifyUser_SD setup for similar logic
-				 * for setup. This setup uses the ID of a faculty users
+				 * for setup and the database text file used.
+				 * . This setup uses the ID of a faculty user, 1663314.
 				 */
 				facade14 = new ControllerFacade();
 				welcDisp1 = mock(WelcomeDisplay.class);
@@ -350,8 +423,9 @@ public class stubDB {
 				
 				/*
 				 * SST017_testIdentifyUser_SD SETUP
-				 * Refer to SST015_testIdentifyUser_SD setup for similar logic for setup.
-				 * This setup uses the ID of a handicapped user
+				 * Refer to SST015_testIdentifyUser_SD setup for similar logic for setup
+				 * and the database text file used.
+				 * This setup uses the ID of a handicapped user, 1654333
 				 */
 				facade15 = new ControllerFacade();
 				welcDisp2 = mock(WelcomeDisplay.class);
@@ -363,7 +437,8 @@ public class stubDB {
 				/*
 				 * SST018_testIdentifyUser_SD SETUP
 				 * Refer to SST015_testIdentifyUser_SD setup for similar 
-				 * logic for setup. This setup uses the ID of a Student user.
+				 * logic for setup and the database text file used. T
+				 * his setup uses the ID of a Student user, 2223432.
 				 */
 				facade16 = new ControllerFacade();
 				welcDisp3 = mock(WelcomeDisplay.class);
