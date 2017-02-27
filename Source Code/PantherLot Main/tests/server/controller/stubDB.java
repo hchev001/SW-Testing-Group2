@@ -271,14 +271,20 @@ public class stubDB {
 				
 				/*
 				 * SST009_testDisplayDirectionToSpot_SD SETUP
-				 * displayDirectionsToSpot creates the necessary parking directions to 
-				 * drive to a parkingspot. This setup is used to test that the directions
-				 * set are the ones the program mocks.
+				 * displayDirectionsToSpot is used to call EntranceDisplayController.displayDirectionstoParkingSpot()
+				 * This method creates the necessary parking directions to 
+				 * drive to a parking spot. This setup is used to test that the directions
+				 * set are the ones the program mocks. A ParkingSpot object is mocked in order to have it create
+				 * the parking directions via its createParkingDIrections() method, afterward it is injected into the 
+				 * EntranceDisplayController object of the facade. A DisplayDirection object is mocked,
+				 * and injected into the EntranceDisplayController in order to isolate the behavior of the creation
+				 * of the String directions and not start a client service of running a user interface.
+				 * The address "15801 Sheridan St" is the expected address the method will return.
 				 */
 				facade6 = new ControllerFacade();
 				facade6.createEntranceDisplayController(facade6);
 				spot2 = mock(ParkingSpot.class);
-				when(spot2.createParkingDirections()).thenReturn("Hello");
+				when(spot2.createParkingDirections()).thenReturn("15801 Sheridan St");
 				facade6.getEntranceDisplayController().setSpot(spot2);
 				displayDirectionsDisp0 = mock(DisplayDirections.class);
 				facade6.getEntranceDisplayController().setdDisp(displayDirectionsDisp0);
@@ -287,7 +293,9 @@ public class stubDB {
 				 * SST010_testDisplayDirectionToSpot_RD SETUP
 				 * displayDirectionsToSpot creates the necessary parking directions to 
 				 * drive to a parkingspot. This setup is used to test that the directions
-				 * set are the ones the program mocks, a null string.
+				 * set are the ones the program mocks, a null string. Please refer to
+				 * SST009_testDisplayDirectionToSpot_SD SETUP (previous one) for 
+				 * an explanation of the setup as it follows the same logic.
 				 */
 				facade7 = new ControllerFacade();
 				facade7.createEntranceDisplayController(facade7);
@@ -300,6 +308,11 @@ public class stubDB {
 
 				/*
 				 * SST011_testFindSpotForUser_RD SETUP
+				 * facade.FindSpotForUser() calls findSpotForUser() of the EntranceDisplayController class.
+				 * It retrieves a ParkingSpot object from the instance of the ParkedUsers object garage and assigns 
+				 * it to this class ParkingSpot instance variable. If the ParkingSpot variable is not null, it sets 
+				 * the instance variable boolean found to True, else its false. It then returns the variable found.
+				 * Since a instance of ParkedUsers is called in this class,
 				 * garage0 is an dependency from a different package used
 				 * to return a ParkingSpot object. There can be no sunny day test
 				 * as the object returned from garage is a mocked object and it treats
@@ -316,8 +329,10 @@ public class stubDB {
 				
 				/*
 				 * SST012_testDisplayParkingSpotAssigned_SD SETUP
+				 * facade.displayParkingSpotAssigned calls the displayParkingSpotAssigned() 
+				 * method of the EntranceDisplayController class.
 				 * spot5 mocked to create a parking number string. The result string
-				 * is appended to a hard coded string of the method. spotNumbDisp1 is
+				 * is appended with "Your spot number is ". spotNumbDisp1 is
 				 * mocked to avoid the side effects of creating a gui, which is a client
 				 * service. This test verifies the correct label was created.
 				 */
@@ -362,16 +377,29 @@ public class stubDB {
 				
 				/*
 				 * SST015_testIdentifyUser_SD SETUP
-				 * identifyUser fetches the instance variables of 
+				 * ControllerFacade.identifyUser calls the 
+				 * createUserFromTypeAndID method of the EntranceDisplayController class.
+				 * createUserFromTypeAndID calls the method storeDinformationFromClient()
+				 * from the same class to fetch the instance variables of 
 				 * a WelcomeDisplay object and assigns them to the
 				 * EntranceDisplayController instance variables. The WelcomeDisplay
 				 * object is mocked to return predetermined values. These fields
 				 * are used to create a user object of the correct type based on
 				 * the userType that is further mutated by a method that searches
-				 * a database for the userID and matches its corresponding user type.  
+				 * the FiuDB.txt file for the userID and matches its corresponding user type.  
 				 * The WelcomeDisplay object is mocked to return the data
-				 * of a user who scanned an ID barcode that was an empty
-				 * String.
+				 * of a user who scanned an ID bar code that was an empty
+				 * String. When no ID is found in the FiuDB.txt file that matches what the user inputed, 
+				 * they are identified as a Guest and a GuestUser object is assigned to the ParkingUser user
+				 * instance variable of EntranceDisplayController.
+				 * 
+				 * FiuDB.txt file contents are: 
+				 * 1663314 Faculty Abraham Cruz
+				 * 2223432 Student Elba Garcia
+				 * 1654333 Handicapped Nick Caceres
+				 * 2233432 Student Michelle Solano
+				 * 1323454 Student Alex Cruz
+				 * 4234423 Faculty Andres Marcial
 				 */
 				facade13 = new ControllerFacade();
 				welcDisp0 = mock(WelcomeDisplay.class);
@@ -383,7 +411,8 @@ public class stubDB {
 				/*
 				 * SST016_testIdentifyUser_SD SETUP
 				 * Refer to SST015_testIdentifyUser_SD setup for similar logic
-				 * for setup. This setup uses the ID of a faculty users
+				 * for setup and the database text file used.
+				 * . This setup uses the ID of a faculty user, 1663314.
 				 */
 				facade14 = new ControllerFacade();
 				welcDisp1 = mock(WelcomeDisplay.class);
@@ -394,8 +423,9 @@ public class stubDB {
 				
 				/*
 				 * SST017_testIdentifyUser_SD SETUP
-				 * Refer to SST015_testIdentifyUser_SD setup for similar logic for setup.
-				 * This setup uses the ID of a handicapped user
+				 * Refer to SST015_testIdentifyUser_SD setup for similar logic for setup
+				 * and the database text file used.
+				 * This setup uses the ID of a handicapped user, 1654333
 				 */
 				facade15 = new ControllerFacade();
 				welcDisp2 = mock(WelcomeDisplay.class);
@@ -407,7 +437,8 @@ public class stubDB {
 				/*
 				 * SST018_testIdentifyUser_SD SETUP
 				 * Refer to SST015_testIdentifyUser_SD setup for similar 
-				 * logic for setup. This setup uses the ID of a Student user.
+				 * logic for setup and the database text file used. T
+				 * his setup uses the ID of a Student user, 2223432.
 				 */
 				facade16 = new ControllerFacade();
 				welcDisp3 = mock(WelcomeDisplay.class);

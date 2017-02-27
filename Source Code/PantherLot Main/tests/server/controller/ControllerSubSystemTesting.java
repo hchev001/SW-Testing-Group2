@@ -71,13 +71,12 @@ public class ControllerSubSystemTesting extends stubDB {
 	}
 	@Test
 	public void SST008_testDiplicateIdFound_RD() {
-
 		facade8.duplicateIdFound();
 		assertTrue(facade8.getAccessControlServer().isDuplicateIdFoundNull);
 	}
 	@Test
 	public void SST009_testDisplayDirectionToSpot_SD(){
-		assertEquals(facade6.displayDirectionsToSpot(),"Hello");
+		assertEquals(facade6.displayDirectionsToSpot(),"15801 Sheridan St");
 	}
 	@Test
 	public void SST010_testDisplayDirectionToSpot_RD() {
