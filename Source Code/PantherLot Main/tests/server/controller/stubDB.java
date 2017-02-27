@@ -116,21 +116,36 @@ public class stubDB {
 				/*
 				 * 	SST001_testReserveSpot_SD setup
 				 * 	used to setup the NullPointerException
+				 *  spot0 mocks a ParkingSpot object and its
+				 *  used to return a string value used for passing
+				 *  it as a parameter of the nested sendMessage() 
+				 *  methods inside reserveSpot().
+				 *  At the creation of the AccessControlServer, 
+				 *  its displayConnections hashmap has each index value
+				 *  get set to a null PrintWriter object. reserveSpot in the process
+				 *  of execution will assign sendMessage() a null PrintWriter object
+				 *  from its displayConnections hashmap
 				 */
 				facade1 = new ControllerFacade();
 				facade1.createAccessControlServer(3738);
+				id = "1663314";
+				spot0 = mock(ParkingSpot.class);
+				when(spot0.getParkingNumber()).thenReturn("101");
 		
 				/*
-				 * 	SST002_testReserveSpot_RD setup
-				 *	argumentCaptors are used to verify that the methods within
-				 *	reserveSpot() are being called
+				 * 	SST002_testReserveSpot_SD SETUP
+				 * This method under test in this test case also uses the mocked
+				 * ParkingSpot object of SST001_testReserveSpot_SD SETUP as well as
+				 * the String id object.
+				 * spyServer0 is used to spy on the behavior of facade0 accessControlServer object
+				 * printWriter0 is instantiated to System.out and is put in the hashtable with key "101"
+				 * ArgumentCaptors are used to capture String Arguments and PrintWriter Arguments
+				 *	argumentCaptors are used to verify that the methods parameters of reserveSpot
+				 *are the same as the parameters of sendMessage method inside of reserveSpot.
 				 */
 				facade0 = new ControllerFacade();
 				spyServer0 = spy(facade0.createAccessControlServer(3737));
 				facade0.setAccessControlServer(spyServer0);
-				id = "1663314";
-				spot0 = mock(ParkingSpot.class);
-				when(spot0.getParkingNumber()).thenReturn("101");
 				printWriter0  = new PrintWriter(System.out);
 				facade0.getAccessControlServer().getDisplayConnections().put("101",  printWriter0);
 				messageCaptor0 = ArgumentCaptor.forClass(String.class);
@@ -142,6 +157,9 @@ public class stubDB {
 				 * SST003_testWrongUserDetected_SD & SST004 setup
 				 * A stringWriter is used as the stream of the printWriter to behave like
 				 * a buffer, which let's us verify messages were sent.
+				 * printWriter0 is set as Sout of the accessControlServer because
+				 * wrongUserDetected method calls sendMessage method with
+				 * sout as the printwrite to which to print from.
 				 */
 				facade2 = new ControllerFacade();
 				facade2.createAccessControlServer(3738);
@@ -157,6 +175,11 @@ public class stubDB {
 				 * where the user is told that their request was valid
 				 * and they are being assigned their corresponding parking spot
 				 * type
+				 * parkingNotificationDisp is a mocked object because the the method called by
+				 * setParkingNotification, setUpParkingDisplayNotification calls a method on a 
+				 * ParkingNotification object. 
+				 * parkingUser0 is a mocked object so we can set up the scenario of a Faculty spot is being assigned.
+				 * The id of the Faculty user will be 1663314 and by default the userTYpe is Fiu Parking User
 				 */
 				facade4 = new ControllerFacade();
 				parkingNotificationDisp = mock(ParkingNotification.class);
@@ -179,6 +202,11 @@ public class stubDB {
 				 * request was invalid because of an Invalid ID and since
 				 * there are no connections to guest spots then the user is informed
 				 * there are no guest spots available.
+				 * parkingUser1 is mocked to return the toString() value of itself, which is "Student"
+				 * The user id will also be of a Faculty user "1663314" and their type is "invalid"
+				 * This generates the scenario of a Faculty user trying to Parking in a Student spot,
+				 * however the system is not connected to any Student spot or Guest spot, so it attempts
+				 * to assign a Guest spot but it is not able to.
 				 */
 				parkingUser1 = mock(FacultyUser.class);
 				when(parkingUser1.toString()).thenReturn("Student");
@@ -193,11 +221,23 @@ public class stubDB {
 				
 				/*
 				 * SST007_testDuplicateIdFound_SD SETUP
-				 * duplicateIdFound receives two strings that are used as parameters of
+				 * When the facade calls this method a series of statements are executed before 
+				 * AccessControlServer.duplicateIdFound is called.
+				 * duplicateIdFound method of the AccessControlServer class  
+				 * receives two strings that are used as parameters of
 				 * the nested sendMessage() methods. The StringWriter is used a buffer
 				 * to receive the strings and verify they are the same ones.
 				 * The two strings are created from the userId and the parkingNumber that
 				 * has been identified as duplicated (spot1).
+				 * Within duplicateIdFound method a local variable String ID is set to the 
+				 * entranceDisplayController CurrentUserID which is set to me "1663314".
+				 * Using the same String ID value, getDuplicatedParkingSpot(ID) is called which returns
+				 * a ParkingSpot object from the duplicates hash table that exists within EntranceDisplayController.java
+				 * A mocked ParkingSpot object is inserted into the duplicates hash table using the key of
+				 * CurrentUserID "1663314"  stringWriter1 is set as the stream of printWriter1
+				 *  so printWriter1 can be injected into  the AccessControlServer and set as the value of 
+				 *  PrintWriter sout. This is done in order to read the contents of the messages
+				 *   sent to what would be a socket at port 3738.
 				 */
 				facade3 = new ControllerFacade();
 				spot1 = mock(ParkingSpot.class);
@@ -213,10 +253,13 @@ public class stubDB {
 				
 				/*
 				 * SST008_testDiplicateIdFound_RD SETUP
-				 * duplicateIdFound has a guard (sout == null) return;
-				 * A global boolean was added to the class and is set when the guard is valid
+				 * duplicateIdFound of the AccessControlServer class has a guard (sout == null) return;
+				 * A global boolean isDuplicatedIdFoundNull was added to the class and is set when the guard is valid
 				 * This setup is to test that necessary PrintWriter used to print to System.out
-				 * is null.
+				 * is null. As previously mentioned in SST007_testDuplicateIdFound_SD SETUP
+				 * a mocked spot object is put into the duplicates hash map of EntranceDisplayController
+				 * class. The userID of the EntranceDisplayController object will be "1663314".
+				 * The setup is necessary only so an early null pointer exception is not thrown.
 				 */
 				facade8 = new ControllerFacade();
 				facade8.createAccessControlServer(3738);
@@ -224,6 +267,7 @@ public class stubDB {
 				facade8.getEntranceDisplayController().setUserID("1663314");
 				facade8.getEntranceDisplayController().setSpot(spot0);
 				facade8.getEntranceDisplayController().getDuplicates().put("1663314", spot1);
+				facade8.getAccessControlServer().setSout(null);
 				
 				/*
 				 * SST009_testDisplayDirectionToSpot_SD SETUP
