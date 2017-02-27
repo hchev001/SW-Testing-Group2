@@ -66,9 +66,11 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	//When called mapConnections should set each parking spot number key
-	//in the hashmap to have null for it's value
-	public void mapConnectionsAllNullTest() {
+	/*
+	 * When called, mapConnections should set each parking spot number key
+	 * in the hashmap to have null for it's value
+	 */
+	public void Unit024_mapConnectionsAllNullTest() {
 		int allNull = 1;
 		//Create an iterator to go through the hashmap
 		it = acs.getDisplayConnections().entrySet().iterator();
@@ -85,18 +87,22 @@ public class AccessControlServerTest {
 	}
 	
 	@Test(expected = IOException.class)
-	//We came to the conclusion that in order to test this method we could
-	//just use a property of ServerSockets. Since only one ServerSocket can
-	//be created per connection, if startServer actually worked, then an 
-	//exception would be thrown if it was called again.
-	public void startServerTest() throws IOException, NoSuchMethodException, SecurityException {
+	/*
+	 * We came to the conclusion that in order to test this method we could 
+	 * just use a property of ServerSockets. Since only one ServerSocket can 
+	 * be created per connection, if startServer actually worked, then an
+	 * exception would be thrown if it was called again.
+	 */
+	public void Unit025_startServerTest() throws IOException, NoSuchMethodException, SecurityException {
 		acs.startServer();
 		acs.startServer();
 	}
 	
 	@Test
-	//Simply check that a message was sent
-	public void sendMessageTest() throws IOException {
+	/*
+	 * Simply check that a message was sent
+	 */
+	public void Unit026_sendMessageTest() throws IOException {
 		String expected = "So Mark, hows your sex life?";
 		pout = new PrintWriter(sendMessageFile);
 		in = new Scanner(sendMessageFile);
@@ -113,15 +119,21 @@ public class AccessControlServerTest {
 		assertEquals("The two string should be equal to eachother.",expected, actual);
 	}
 	
-	//This test is basically the same as the startServerTest
+	
 	@Test(expected = IOException.class)
-	public void runTest() throws IOException {
+	/*
+	 * This test is basically the same as the startServerTest
+	 */
+	public void Unit027_runTest() throws IOException {
 		acs.run();
 		acs.startServer();
 	}
 	
 	@Test(expected = IOException.class)
-	public void runDifferentPortNumberTest() throws IOException {
+	/*
+	 * 
+	 */
+	public void Unit028_runDifferentPortNumberTest() throws IOException {
 		portNum = 5789;
 		acs = new AccessControlServer(portNum);
 		acs.run();
@@ -129,14 +141,20 @@ public class AccessControlServerTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void runWithInvalidPortSizeTest() {
+	/*
+	 * 
+	 */
+	public void Unit029_runWithInvalidPortSizeTest() {
 		portNum = 999999;
 		acs = new AccessControlServer(portNum);
 		acs.run();
 	}
 	
 	@Test
-	public void sendStatusTest() throws IOException{
+	/*
+	 * 
+	 */
+	public void Unit030_sendStatusTest() throws IOException{
 		int actual = 1;
 		
 		pout = new PrintWriter(sendStatusFile);
@@ -158,12 +176,18 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void reserveSpotTest() throws IOException {
+	/*
+	 * 
+	 */
+	public void Unit031_reserveSpotTest() throws IOException {
 		assertEquals(true, true);
 	}
 	
 	@Test
-	public void wrongUserDetectedTest() throws IOException {
+	/*
+	 * 
+	 */
+	public void Unit032_wrongUserDetectedTest() throws IOException {
 		String expected = "wrong Oh hai Mark.";
 		
 		pout = new PrintWriter(wrongUserDetectedFile);
@@ -185,7 +209,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void wrongUserDetectedNullTest() {
+	/*
+	 * 
+	 */
+	public void Unit033_wrongUserDetectedNullTest() {
 		pout = null;
 		acs.setSout(pout);
 		acs.wrongUserDetected("Oh hai Mark.");
@@ -193,7 +220,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void wrongUserDetectedNotNullTest() {
+	/*
+	 * 
+	 */
+	public void Unit034_wrongUserDetectedNotNullTest() {
 		pout = new PrintWriter(System.out);
 		acs.setSout(pout);
 		acs.wrongUserDetected("Oh hai Mark.");
@@ -202,7 +232,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void duplicateIdFoundTest() throws IOException {
+	/*
+	 * 
+	 */
+	public void Unit035_duplicateIdFoundTest() throws IOException {
 		String expected = "duplicate You are tearing me apart Lisa! I'm fed up wit dis world!";
 		
 		pout = new PrintWriter(duplicateIdFoundFile);
@@ -224,7 +257,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void duplicateIdFoundNullTest() {
+	/*
+	 * 
+	 */
+	public void Unit036_duplicateIdFoundNullTest() {
 		pout = null;
 		
 		acs.setSout(pout);
@@ -234,7 +270,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void duplicateIdFoundNotNullTest() {
+	/*
+	 * 
+	 */
+	public void Unit037_duplicateIdFoundNotNullTest() {
 		pout = new PrintWriter(System.out);
 		
 		acs.setSout(pout);
@@ -245,7 +284,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void addDisplayProperSpotTest() throws IOException{
+	/*
+	 * 
+	 */
+	public void Unit038_addDisplayProperSpotTest() throws IOException{
 		boolean expected = true, actual = false;
 		pout = new PrintWriter(System.out);
 		String key = spot.getParkingNumber();
@@ -259,7 +301,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void addDisplayInvalidSpotTest() {
+	/*
+	 * 
+	 */
+	public void Unit039_addDisplayInvalidSpotTest() {
 		String key = "100";
 		pout = new PrintWriter(System.out);
 		acs.callAddDisplay(key, pout, spot);
@@ -268,7 +313,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void removeTest() {
+	/*
+	 * 
+	 */
+	public void Unit040_removeTest() {
 		boolean expected = true, actual = false;
 		
 		acs.callRemoveDisplay(key, spot);
@@ -278,7 +326,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void isConnectionsAvailableTrueTest() {
+	/*
+	 * 
+	 */
+	public void Unit041_isConnectionsAvailableTrueTest() {
 		boolean expected = true, actual = false;
 		
 		acs.callRemoveDisplay(key, spot);
@@ -288,7 +339,10 @@ public class AccessControlServerTest {
 	}
 	
 	@Test
-	public void isConnectionsAvailableFalseTest() {
+	/*
+	 * 
+	 */
+	public void Unit042_isConnectionsAvailableFalseTest() {
 		boolean expected = false, actual = false;
 		pout = new PrintWriter(System.out);
 		
