@@ -4,6 +4,7 @@ package server.controller;
 import server.storage.ParkedUsers;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,6 +25,8 @@ public class AccessControlServer extends Thread
     private static ParkedUsers garage = ParkedUsers.instance("garage.txt");
     private final int portNum;
     private PrintWriter sout = null;
+    public ServerSocket ss;
+    ArrayList<Thread> thrdList = new ArrayList<Thread>();
     //Refactored code
     public boolean isWrongUserDetectedNull = false,
     			   isDuplicateIdFoundNull  = false,
@@ -86,12 +89,13 @@ public class AccessControlServer extends Thread
      */
     public void startServer() throws IOException
     {
-        ServerSocket ss = new ServerSocket(portNum);
+    	ss = new ServerSocket(portNum);
         while(true)
         {
             Socket s = ss.accept();
             Thread t = new Thread(new ConnectionHandler(s));
             t.start();
+            thrdList.add(t);
         }
     }    
     
@@ -369,5 +373,21 @@ public class AccessControlServer extends Thread
 	}
 	public void setSout(PrintWriter sout) {
 		this.sout = sout;
+	}
+
+	public ServerSocket getSs() {
+		return ss;
+	}
+
+	public void setSs(ServerSocket ss) {
+		this.ss = ss;
+	}
+
+	public ArrayList<Thread> getThrdList() {
+		return thrdList;
+	}
+
+	public void setThrdList(ArrayList<Thread> thrdList) {
+		this.thrdList = thrdList;
 	}
 }
