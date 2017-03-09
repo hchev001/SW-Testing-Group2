@@ -26,9 +26,8 @@ public class ControllerSubSystemTesting extends stubDB {
 	public void SST001_testReserveSpot_SD() {
 		facade1.reserveSpot(spot0, id);
 	}
-	
 	@Test
-	public void SST002_testReserveSpot_RD() {
+	public void SST002_testReserveSpot_SD() {
 		facade0.reserveSpot(spot0, id);
 		verify(spyServer0, times(2)).sendMessage(messageCaptor0.capture(), pwCaptor.capture());
 		
@@ -72,13 +71,12 @@ public class ControllerSubSystemTesting extends stubDB {
 	}
 	@Test
 	public void SST008_testDiplicateIdFound_RD() {
-		facade8.getAccessControlServer().setSout(null);
 		facade8.duplicateIdFound();
 		assertTrue(facade8.getAccessControlServer().isDuplicateIdFoundNull);
 	}
 	@Test
 	public void SST009_testDisplayDirectionToSpot_SD(){
-		assertEquals(facade6.displayDirectionsToSpot(),"Hello");
+		assertEquals(facade6.displayDirectionsToSpot(),"15801 Sheridan St");
 	}
 	@Test
 	public void SST010_testDisplayDirectionToSpot_RD() {
