@@ -109,15 +109,57 @@ public class EntranceDisplayController
     {
         
         resetInstances();
+        welcomeDisplayLogic();
+        startParkingDisplayLogic();
+        
+        pDisp = null;						
+       
+        if (sDispCanceled())
+        	return;
 
-        wDisp.runDisplay(new Point(0,0));
+        sDisp.setVisible(false);
+
+        displayDirToParkSpotLogic();
+    }
+    // Test
+    
+    public void displayDirToParkSpotLogic() {
+        displayDirectionsToParkingSpot();
+        sDisp = null;						// SpotNumberDisplay is gone
+
+        
+        if(dDisp.isCanceled())
+        {
+            garage.removeParkedUser(spot);
+            return;
+        }
+        if(userID.length() > 2)
+            duplicates.put(userID, spot);
+    }
+    // Test
+    public boolean sDispCanceled() {
+        if(sDisp.isCanceled())
+        {
+            garage.removeParkedUser(spot);
+            return true;
+        }
+        return false;
+    }
+    // TEST
+    public void welcomeDisplayLogic(){
+    // welcome display
+    	wDisp.runDisplay(new Point(0,0));
              
         createUserFromTypeAndID();
         
         findSpotForUser();
         
+        // parking notification display
         setUpParkingDisplayNotification(found, userID, pDisp);
-
+     }
+    
+    // TEST
+    public void startParkingDisplayLogic() {
         pDisp.runDisplay(wDisp.getLocation());	// client service		
         wDisp = null;						// deletes the welcomeDisplay by removing the reference, could instead set the display to false?
         
@@ -150,28 +192,7 @@ public class EntranceDisplayController
         
         pDisp.setVisible(false);		
         displayParkingSpotAssigned();
-        pDisp = null;						
-       
-        if(sDisp.isCanceled())
-        {
-            garage.removeParkedUser(spot);
-            return;
-        }
-        
-
-        sDisp.setVisible(false);
-
-        displayDirectionsToParkingSpot();
-        sDisp = null;						// SpotNumberDisplay is gone
-
-        
-        if(dDisp.isCanceled())
-        {
-            garage.removeParkedUser(spot);
-            return;
-        }
-        if(userID.length() > 2)
-            duplicates.put(userID, spot);
+    
     }
     
     /**

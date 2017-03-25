@@ -218,6 +218,12 @@ public class AccessControlServer extends Thread
      */
     private class ConnectionHandler implements Runnable
     {
+    	// Instance Variables Refactored from local variables
+    	String spotNumber = "";
+    	
+    	// Original Instance Variables
+    	private ParkingSpot spot;
+    	private Socket theSocket;
         /*
          * constructor of the private class
          */
@@ -230,7 +236,6 @@ public class AccessControlServer extends Thread
         public void run()
         {
             PrintWriter pout = null;
-            String spotNumber = "";
             try
             {
                 InputStream in = theSocket.getInputStream();
@@ -357,8 +362,6 @@ public class AccessControlServer extends Thread
             
             
         }        
-        private ParkingSpot spot;
-        private Socket theSocket;
     }
     
     //Refactored Getters and Setters
