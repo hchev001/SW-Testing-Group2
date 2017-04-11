@@ -18,7 +18,7 @@ import org.junit.Test;
 import server.storage.ParkedUsers;
 import server.storage.ParkingSpot;
 
-public class AccessControlServerTestWithThreadLocks {
+public class AccessControlServerTest {
 	
 	//Establish globally used variables
 	AccessControlServer acs, acs2, acs3;
@@ -139,30 +139,30 @@ public class AccessControlServerTestWithThreadLocks {
 		assertEquals("All of the values within the connection should be NULL",1, allNull);
 	}
 	
-	@Test(expected = IOException.class)
-	//We came to the conclusion that in order to test this method we could
-	//just use a property of ServerSockets. Since only one ServerSocket can
-	//be created per connection, if startServer actually worked, then an 
-	//exception would be thrown if it was called again.
-	public void Unit025_startServerTest() throws IOException, NoSuchMethodException, SecurityException {
-		acs.startServer();
-		assertEquals(true, acs.getThrdList().get(0).isAlive());
-	}
+//	@Test(expected = IOException.class)
+//	//We came to the conclusion that in order to test this method we could
+//	//just use a property of ServerSockets. Since only one ServerSocket can
+//	//be created per connection, if startServer actually worked, then an 
+//	//exception would be thrown if it was called again.
+//	public void Unit025_startServerTest() throws IOException, NoSuchMethodException, SecurityException {
+//		acs.startServer();
+//		assertEquals(true, acs.getThrdList().get(0).isAlive());
+//	}
 	
-	//This test is basically the same as the startServerTest
-	@Test(expected = IOException.class)
-	public void Unit026_runTest() throws IOException {
-		acs.run();
-		acs.startServer();
-	}
+//	//This test is basically the same as the startServerTest
+//	@Test(expected = IOException.class)
+//	public void Unit026_runTest() throws IOException {
+//		acs.run();
+//		acs.startServer();
+//	}
 		
-	@Test(expected = IOException.class)
-	//If a startServer has already been called by run() and worked, then if we run 
-	//startServer again an IOException should occur.
-	public void Unit027_runDifferentPortNumberTest() throws IOException {
-		acs2.run();
-		acs2.startServer();
-	}
+//	@Test(expected = IOException.class)
+//	//If a startServer has already been called by run() and worked, then if we run 
+//	//startServer again an IOException should occur.
+//	public void Unit027_runDifferentPortNumberTest() throws IOException {
+//		acs2.run();
+//		acs2.startServer();
+//	}
 	
 	@Test
 	//Simply check that a message was sent
@@ -180,10 +180,10 @@ public class AccessControlServerTestWithThreadLocks {
 		assertEquals("The two string should be equal to eachother.", expected1, actual);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void Unit028_runWithInvalidPortSizeTest() {
-		acs3.run();
-	}
+//	@Test(expected = IllegalArgumentException.class)
+//	public void Unit028_runWithInvalidPortSizeTest() {
+//		acs3.run();
+//	}
 	
 	@Test
 	public void Unit030_sendStatusTest() throws IOException {

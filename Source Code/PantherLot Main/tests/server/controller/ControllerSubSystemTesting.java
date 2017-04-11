@@ -132,4 +132,5 @@ public class ControllerSubSystemTesting extends stubDB {
 		assertEquals(facade19.getEntranceDisplayController().getUserID(), null);
 		assertEquals(facade19.getEntranceDisplayController().getUserType(), "FiuParkingUser");
 	}
+
 }
