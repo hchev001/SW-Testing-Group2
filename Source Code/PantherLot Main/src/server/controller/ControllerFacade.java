@@ -22,6 +22,10 @@ public class ControllerFacade {
 	public void setAccessControlServer(AccessControlServer accessControlServer) {
 		this.accessControlServer = accessControlServer;
 	}
+	
+	public void setEntranceDisplayController(EntranceDisplayController controller) {
+		this.entranceDisplayController = controller;
+	}
 
 	//mainDisplay variables
 	private WelcomeDisplay wDisp;
@@ -85,21 +89,6 @@ public class ControllerFacade {
 	 * Client Methods
 	 */
 
-	public void associateClientReferences(WelcomeDisplay wDisp, ParkingNotification pDisp, SpotNumberDisplay sDisp,
-			DisplayDirections dDisp, ControllerFacade facade) {
-		this.wDisp = wDisp;
-		this.wDisp.setcFacade(facade);
-		
-		this.pDisp = pDisp;
-		this.pDisp.setcFacade(facade);
-		
-		this.sDisp = sDisp;
-		this.sDisp.setcFacade(facade);
-		
-		this.dDisp = dDisp;
-		this.dDisp.setcFacade(facade);
-		
-	}
 	
 	
 	
