@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 // DV 2 Test
-public class EntranceDisplayController_message2Test {
+public class SST027_EntranceDisplayController_SetMessage2Test {
 	ControllerFacade facade;
 	
 	@Before

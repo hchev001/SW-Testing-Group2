@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import server.storage.ParkingSpot;
 
-public class getDuplicate_NEW {
+public class SST028_EntranceDisplayController_SetGetDuplicateTest {
 	
 	ControllerFacade fac;
 	

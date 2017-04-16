@@ -13,7 +13,7 @@ import client.maindisplay.WelcomeDisplay;
  * Test Purpose: To confirm that a new Guest user is created upon clicking
  * the Guest Button on the Welcome Display.
  */
-public class NEW_IdentifyUser_GuestButtonClicked {
+public class SST030_TestIdentifyUser_SD {
 
 	ControllerFacade facade = new ControllerFacade();
 	WelcomeDisplay welcomeDisplay;

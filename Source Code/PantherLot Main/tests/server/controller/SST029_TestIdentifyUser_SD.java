@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import client.maindisplay.WelcomeDisplay;
 
-public class NEW_identifyUser_HandicappButtonClicked {
+public class SST029_TestIdentifyUser_SD {
 
 	ControllerFacade facade = new ControllerFacade();
 	WelcomeDisplay welcomeDisplay;

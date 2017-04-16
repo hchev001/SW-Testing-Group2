@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EntranceDisplayController_message1Test {
+public class SST026_EntranceDisplayConroller_SetMessage1Test {
 	ControllerFacade facade;
 	String message;
 	
