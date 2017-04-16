@@ -12,7 +12,7 @@ import client.maindisplay.ParkingNotification;
 import client.maindisplay.SpotNumberDisplay;
 import client.maindisplay.WelcomeDisplay;
 // DV2 NEW TEST
-public class EntranceDisplayController_getDisplaysTest {
+public class SST024_EntranceDisplayController_DisplayGettersSettersTest {
 	ControllerFacade facade;
 	WelcomeDisplay wDisp;
 	SpotNumberDisplay sDisp;

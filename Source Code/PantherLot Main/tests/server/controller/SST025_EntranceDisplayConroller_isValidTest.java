@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EntranceDisplayController_isValid_test {
+public class SST025_EntranceDisplayConroller_isValidTest {
 	ControllerFacade facade;
 	@Before
 	public void setUp() throws Exception {
