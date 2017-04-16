@@ -49,10 +49,19 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This is testing the method call '.assignParkingSpot(ParkingUser user)'
-	 * and the method call '.getUser()'. It makes sure that the assignment was done
-	 * without errors.
+	 * Test Case ID:	Unit001_AssignParkingSpot_01()
 	 * 
+	 * Purpose:	To test the assignment of a User of type 'Student’ to a ParkingSpot object 
+	 * 			with the method ‘.assignParkingSpot()’ (This method does not compare that 
+	 * 			the User type matches with the Parking spot type) and the method call 
+	 * 			'.getUser()'. It makes sure that the assignment was done without errors.
+	 * 
+	 * Input:	-Invoke the method ‘.assignParkingSpot()’ on ParkingSpot labled ‘testSpot’ with a 
+	 * 			 ParkingUser as a parameter 
+	 * 			-The ParkingUser should be ‘person01’ from the test setup
+	 * 
+	 * Expected Output:	When method ‘.getUser()’ is invoked on ‘testSpot’, ParkingUser labled
+	 * 			 ‘person01’ is expected to be returned
 	 */
 	public void Unit001_AssignParkingSpot_01() {
 		
@@ -66,7 +75,17 @@ public class ParkingSpotTest {
 
 	@Test
 	/*
-	 * This is testing the assigning and fetching of a Faculty User
+	 * Test Case ID:	Unit002_AssignParkingSpot_02()
+	 * 
+	 * Purpose:	To test the assignment of a User of type ‘Faculty’ to a ParkingSpot 
+	 * 			object with the method ‘.assignParkingSpot()’ (This method does not compare 
+	 * 			that the User type matches with the Parking spot type).
+	 * 
+	 * Input:	-Invoke the method ‘.assignParkingSpot()’ on ParkingSpot labeled ‘testSpot’ with 
+	 * 			a ParkingUser as a parameter.
+	 * 			-The ParkingUser should be ‘person02’ from the test setup.
+	 * 
+	 * Expected Output: ParkingUser labled ‘person02’ is expected to be returned
 	 * 
 	 */
 	public void Unit002_AssignParkingSpot_02() {
@@ -81,7 +100,17 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This is testing the assigning and fetching of a Guest User
+	 * Test Case ID:	Unit003_AssignParkingSpot_03()
+	 * 
+	 * Purpose:	To test the assignment of a User of type ‘Guest’ to a ParkingSpot 
+	 * 			object with the method ‘.assignParkingSpot()’ (This method does not compare 
+	 * 			that the User type matches with the Parking spot type).
+	 * 
+	 * Input:	-Invoke the method ‘.assignParkingSpot()’ on ParkingSpot labeled ‘testSpot’ with a
+	 * 			ParkingUser as a parameter.
+	 * 			-the ParkingUser should be ‘person03’ from the test setup.
+	 * 
+	 * Expected Output:	ParkingUser labeled ‘person03’ is expected to be returned
 	 * 
 	 */
 	public void Unit003_AssignParkingSpot_03() {
@@ -96,7 +125,18 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This is testing the assigning and fetching of a Student User
+	 * Test Case ID:	Unit004_AssignParkingSpot_04().
+	 * 
+	 * Purpose	To test the assignment of a User of type ‘Handicapped’ to a ParkingSpot 
+	 * 			object with the method ‘.assignParkingSpot()’ (This method does not compare 
+	 * 			that the User type matches with the Parking spot type).
+	 * 
+	 * Input:	-Invoke the method ‘.assignParkingSpot()’ on ParkingSpot labeled ‘testSpot’ with a 
+	 *			ParkingUser as a parameter.
+	 *			-the ParkingUser should be ‘person04’ from the test setup.
+	 *
+	 *Expected Output:	When method ‘.getUser()’ is invoked on ‘testSpot’, ParkingUser labeled 
+	 *			‘person04’ is expected to be returned.
 	 * 
 	 */
 	public void Unit004_AssignParkingSpot_04() {
@@ -111,7 +151,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This is for the testing for the removal of a parked user from the spot
+	 * Test Case ID:	Unit005_RemoveUser()
+	 * 
+	 * Purpose:	To test the removal of a User from a ParkingSpot with the method 
+	 * 			‘.removeAssignedUser()’
+	 * 
+	 * Input:	-Invoke the method ‘.removeAssignedUser()’ on ‘testSpot’
+	 * 			(  testSpot.removeAssignedUser()  )
+	 * 
+	 * Expected Output:	‘null’ is expected to be returned.
 	 * 
 	 */
 	public void Unit005_RemoveUser() {
@@ -128,7 +176,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * Testing for the retrieval of the Parking Spot 
+	 * Test Case ID:	Unit006_getParkingSpot()
+	 * 
+	 * Purpose:	To test the method ‘.getParkingSpot( )’ and see if it returns the 
+	 * 			correct value when Invoked.
+	 * 
+	 * Input:	-Invoke ‘.getParkingSpot( )’ on testSpot3. ( testSpot3.getParkingSpot( )  )
+	 * 
+	 * Expected Output:	An int value of 200
+	 * 
 	 */
 	public void Unit006_getParkingSpot() {
 		
@@ -141,7 +197,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * Testing for the retrieval of the Parking Number
+	 * Test Case ID:	Unit007_getParkingNUmber()
+	 * 
+	 * Purpose:	To test the method ‘.getParkingNumber( )’ and see if 
+	 * 			it returns the correct value when Invoked.
+	 * 
+	 * Input:	-Invoke ‘.getParkingNumber( )’ on testSpot3. ( testSpot3.getParkingNumber( )  )
+	 * 
+	 * Expected Output:	A String value of “200”
+	 * 
 	 */
 	public void Unit007_getParkingNUmber() {
 		
@@ -153,7 +217,14 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * Testing for the retrieval of the Parking Floor number
+	 * Test Case ID:	Unit008_getFloor()
+	 * 
+	 * Purpose:	To test the method ‘.getFloor( )’ and see if it returns the correct value when Invoked.
+	 * 
+	 * Input:	-Invoke ‘.getFloor( )’ on testSpot. ( testSpot.getFloor( )  )
+	 * 
+	 * Expected Output:	An int value of 3
+	 * 
 	 */
 	public void Unit008_getFloor() {
 		
@@ -165,7 +236,14 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * Testing for the retrieval of the direction of the parking spot
+	 * Test Case ID:	Unit009_getDirections().
+	 * 
+	 * Purpose:	To test the method ‘.getDirections( )’ and see if it returns the correct 
+	 * 			value when Invoked.
+	 * 
+	 * Input:	-Invoke ‘.getDirections( )’ on testSpot. - testSpot.getDirections( )
+	 * 
+	 * Expected Output:	A String with the value “South”
 	 * 
 	 */
 	public void Unit009_getDirections(){
@@ -178,8 +256,14 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This is going to test that the correct spot type is being returned
-	 * the getParkingType is being used.
+	 * Test Case ID:	Unit010_getParkingType()
+	 * 
+	 * Purpose:	To test the method ‘.getParkingType( )’ and see if it returns the 
+	 * 			correct value when Invoked.
+	 * 
+	 * Input:	-Invoke ‘.getParkingType( )’ on testSpot - testSpot.getParkingType( )
+	 * 
+	 * Expected Output:	A String with the value “Faculty”
 	 */
 	public void Unit010_getParkingType(){
 		
@@ -192,8 +276,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This tests the methods getPrintWriter() and setPrintWriter(). Tests that the 
-	 * assignment and the retrieval of the PrintWriter work properly.
+	 * Test Case ID:	Unit011_get_AND_setPrintWriter()
+	 * 
+	 * Purpose:	To test the methods ‘.getPrintWriter( )’ and ‘.setPrintWriter()’. 
+	 * 			See if it assigns and returns the correct values when Invoked.
+	 * 
+	 * Input	-Invoke ‘.setPrintWriter( )’ on testSpot with ‘pout’ as parameter 
+	 * 			- testSpot.setPrintWriter(pout).
+	 * 
+	 * Expected Output:	A String with the value “Faculty”
 	 * 
 	 */
 	public void Unit011_get_AND_setPrintWriter(){
@@ -207,8 +298,16 @@ public class ParkingSpotTest {
 		
 	@Test
 	/*
-	 * Testing the method 'isAvailable' to see if it returns the correct boolean
-	 * values. In this test, a user is being assigned to the parking spot being tested 
+	 * Test Case ID:	Unit012_isAvailable01()
+	 * 
+	 * Purpose:	To test the method ‘.isAvailable()’ on an occupied 
+	 * 			Parking Spot and see if it returns “false”.
+	 * 
+	 * Input	-Assign ‘person01’ to ParkingSpot ‘testSpot’ – testSpot.assignParkingSPot( person01 )
+	 * 			-Invoke method ‘.isAvaliable()’ on ‘testSpot’ – testSpot.isAvailable( )
+	 * 
+	 * Expected Output:	A Boolean with the value “false”
+	 * 
 	 */
 	public void Unit012_isAvailable01(){
 		
@@ -223,8 +322,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * Testing the method 'isAvailable' to see if it returns the correct boolean
-	 * values. In this test, no user is assigned to the parking spot being tested
+	 * Test Case ID:	Unit013_isAvailable02()
+	 * 
+	 * Purpose:	To test the method ‘.isAvailable()’ on an unoccupied Parking Spot and see 
+	 * 			if it returns “true”.
+	 * 
+	 * Input:	-Invoke method ‘.isAvaliable()’ on ‘testSpot’ 
+	 * 			– testSpot.isAvailable( )
+	 * 
+	 * Expected Output:	A Boolean with the value “true”
 	 */
 	public void Unit013_isAvailable02(){
 		
@@ -239,8 +345,16 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This tests 'isConnected()' method on a ParkingSpot that is not connected. 
+	 * Test Case ID:	Unit014_isConnected01()
+	 * 
+	 * Purpose:	To test the method ‘.isConnected()’ on a Parking Spot that is not connected 
+	 * 			and see if it returns “false”
+	 * 
+	 * Input:	-Invoke method ‘.isAvaliable()’ on ‘testSpot’ – testSpot.isConnected( )
+	 * 
+	 * Expected Output:	A Boolean with the value “false”
 	 */
+	
 	public void Unit014_isConnected01(){
 
 		boolean test = testSpot.isConnected();
@@ -249,7 +363,15 @@ public class ParkingSpotTest {
 		
 	}
 	/*
-	 * This tests 'isConnected()' method on a ParkingSpot that is connected. 
+	 * Test Case ID:	Unit015_isConnected02()
+	 * 
+	 * Purpose:	To test the method ‘.isConnected()’ on a Parking Spot that is
+	 * 			connected and see if it returns “true”.
+	 * 
+	 * Input	-invoke method ‘.setPrintWriter()’ with parameter ‘pout’ on ‘testSpot’ –   testSpot.setPrintWriter(pout)
+	 * 			-Invoke method ‘.isAvaliable()’ on ‘testSpot’ – testSpot.isConnected( )
+	 * 
+	 * Expected Output	A Boolean with the value “true”
 	 */
 	@Test
 	public void Unit015_isConnected02(){
@@ -264,8 +386,19 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This tests createParkingDirections() and verifies that the 
-	 * correct output is returned
+	 * Test Case ID:	Unit016_createParkingDirections()
+	 * 
+	 * Purpose:	To test the method ‘.createParkingDiections()’ on a Parking Spot and see if the correct directions 
+	 * 			to the Parking Spot are given.
+	 * 
+	 * Input:	-Invoke method ‘.assignParkingUser()’ with ‘person01’ as parameter on ‘testSpot’
+	 * 			testSpot.assignParkingUser( person01 )
+	 * 			-Invoke method ‘.createParkingDirections()’ on ‘testSpot’ 
+	 * 			– testSpot.createParkingDirections( )
+	 * 
+	 * Expected Output	A String with the value: “ 1. Go to floor #3 
+	 * 			2. Head to the South part.
+	 * 			3. Park on the Faculty spot labeled #300. ”
 	 */
 	public void Unit016_createParkingDirections(){
 		
@@ -285,8 +418,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/* 
-	 * This tests the compareTo() method, it compares the parking numbers and returns '0' 
-	 * when they are equal.
+	 * Test Case ID:	Unit017_compateTo_01()
+	 * 
+	 * Purpose	To test the method ‘.compareTo()’. We are going to compare two ParkingSpots that are the same and
+	 * 			see if we get the correct result.
+	 * 
+	 * Input:	-Invoke the method ‘.compareTo()’ on ‘testSpot’ with ‘testSpot2’ as a parameter 
+	 * 			testSpot.compareTo( testSpot2 )
+	 * 
+	 * Expected Output: An int value of 0 ( This means that the 2 ParkingSpots are equal )
 	 * 
 	 */
 	public void Unit017_compateTo_01(){
@@ -294,14 +434,22 @@ public class ParkingSpotTest {
 		int test = testSpot.compareTo(testSpot2);
 		int result = 0;
 		
-		assertTrue(result == test); 
+		assertTrue(result == test);
 	
 	}
 	
 	@Test
 	/*
-	 * This tests the 'compateTo()' method. This test asserts that the 2 items are not equal
-	 * by testing if the comparison does not equal 0
+	 * Test Case ID	Unit018_compareTo_02()
+	 * 
+	 * Purpose	To test the method ‘.compareTo()’. We are going to compare two ParkingSpots that are the same and
+	 * 			see if we get the correct result.
+	 * 
+	 * Input:	-Invoke the method ‘.compareTo()’ on ‘testSpot’ with ‘testSpot2’ as a parameter 
+	 * 			testSpot.compareTo( testSpot3 )
+	 * 
+	 * Expected Output: An int value of 0 ( This means that the 2 ParkingSpots are equal )
+	 * 
 	 */
 	public void Unit018_compareTo_02(){
 		
@@ -314,8 +462,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This tests the method 'sFormat()' which does a call to 'format()' which is private
-	 * This verifies that the formatting was done correctly.
+	 * Test Case ID:	Unit019_formatTest()
+	 * 
+	 * Purpose:	To test the method ‘.format()’ on a String and see if it is correctly formatted
+	 * 
+	 * Input:	-Invoke the method ‘.format()’ with ‘wrd’ and ‘strLength’ as parameter and 
+	 * 			save it into another String – String wrdFormatted = format(wrd , strLength)
+	 * 
+	 * Expected Output:	The formatted String ‘wrdFormatted’ which should be: “Hello    “.
+	 * 			(The word “Hello” followed by 9 spaces)
 	 */
 	public void Unit019_formatTest(){
 		
@@ -330,8 +485,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This will test that the toString() method returns the correct output
-	 * when the method is called on a ParkingSpot that is available and not connected.
+	 * Test Case ID:	Unit020_toString01()
+	 * 
+	 * Purpose:	To test the ‘toString()’ method on a ParkingSpot that is available and not connected.
+	 * 
+	 * Input:	Invoke the method ‘.toString()’ on ‘testSpot3’ -  testSpot3.toString()
+	 * 
+	 * Expected Output:	A String with the value “200 Parking #200  Type:Student     Floor:3 
+	 * 			 Direction:West  Status:Free  Connection:Off”
+	 * 
 	 */
 	public void Unit020_toString01(){
 		
@@ -349,9 +511,14 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This will test that the toString() method returns the correct output
-	 * when the method is called on a ParkingSpot that is not
-	 * available and not connected.
+	 * Test Case ID:	Unit021_toString02()
+	 * 
+	 * Purpose:	To test the ‘toString()’ method on a ParkingSpot that is not available and not connected.
+	 * 
+	 * Input:	Invoke the method ‘.toString()’ on ‘testSpot3’ -  testSpot3.toString()
+	 * 
+	 * Expected Output	A String with the value “200 Parking #200  Type:Student     Floor:3  Direction:West  
+	 * 			Status:Taken  Connection:Off”
 	 */
 	public void Unit021_toString02(){
 		
@@ -370,8 +537,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This will test that the toString() method returns the correct output
-	 * when the method is called on a ParkingSpot that is available and connected.
+	 * Test Case ID:	Unit022_toString03()
+	 * 
+	 * Purpose:	To test the ‘toString()’ method on a ParkingSpot that is available and connected.
+	 * 
+	 * Input:	Invoke the method ‘.toString()’ on ‘testSpot3’ -  testSpot3.toString()
+	 * 
+	 * Expected Output	A String with the value “200 Parking #200  Type:Student     Floor:3  Direction:West 
+	 * 			Status:Free  Connection:On”
+	 * 
 	 */
 	public void Unit022_toString03(){
 		
@@ -390,9 +564,15 @@ public class ParkingSpotTest {
 	
 	@Test
 	/*
-	 * This will test that the toString() method returns the correct output
-	 * when the method is called on a ParkingSpot that is 
-	 * not available and connected.
+	 * Test Case ID:	Unit023_toString04()
+	 * 
+	 * Purpose:	To test the ‘toString()’ method on a ParkingSpot that is not available and connected.
+	 * 
+	 * Input:	Invoke the method ‘.toString()’ on ‘testSpot3’ -  testSpot3.toString()
+	 * 
+	 * Expected Output:	A String with the value “200 Parking #200  Type:Student     Floor:3  Direction:West
+	 * 			Status:Taken  Connection:On”
+	 * 
 	 */
 	public void Unit023_toString04(){
 		
