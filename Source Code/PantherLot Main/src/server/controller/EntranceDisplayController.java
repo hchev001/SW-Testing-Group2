@@ -447,9 +447,9 @@ public class EntranceDisplayController
 	}
 
 
-	public ParkedUsers getGarage() {
-		return garage;
-	}
+//	public ParkedUsers getGarage() {
+//		return garage;
+//	}
 
 
 	public void setGarage(ParkedUsers garage) {
