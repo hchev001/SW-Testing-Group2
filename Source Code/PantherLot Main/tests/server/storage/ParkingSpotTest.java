@@ -1,6 +1,7 @@
 package server.storage;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 import java.io.PrintWriter;
 import org.junit.Test;
 import server.controller.*;
@@ -434,7 +435,7 @@ public class ParkingSpotTest {
 		int test = testSpot.compareTo(testSpot2);
 		int result = 0;
 		
-		assertTrue(result == test);
+		assertEquals(result , test);
 	
 	}
 	
@@ -448,7 +449,7 @@ public class ParkingSpotTest {
 	 * Input:	-Invoke the method ‘.compareTo()’ on ‘testSpot’ with ‘testSpot2’ as a parameter 
 	 * 			testSpot.compareTo( testSpot3 )
 	 * 
-	 * Expected Output: An int value of 0 ( This means that the 2 ParkingSpots are equal )
+	 * Expected Output: An int value that != 0 ( This means that the 2 ParkingSpots are not equal )
 	 * 
 	 */
 	public void Unit018_compareTo_02(){
@@ -456,7 +457,7 @@ public class ParkingSpotTest {
 		int result = 0;
 		int test = testSpot.compareTo(testSpot3);
 		
-		assertFalse(result == test);
+		assertNotEquals(result , test);
 		
 	}
 	
