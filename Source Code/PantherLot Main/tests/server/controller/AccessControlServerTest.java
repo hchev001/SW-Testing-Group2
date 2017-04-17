@@ -131,7 +131,6 @@ public class AccessControlServerTest {
 		}
 		assertEquals("All of the values within the connection should be NULL",1, allNull);
 	}
-	
 	/**
 	 * Test Case ID: Unit025_startServerTest()
 	 * 
@@ -179,7 +178,7 @@ public class AccessControlServerTest {
 		acs2.run();
 		acs2.startServer();
 	}
-	
+  
 	/**
 	 * Test Case ID: Unit028_sendMessageTest()
 	 * 
@@ -198,7 +197,7 @@ public class AccessControlServerTest {
 		in1.close();
 		assertEquals("The two string should be equal to eachother.", expected1, actual);
 	}
-	
+  
 	/**
 	 * Test Case ID: Unit029_runWithInvalidPortSizeTest()
 	 * 
@@ -263,7 +262,7 @@ public class AccessControlServerTest {
 	 *		  acs.reserveSpot(spot, key2);
 	 * 
 	 * Expected Output: The message: 
-	 *					“reserve\r\n1663314\r\n” will be sent across the stream to the ParkingSpot, to mark the spot as reserved.
+	 *					ï¿½reserve\r\n1663314\r\nï¿½ will be sent across the stream to the ParkingSpot, to mark the spot as reserved.
 	 */
 	@Test
 	public void Unit032_reserveSpotTest_B() {
@@ -282,7 +281,7 @@ public class AccessControlServerTest {
 	 *		  acs.wrongUserDetected("Oh hai Mark.");
 	 *		  pout3.close();
 	 * Expected Output: The message: 
-	 *					“wrong Oh hai Mark.” will be sent across the stream to the ParkingSpot, to mark user and wrong.
+	 *					ï¿½wrong Oh hai Mark.ï¿½ will be sent across the stream to the ParkingSpot, to mark user and wrong.
 	 */
 	@Test
 	public void Unit033_wrongUserDetectedTest() throws IOException {
@@ -304,7 +303,7 @@ public class AccessControlServerTest {
 	 * Input: acs.setSout(pout4);
 	 *        acs.wrongUserDetected("Oh hai Mark.");
 	 * 
-	 * Expected Output: The message: “wrong Oh hai Mark.” will be sent across the stream to the ParkingSpot, to mark user and wrong.
+	 * Expected Output: The message: ï¿½wrong Oh hai Mark.ï¿½ will be sent across the stream to the ParkingSpot, to mark user and wrong.
 	 */
 	@Test
 	public void Unit034_wrongUserDetectedNullTest() {
@@ -317,12 +316,12 @@ public class AccessControlServerTest {
 	 * Test Case ID: Unit035_wrongUserDetectedNotNullTest()
 	 * 
 	 * Purpose: Tests if the PrintWriter associated with the ParkingSpot is not null, then a message will be sent.
-	 * This however, just checks to see if a non-null PrintWriter will allow the message to be sent, it doesn’t check to see if the message itself has been successfully sent.
+	 * This however, just checks to see if a non-null PrintWriter will allow the message to be sent, it doesnï¿½t check to see if the message itself has been successfully sent.
 	 * 
 	 * Input: acs.setSout(pout5);
      *        acs.wrongUserDetected("Oh hai Mark.");
 	 * 
-	 * Expected Output: The isWrongUserDetectedNull property will be set to False, and the method will continue by sending the message “wrong\nOh hai Mark.” to the console (in our case).
+	 * Expected Output: The isWrongUserDetectedNull property will be set to False, and the method will continue by sending the message ï¿½wrong\nOh hai Mark.ï¿½ to the console (in our case).
 	 */
 	@Test
 	public void Unit035_wrongUserDetectedNotNullTest() {
@@ -381,7 +380,7 @@ public class AccessControlServerTest {
 	 * Test Case ID: Unit038_duplicateIdFoundNotNullTest()
 	 * 
 	 * Purpose: Tests if the PrintWriter associated with the ParkingSpot is not null, then a message will be sent.
-	 * This however, just checks to see if a non-null PrintWriter will allow the message to be sent, it doesn’t check to see if the message itself has been successfully sent.
+	 * This however, just checks to see if a non-null PrintWriter will allow the message to be sent, it doesnï¿½t check to see if the message itself has been successfully sent.
 	 * 
 	 * Input: acs.setSout(pout8);
 	 *	      acs.duplicateIdFound(msg1, msg2);
@@ -441,7 +440,7 @@ public class AccessControlServerTest {
 	 * 
 	 * Input: acs.callRemoveDisplay(key, spot);
 	 * 
-	 * Expected Output: The HashMap value/key pair for the key: “101” will be set to null, thus removing from the display.
+	 * Expected Output: The HashMap value/key pair for the key: ï¿½101ï¿½ will be set to null, thus removing from the display.
 	 */
 	@Test
 	public void Unit041_removeTest() {
@@ -458,7 +457,7 @@ public class AccessControlServerTest {
 	 * 
 	 * Input: acs.callRemoveDisplay(key, spot);
 	 * 
-	 * Expected Output: The method will return the value “True”
+	 * Expected Output: The method will return the value ï¿½Trueï¿½
 	 */
 	@Test
 	public void Unit042_isConnectionsAvailableTrueTest() {
@@ -475,7 +474,7 @@ public class AccessControlServerTest {
 	 * 
 	 * Input: acs.callAddDisplay(key, pout11, spot);
 	 * 
-	 * Expected Output: The method returns “True”
+	 * Expected Output: The method returns ï¿½Trueï¿½
 	 */
 	@Test
 	public void Unit043_isConnectionsAvailableFalseTest() {

@@ -1,12 +1,16 @@
 package server.controller;
 
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import server.controller.stubDB;
 
 
 public class ControllerSubSystemTesting extends stubDB {	
@@ -132,4 +136,5 @@ public class ControllerSubSystemTesting extends stubDB {
 		assertEquals(facade19.getEntranceDisplayController().getUserID(), null);
 		assertEquals(facade19.getEntranceDisplayController().getUserType(), "FiuParkingUser");
 	}
+
 }
