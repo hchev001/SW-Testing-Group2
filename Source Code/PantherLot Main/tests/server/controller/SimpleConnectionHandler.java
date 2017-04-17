@@ -1,4 +1,4 @@
-ackage server.controller;
+package server.controller;
 
 import java.io.PrintWriter;
 import java.net.Socket;
