@@ -1,9 +1,10 @@
-package server.controller;
+package all.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import server.storage.*;
+import server.controller.*;
 
 @RunWith(Suite.class)
 @SuiteClasses({ ControllerSubSystemTesting.class,
@@ -15,7 +16,7 @@ import server.storage.*;
 		SST027_EntranceDisplayController_SetMessage2Test.class,
 		SST028_EntranceDisplayController_SetGetDuplicateTest.class,
 		SST029_TestIdentifyUser_SD.class, SST030_TestIdentifyUser_SD.class,
-		ParkingSpotTest.class})
-public class AllSubsystem {
+		ParkingSpotTest.class, AccessControlServerTest.class})
+public class allTests {
 
 }
