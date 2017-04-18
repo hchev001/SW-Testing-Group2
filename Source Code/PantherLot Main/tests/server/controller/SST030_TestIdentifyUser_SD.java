@@ -10,20 +10,17 @@ import static org.mockito.Mockito.mock;
 import client.maindisplay.WelcomeDisplay;
 
 /*
- * Test Purpose: To confirm that a new Guest user is created upon clicking
- * the Guest Button on the Welcome Display.
+ * Purpose: Test the call identifyUser() after the user enters no id
+ * and clicks on the Guest Button.
  */
 public class SST030_TestIdentifyUser_SD {
 
 	ControllerFacade facade = new ControllerFacade();
 	WelcomeDisplay welcomeDisplay;
 	
-	/*
-	 * The WelcomeDisplay object is mocked as it is outside of the scope of the
-	 * package, a new EntranceDispalyController is instantiated, and the mocked
-	 * object is injected. WHen identiyUser() is called, the mocked object
-	 * will return an empty string for the ID and "guest" for user type because
-	 * they entered no id and clicked on the Guest button.
+	/* 
+	 * Test Setup: Through the package facade, create an EntranceDisplayControler object.
+	 * Mock its WelcomeDisplay object reference.
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -35,9 +32,9 @@ public class SST030_TestIdentifyUser_SD {
 	}
 
 	/*
-	 * identifyUser() returns the string value for the type of user interacting
-	 * with PantherLot. We assert equals to compare that the user is identified
-	 * as a guest.
+	 * Test Input: identifyUser() is called.
+	 * 
+	 * Expected Out: identifyUser returns "guest"
 	 */
 	@Test
 	public void testIdentifyUser() {

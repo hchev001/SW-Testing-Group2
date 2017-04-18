@@ -10,11 +10,19 @@ import org.junit.Test;
 
 import client.maindisplay.ParkingNotification;
 //DV2 NEW Test Coverage generate message when user is not found but usertype is valid
+/*
+ * Purpose: Test setParkingNotification() when the user is not found in the database.
+ */
 public class SST022_testSetParkingNotification_RD {
 	ControllerFacade facade;
 	ParkingNotification parkingNotificationDisp;
 	ParkingUser parkingUsr;
 	
+	/*
+	 * Test Setup: Through the package facade, create an EntranceDisplayController
+	 * Mock its ParkingNotification and FacultyUser dependency.
+	 * Sets the user's type to be valid and found. With a valid ID.
+	 */
 	@Before
 	public void setUp() throws Exception {
 		facade = new ControllerFacade();
@@ -33,7 +41,10 @@ public class SST022_testSetParkingNotification_RD {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+	/*
+	 * Test Input: setParkingNotification() is called.
+	 * Expected Output: setParkingNotificaiton() returns "Valid Request: There are no faculty spots available"
+	 */
 	@Test
 	public void test() {
 		String actual = "Valid Request  There are no faculty spots available";

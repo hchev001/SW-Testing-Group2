@@ -8,18 +8,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import client.maindisplay.WelcomeDisplay;
-
+/*
+ * Purpose: Test the call identifyUser() after the user enters no id
+ * and clicks on the Handicap Button.
+ */
 public class SST029_TestIdentifyUser_SD {
 
 	ControllerFacade facade = new ControllerFacade();
 	WelcomeDisplay welcomeDisplay;
 	
-	/*
-	 * The WelcomeDisplay object is mocked as it is outside of the scope of the
-	 * package, a new EntranceDispalyController is instantiated, and the mocked
-	 * object is injected. WHen identiyUser() is called, the mocked object
-	 * will return an empty string for the ID and "handicap" for user type because
-	 * they entered no id and clicked on the Handicap button.
+	/* 
+	 * Test Setup: Through the package facade, create an EntranceDisplayControler object.
+	 * Mock its WelcomeDisplay object reference.
+	 * 
+	 * 
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -30,9 +32,9 @@ public class SST029_TestIdentifyUser_SD {
 		when(welcomeDisplay.returnType()).thenReturn("handicap");
 	}
 	/*
-	 * identifyUser() returns the string value for the type of user interacting
-	 * with PantherLot. We assert equals to compare that the user is identified
-	 * as a handicap.
+	 * Test Input: identifyUser() is called.
+	 * 
+	 * Expected Out: identifyUser returns "handicap"
 	 */
 	@Test
 	public void testIdentifyUser() {
