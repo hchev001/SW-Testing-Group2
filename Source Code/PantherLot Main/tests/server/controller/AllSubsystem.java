@@ -15,7 +15,7 @@ import server.storage.*;
 		SST027_EntranceDisplayController_SetMessage2Test.class,
 		SST028_EntranceDisplayController_SetGetDuplicateTest.class,
 		SST029_TestIdentifyUser_SD.class, SST030_TestIdentifyUser_SD.class,
-		ParkingSpotTest.class})
+		})
 public class AllSubsystem {
 
 }
