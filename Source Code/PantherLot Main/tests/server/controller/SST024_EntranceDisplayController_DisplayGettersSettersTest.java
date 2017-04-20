@@ -13,9 +13,16 @@ import client.maindisplay.SpotNumberDisplay;
 import client.maindisplay.WelcomeDisplay;
 /*
  * Test Purpose: 
+ * SST024_EntranceDisplayController_testGetwDisp
  * To test the call of getwDisp() from an EntranceDisplayController object and get coverage for the setter
+ * 
+ * SST031_EntranceDisplayController_testGetpDisp
  * To test the call of getpDisp() from an EntranceDisplayController object and get coverage for the setter
+ * 
+ * SST032_EntranceDisplayController_testGetsDisp
  * To test the call of getsDisp() from an EntranceDisplayController object and get coverage for the setter
+ * 
+ * SST033_EntranceDisplayController_testGetdDisp
  * To test the call of getdDisp() from an EntranceDisplayController object and get coverage for the setter
  */
 public class SST024_EntranceDisplayController_DisplayGettersSettersTest {
