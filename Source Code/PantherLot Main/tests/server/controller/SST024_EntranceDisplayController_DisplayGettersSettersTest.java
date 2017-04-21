@@ -12,17 +12,20 @@ import client.maindisplay.ParkingNotification;
 import client.maindisplay.SpotNumberDisplay;
 import client.maindisplay.WelcomeDisplay;
 /*
+ * Test Case ID: SST024_EntranceDisplayController_testGetwDisp
  * Test Purpose: 
- * SST024_EntranceDisplayController_testGetwDisp
  * To test the call of getwDisp() from an EntranceDisplayController object and get coverage for the setter
  * 
- * SST031_EntranceDisplayController_testGetpDisp
+ * Test Case ID: SST031_EntranceDisplayController_testGetpDisp
+ * Test Purpose:
  * To test the call of getpDisp() from an EntranceDisplayController object and get coverage for the setter
  * 
- * SST032_EntranceDisplayController_testGetsDisp
+ * Test Case ID: SST032_EntranceDisplayController_testGetsDisp
+ * Test Purpose:
  * To test the call of getsDisp() from an EntranceDisplayController object and get coverage for the setter
  * 
- * SST033_EntranceDisplayController_testGetdDisp
+ * Test Case ID: SST033_EntranceDisplayController_testGetdDisp
+ * Test Purpose:
  * To test the call of getdDisp() from an EntranceDisplayController object and get coverage for the setter
  */
 public class SST024_EntranceDisplayController_DisplayGettersSettersTest {

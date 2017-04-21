@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import client.maindisplay.WelcomeDisplay;
-/*
+/* Test Case ID: SST029_TestIdentifyUser_SD
  * Purpose: Test the call identifyUser() after the user enters no id
  * and clicks on the Handicap Button.
  */
@@ -18,10 +18,10 @@ public class SST029_TestIdentifyUser_SD {
 	WelcomeDisplay welcomeDisplay;
 	
 	/* 
-	 * Test Setup: Through the package facade, create an EntranceDisplayControler object.
-	 * Mock its WelcomeDisplay object reference.
-	 * 
-	 * 
+	 * Test Setup: Through the package façade, create an entranceDisplayController 
+	 * object. Mock the dependency WelcomeDisplay.class. When the mocked instance getID 
+	 * call is invoked, it returns an empty string. When the returnType call is invoked, 
+	 * it returns “handicap”.
 	 */
 	@Before
 	public void setUp() throws Exception {

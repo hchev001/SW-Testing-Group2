@@ -10,6 +10,7 @@ import static org.mockito.Mockito.mock;
 import client.maindisplay.WelcomeDisplay;
 
 /*
+ * Test Case ID: SST030_TestIdentifyUser_SD
  * Purpose: Test the call identifyUser() after the user enters no id
  * and clicks on the Guest Button.
  */

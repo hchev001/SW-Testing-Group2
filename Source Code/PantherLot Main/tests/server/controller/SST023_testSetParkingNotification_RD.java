@@ -11,6 +11,7 @@ import org.junit.Test;
 import client.maindisplay.ParkingNotification;
 //DV2 NEW Test Coverage generate message when user is found but usertype is invalid
 /*
+ * Test Case ID: SST023_testSetParkingNotification_RD
  * Purpose: Test setParkingNotification() when the user is found but the usetype is invalid.
  */
 public class SST023_testSetParkingNotification_RD {
